@@ -14,7 +14,12 @@
     "test": "jest --projects tests/unit"
   },
   "dependencies": {
+    "@chakra-ui/react": "^3.35.0",
+    "@emotion/react": "^11.14.0",
+    "@ttoss/geovis": "0.1.10",
+    "maplibre-gl": "^5.24.0",
     "next": "16.2.6",
+    "next-themes": "^0.4.6",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
