@@ -11,7 +11,7 @@ import {
 import type { VisualizationSpec } from '@ttoss/geovis';
 import React from 'react';
 
-import mapsData from '../../../tmp_data/maps-data.json';
+import mapsData from '../../data/maps-data.json';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
