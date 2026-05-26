@@ -13,12 +13,12 @@ import React from 'react';
 
 import mapsData from '../../data/maps-data.json';
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+// Types
 
 type Category = 'cumulative-total' | 'cumulative-65plus' | '5year-65plus';
 type Group = '65' | '70' | '75' | '65-69' | '70-74';
 
-// ── Category / Group options ───────────────────────────────────────────────────
+// Category and group options
 
 const CATEGORY_OPTIONS: { value: Category; label: string }[] = [
   { value: 'cumulative-total', label: 'Cumulativo, % do total' },
@@ -43,7 +43,7 @@ const GROUP_OPTIONS: Record<Category, { value: Group; label: string }[]> = {
   ],
 };
 
-// ── Dados pré-computados ──────────────────────────────────────────────────────
+// Pre-computed data types and constants
 
 type DistrictData = {
   district_code: number;
@@ -57,12 +57,16 @@ type MapsDataFile = {
   year: number;
   thresholds: Record<Category, Partial<Record<Group, number[]>>>;
   districts: DistrictData[];
+  mapData: Record<
+    Category,
+    Partial<Record<Group, { geometryId: number; value: number }[]>>
+  >;
 };
 
 const data = mapsData as unknown as MapsDataFile;
 const THRESHOLDS = data.thresholds;
 
-// Paleta azul sequencial — ColorBrewer Blues-5
+// Sequential blue palette from ColorBrewer Blues-5
 const COLORS = ['#deebf7', '#9ecae1', '#6baed6', '#2171b5', '#08519c'];
 
 const LEGEND_ID = 'pop-legend';
@@ -70,7 +74,7 @@ const MAP_DATA_ID = 'pop-data';
 const SOURCE_ID = 'sp-districts';
 const LAYER_ID = 'sp-districts-fill';
 
-// ── Títulos e descrições por categoria / grupo ────────────────────────────────
+// Titles and descriptions by category and group
 
 const MAP_TITLES: Record<Category, Partial<Record<Group, string>>> = {
   'cumulative-total': {
@@ -105,22 +109,24 @@ const MAP_DESCRIPTIONS: Record<Category, Partial<Record<Group, string>>> = {
     '75': 'Parcela da população 65+ com 75 anos ou mais, 2025.',
   },
 };
+// Visualization spec builder
 
-// ── Map data lookup ────────────────────────────────────────────────────────────
-
-const computeMapData = (
-  category: Category,
-  group: Group
-): { geometryId: number; value: number }[] =>
-  data.districts.map((d) => ({
-    geometryId: d.geometry_id,
-    value: (d[category] as Record<string, number>)[group] ?? 0,
-  }));
-
-// ── Spec builder ───────────────────────────────────────────────────────────────
-
+/**
+ * Builds a GeoVis VisualizationSpec for rendering a choropleth map.
+ *
+ * Constructs the complete map specification including basemap, sources, layers,
+ * legends, and map data based on the selected category and age group.
+ *
+ * @param category - The demographic category to visualize
+ * @param group - The age group to visualize
+ * @returns A complete VisualizationSpec for GeoVis rendering
+ */
 const buildSpec = (category: Category, group: Group): VisualizationSpec => {
-  const mapDataRows = computeMapData(category, group);
+  const mapDataRows =
+    (data.mapData[category] as Partial<
+      Record<Group, { geometryId: number; value: number }[]>
+    >)[group] ?? [];
+
   const thresholds =
     (THRESHOLDS[category] as Partial<Record<string, number[]>>)[group] ??
     [0.2, 0.4, 0.6, 0.8];
@@ -176,10 +182,21 @@ const buildSpec = (category: Category, group: Group): VisualizationSpec => {
   };
 };
 
+/**
+ * Formats a decimal number as a percentage string.
+ * @param value - Decimal value (0–1)
+ * @returns Formatted percentage string
+ */
 const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
 
-// ── CategoryMenu ───────────────────────────────────────────────────────────────
+// Category and group selection menu component
 
+/**
+ * Renders the left sidebar menu for category and group selection.
+ *
+ * Provides interactive buttons to switch between demographic categories
+ * and age groups. Manages category/group state changes via callbacks.
+ */
 const CategoryMenu = ({
   category,
   group,
@@ -285,8 +302,14 @@ const CategoryMenu = ({
   );
 };
 
-// ── LegendPanel ────────────────────────────────────────────────────────────────
+// Legend and metadata panel component
 
+/**
+ * Renders the right-side legend panel with map metadata and data sources.
+ *
+ * Displays the active map title, description, color legend from GeoVis,
+ * and attribution information. Can be closed with a button overlay.
+ */
 const LegendPanel = ({
   category,
   group,
@@ -395,8 +418,15 @@ const LegendPanel = ({
   );
 };
 
-// ── MapsPage ───────────────────────────────────────────────────────────────────
+// Main maps page component
 
+/**
+ * Main page component for the demographic maps visualization.
+ *
+ * Orchestrates the full map UI: left sidebar for category/group selection,
+ * center map canvas with GeoVis, right legend panel, and toggle buttons.
+ * Manages state for selection and panel visibility.
+ */
 const MapsPage = () => {
   const [selection, setSelection] = React.useState<{
     category: Category;
