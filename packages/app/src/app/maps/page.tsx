@@ -2,7 +2,7 @@
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { Box, HStack, Text } from '@chakra-ui/react';
+import { Box, HStack, Link, Text } from '@chakra-ui/react';
 import {
   GeoVisCanvas,
   GeoVisLegend,
@@ -375,8 +375,7 @@ const LegendPanel = ({
         >
           <Box as="li" fontSize="xs" color="gray.600" lineHeight="base">
             Dados agregados por distrito municipal a partir das{' '}
-            <Box
-              as="a"
+            <Link
               href="https://repositorio.seade.gov.br/dataset/populacao-residente-municipio-de-sao-paulo-evolucao"
               target="_blank"
               rel="noopener noreferrer"
@@ -384,7 +383,7 @@ const LegendPanel = ({
               textDecoration="underline"
             >
               projeções populacionais por sexo e idade do SEADE
-            </Box>{' '}
+            </Link>{' '}
             para o ano de 2025.
           </Box>
           <Box as="li" fontSize="xs" color="gray.600" lineHeight="base">
