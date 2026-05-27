@@ -83,6 +83,7 @@ export const LegendPanel = ({
         borderRadius="0 20px 0 20px"
         width={isOpen ? '360px' : '0'}
         opacity={isOpen ? 1 : 0}
+        aria-hidden={!isOpen}
         style={{ transition: 'width 0.3s ease, opacity 0.3s ease' }}
       >
         <Box
@@ -177,6 +178,8 @@ export const LegendPanel = ({
         minW="44px"
         minH="44px"
         onClick={onToggle}
+        _hover={{ bg: 'blue.50', color: 'blue.800', borderColor: 'blue.800' }}
+        _focusVisible={{ outline: '2px solid', outlineColor: 'blue.700', outlineOffset: '1px' }}
       >
         <Icon
           icon={isOpen ? ICONS.caretDoubleRightBold : ICONS.caretDoubleLeftBold}
