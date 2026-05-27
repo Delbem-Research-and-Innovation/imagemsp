@@ -24,3 +24,14 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+/* Move MapLibre navigation controls to bottom-left.
+   GeoVis hardcodes NavigationControl without a position arg (defaults to top-right).
+   maplibre-gl.css is imported in page.tsx (after this file in the cascade), so
+   !important is required to override the default top:0 / right:0. */
+.maplibregl-ctrl-top-right {
+  top: auto !important;
+  right: auto !important;
+  bottom: 40px !important;
+  left: 10px !important;
+}

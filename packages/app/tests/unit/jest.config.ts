@@ -1,6 +1,14 @@
 import { jestUnitConfig } from '@ttoss/config';
 
 export default jestUnitConfig({
+  testEnvironment: 'jsdom',
+  setupFiles: ['<rootDir>/setup.ts'],
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/../../src/$1',
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!.*@ttoss/react-icons)',
+  ],
   coverageThreshold: {
     global: {
       lines: 50,

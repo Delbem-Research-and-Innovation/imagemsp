@@ -1745,5 +1745,3101 @@
         "75": 0.2926
       }
     }
-  ]
+  ],
+  "mapData": {
+    "cumulative-total": {
+      "65": [
+        {
+          "geometryId": 1,
+          "value": 0.1871
+        },
+        {
+          "geometryId": 2,
+          "value": 0.2424
+        },
+        {
+          "geometryId": 3,
+          "value": 0.0689
+        },
+        {
+          "geometryId": 4,
+          "value": 0.154
+        },
+        {
+          "geometryId": 5,
+          "value": 0.1435
+        },
+        {
+          "geometryId": 6,
+          "value": 0.1587
+        },
+        {
+          "geometryId": 7,
+          "value": 0.1638
+        },
+        {
+          "geometryId": 8,
+          "value": 0.1403
+        },
+        {
+          "geometryId": 9,
+          "value": 0.1186
+        },
+        {
+          "geometryId": 10,
+          "value": 0.1063
+        },
+        {
+          "geometryId": 11,
+          "value": 0.088
+        },
+        {
+          "geometryId": 12,
+          "value": 0.1853
+        },
+        {
+          "geometryId": 13,
+          "value": 0.1031
+        },
+        {
+          "geometryId": 14,
+          "value": 0.1514
+        },
+        {
+          "geometryId": 15,
+          "value": 0.2028
+        },
+        {
+          "geometryId": 16,
+          "value": 0.1568
+        },
+        {
+          "geometryId": 17,
+          "value": 0.0976
+        },
+        {
+          "geometryId": 18,
+          "value": 0.1244
+        },
+        {
+          "geometryId": 19,
+          "value": 0.0905
+        },
+        {
+          "geometryId": 20,
+          "value": 0.1787
+        },
+        {
+          "geometryId": 21,
+          "value": 0.1533
+        },
+        {
+          "geometryId": 22,
+          "value": 0.1032
+        },
+        {
+          "geometryId": 23,
+          "value": 0.1147
+        },
+        {
+          "geometryId": 24,
+          "value": 0.1115
+        },
+        {
+          "geometryId": 25,
+          "value": 0.0809
+        },
+        {
+          "geometryId": 26,
+          "value": 0.2108
+        },
+        {
+          "geometryId": 27,
+          "value": 0.1718
+        },
+        {
+          "geometryId": 28,
+          "value": 0.1097
+        },
+        {
+          "geometryId": 29,
+          "value": 0.1486
+        },
+        {
+          "geometryId": 30,
+          "value": 0.08
+        },
+        {
+          "geometryId": 31,
+          "value": 0.0898
+        },
+        {
+          "geometryId": 32,
+          "value": 0.2193
+        },
+        {
+          "geometryId": 33,
+          "value": 0.0795
+        },
+        {
+          "geometryId": 34,
+          "value": 0.1618
+        },
+        {
+          "geometryId": 35,
+          "value": 0.2051
+        },
+        {
+          "geometryId": 36,
+          "value": 0.0911
+        },
+        {
+          "geometryId": 37,
+          "value": 0.1068
+        },
+        {
+          "geometryId": 38,
+          "value": 0.1348
+        },
+        {
+          "geometryId": 39,
+          "value": 0.1264
+        },
+        {
+          "geometryId": 40,
+          "value": 0.1686
+        },
+        {
+          "geometryId": 41,
+          "value": 0.1195
+        },
+        {
+          "geometryId": 42,
+          "value": 0.0909
+        },
+        {
+          "geometryId": 43,
+          "value": 0.0757
+        },
+        {
+          "geometryId": 44,
+          "value": 0.0874
+        },
+        {
+          "geometryId": 45,
+          "value": 0.2226
+        },
+        {
+          "geometryId": 46,
+          "value": 0.0952
+        },
+        {
+          "geometryId": 47,
+          "value": 0.1179
+        },
+        {
+          "geometryId": 48,
+          "value": 0.203
+        },
+        {
+          "geometryId": 49,
+          "value": 0.1729
+        },
+        {
+          "geometryId": 50,
+          "value": 0.1374
+        },
+        {
+          "geometryId": 51,
+          "value": 0.1515
+        },
+        {
+          "geometryId": 52,
+          "value": 0.1106
+        },
+        {
+          "geometryId": 53,
+          "value": 0.1766
+        },
+        {
+          "geometryId": 54,
+          "value": 0.1571
+        },
+        {
+          "geometryId": 55,
+          "value": 0.0764
+        },
+        {
+          "geometryId": 56,
+          "value": 0.1264
+        },
+        {
+          "geometryId": 57,
+          "value": 0.1046
+        },
+        {
+          "geometryId": 58,
+          "value": 0.093
+        },
+        {
+          "geometryId": 59,
+          "value": 0.1628
+        },
+        {
+          "geometryId": 60,
+          "value": 0.2109
+        },
+        {
+          "geometryId": 61,
+          "value": 0.0824
+        },
+        {
+          "geometryId": 62,
+          "value": 0.2174
+        },
+        {
+          "geometryId": 63,
+          "value": 0.1373
+        },
+        {
+          "geometryId": 64,
+          "value": 0.1453
+        },
+        {
+          "geometryId": 65,
+          "value": 0.1041
+        },
+        {
+          "geometryId": 66,
+          "value": 0.1464
+        },
+        {
+          "geometryId": 67,
+          "value": 0.1196
+        },
+        {
+          "geometryId": 68,
+          "value": 0.1265
+        },
+        {
+          "geometryId": 69,
+          "value": 0.1709
+        },
+        {
+          "geometryId": 70,
+          "value": 0.1998
+        },
+        {
+          "geometryId": 71,
+          "value": 0.2011
+        },
+        {
+          "geometryId": 72,
+          "value": 0.1558
+        },
+        {
+          "geometryId": 73,
+          "value": 0.1169
+        },
+        {
+          "geometryId": 74,
+          "value": 0.1145
+        },
+        {
+          "geometryId": 75,
+          "value": 0.089
+        },
+        {
+          "geometryId": 76,
+          "value": 0.1142
+        },
+        {
+          "geometryId": 77,
+          "value": 0.2083
+        },
+        {
+          "geometryId": 78,
+          "value": 0.088
+        },
+        {
+          "geometryId": 79,
+          "value": 0.1815
+        },
+        {
+          "geometryId": 80,
+          "value": 0.1867
+        },
+        {
+          "geometryId": 81,
+          "value": 0.1065
+        },
+        {
+          "geometryId": 82,
+          "value": 0.1906
+        },
+        {
+          "geometryId": 83,
+          "value": 0.0836
+        },
+        {
+          "geometryId": 84,
+          "value": 0.0976
+        },
+        {
+          "geometryId": 85,
+          "value": 0.174
+        },
+        {
+          "geometryId": 86,
+          "value": 0.1587
+        },
+        {
+          "geometryId": 87,
+          "value": 0.1026
+        },
+        {
+          "geometryId": 88,
+          "value": 0.1375
+        },
+        {
+          "geometryId": 89,
+          "value": 0.1212
+        },
+        {
+          "geometryId": 90,
+          "value": 0.2153
+        },
+        {
+          "geometryId": 91,
+          "value": 0.1551
+        },
+        {
+          "geometryId": 92,
+          "value": 0.1457
+        },
+        {
+          "geometryId": 93,
+          "value": 0.1678
+        },
+        {
+          "geometryId": 94,
+          "value": 0.1345
+        },
+        {
+          "geometryId": 95,
+          "value": 0.1361
+        },
+        {
+          "geometryId": 96,
+          "value": 0.0827
+        }
+      ],
+      "70": [
+        {
+          "geometryId": 1,
+          "value": 0.1259
+        },
+        {
+          "geometryId": 2,
+          "value": 0.173
+        },
+        {
+          "geometryId": 3,
+          "value": 0.037
+        },
+        {
+          "geometryId": 4,
+          "value": 0.1017
+        },
+        {
+          "geometryId": 5,
+          "value": 0.0951
+        },
+        {
+          "geometryId": 6,
+          "value": 0.1083
+        },
+        {
+          "geometryId": 7,
+          "value": 0.1111
+        },
+        {
+          "geometryId": 8,
+          "value": 0.0946
+        },
+        {
+          "geometryId": 9,
+          "value": 0.078
+        },
+        {
+          "geometryId": 10,
+          "value": 0.0653
+        },
+        {
+          "geometryId": 11,
+          "value": 0.053
+        },
+        {
+          "geometryId": 12,
+          "value": 0.1284
+        },
+        {
+          "geometryId": 13,
+          "value": 0.062
+        },
+        {
+          "geometryId": 14,
+          "value": 0.1004
+        },
+        {
+          "geometryId": 15,
+          "value": 0.142
+        },
+        {
+          "geometryId": 16,
+          "value": 0.1004
+        },
+        {
+          "geometryId": 17,
+          "value": 0.0588
+        },
+        {
+          "geometryId": 18,
+          "value": 0.078
+        },
+        {
+          "geometryId": 19,
+          "value": 0.0546
+        },
+        {
+          "geometryId": 20,
+          "value": 0.1199
+        },
+        {
+          "geometryId": 21,
+          "value": 0.1008
+        },
+        {
+          "geometryId": 22,
+          "value": 0.064
+        },
+        {
+          "geometryId": 23,
+          "value": 0.071
+        },
+        {
+          "geometryId": 24,
+          "value": 0.0683
+        },
+        {
+          "geometryId": 25,
+          "value": 0.0462
+        },
+        {
+          "geometryId": 26,
+          "value": 0.148
+        },
+        {
+          "geometryId": 27,
+          "value": 0.1128
+        },
+        {
+          "geometryId": 28,
+          "value": 0.0675
+        },
+        {
+          "geometryId": 29,
+          "value": 0.0936
+        },
+        {
+          "geometryId": 30,
+          "value": 0.0458
+        },
+        {
+          "geometryId": 31,
+          "value": 0.0534
+        },
+        {
+          "geometryId": 32,
+          "value": 0.1522
+        },
+        {
+          "geometryId": 33,
+          "value": 0.0454
+        },
+        {
+          "geometryId": 34,
+          "value": 0.1076
+        },
+        {
+          "geometryId": 35,
+          "value": 0.144
+        },
+        {
+          "geometryId": 36,
+          "value": 0.0536
+        },
+        {
+          "geometryId": 37,
+          "value": 0.0661
+        },
+        {
+          "geometryId": 38,
+          "value": 0.0862
+        },
+        {
+          "geometryId": 39,
+          "value": 0.0803
+        },
+        {
+          "geometryId": 40,
+          "value": 0.1115
+        },
+        {
+          "geometryId": 41,
+          "value": 0.0787
+        },
+        {
+          "geometryId": 42,
+          "value": 0.0523
+        },
+        {
+          "geometryId": 43,
+          "value": 0.0438
+        },
+        {
+          "geometryId": 44,
+          "value": 0.0524
+        },
+        {
+          "geometryId": 45,
+          "value": 0.1586
+        },
+        {
+          "geometryId": 46,
+          "value": 0.0575
+        },
+        {
+          "geometryId": 47,
+          "value": 0.0756
+        },
+        {
+          "geometryId": 48,
+          "value": 0.1393
+        },
+        {
+          "geometryId": 49,
+          "value": 0.1169
+        },
+        {
+          "geometryId": 50,
+          "value": 0.0885
+        },
+        {
+          "geometryId": 51,
+          "value": 0.0967
+        },
+        {
+          "geometryId": 52,
+          "value": 0.0659
+        },
+        {
+          "geometryId": 53,
+          "value": 0.1181
+        },
+        {
+          "geometryId": 54,
+          "value": 0.1052
+        },
+        {
+          "geometryId": 55,
+          "value": 0.0432
+        },
+        {
+          "geometryId": 56,
+          "value": 0.0848
+        },
+        {
+          "geometryId": 57,
+          "value": 0.0643
+        },
+        {
+          "geometryId": 58,
+          "value": 0.0549
+        },
+        {
+          "geometryId": 59,
+          "value": 0.1081
+        },
+        {
+          "geometryId": 60,
+          "value": 0.1447
+        },
+        {
+          "geometryId": 61,
+          "value": 0.0484
+        },
+        {
+          "geometryId": 62,
+          "value": 0.1532
+        },
+        {
+          "geometryId": 63,
+          "value": 0.0866
+        },
+        {
+          "geometryId": 64,
+          "value": 0.0919
+        },
+        {
+          "geometryId": 65,
+          "value": 0.0652
+        },
+        {
+          "geometryId": 66,
+          "value": 0.0948
+        },
+        {
+          "geometryId": 67,
+          "value": 0.0748
+        },
+        {
+          "geometryId": 68,
+          "value": 0.0798
+        },
+        {
+          "geometryId": 69,
+          "value": 0.1148
+        },
+        {
+          "geometryId": 70,
+          "value": 0.1345
+        },
+        {
+          "geometryId": 71,
+          "value": 0.1391
+        },
+        {
+          "geometryId": 72,
+          "value": 0.1025
+        },
+        {
+          "geometryId": 73,
+          "value": 0.0724
+        },
+        {
+          "geometryId": 74,
+          "value": 0.0712
+        },
+        {
+          "geometryId": 75,
+          "value": 0.0538
+        },
+        {
+          "geometryId": 76,
+          "value": 0.0705
+        },
+        {
+          "geometryId": 77,
+          "value": 0.1416
+        },
+        {
+          "geometryId": 78,
+          "value": 0.0526
+        },
+        {
+          "geometryId": 79,
+          "value": 0.1239
+        },
+        {
+          "geometryId": 80,
+          "value": 0.124
+        },
+        {
+          "geometryId": 81,
+          "value": 0.0658
+        },
+        {
+          "geometryId": 82,
+          "value": 0.1279
+        },
+        {
+          "geometryId": 83,
+          "value": 0.0493
+        },
+        {
+          "geometryId": 84,
+          "value": 0.0602
+        },
+        {
+          "geometryId": 85,
+          "value": 0.1145
+        },
+        {
+          "geometryId": 86,
+          "value": 0.1053
+        },
+        {
+          "geometryId": 87,
+          "value": 0.0604
+        },
+        {
+          "geometryId": 88,
+          "value": 0.0883
+        },
+        {
+          "geometryId": 89,
+          "value": 0.0778
+        },
+        {
+          "geometryId": 90,
+          "value": 0.1489
+        },
+        {
+          "geometryId": 91,
+          "value": 0.1017
+        },
+        {
+          "geometryId": 92,
+          "value": 0.0941
+        },
+        {
+          "geometryId": 93,
+          "value": 0.111
+        },
+        {
+          "geometryId": 94,
+          "value": 0.0879
+        },
+        {
+          "geometryId": 95,
+          "value": 0.087
+        },
+        {
+          "geometryId": 96,
+          "value": 0.0481
+        }
+      ],
+      "75": [
+        {
+          "geometryId": 1,
+          "value": 0.0774
+        },
+        {
+          "geometryId": 2,
+          "value": 0.1111
+        },
+        {
+          "geometryId": 3,
+          "value": 0.0167
+        },
+        {
+          "geometryId": 4,
+          "value": 0.061
+        },
+        {
+          "geometryId": 5,
+          "value": 0.0549
+        },
+        {
+          "geometryId": 6,
+          "value": 0.068
+        },
+        {
+          "geometryId": 7,
+          "value": 0.0663
+        },
+        {
+          "geometryId": 8,
+          "value": 0.056
+        },
+        {
+          "geometryId": 9,
+          "value": 0.0453
+        },
+        {
+          "geometryId": 10,
+          "value": 0.0359
+        },
+        {
+          "geometryId": 11,
+          "value": 0.0283
+        },
+        {
+          "geometryId": 12,
+          "value": 0.0786
+        },
+        {
+          "geometryId": 13,
+          "value": 0.0333
+        },
+        {
+          "geometryId": 14,
+          "value": 0.0605
+        },
+        {
+          "geometryId": 15,
+          "value": 0.0886
+        },
+        {
+          "geometryId": 16,
+          "value": 0.0575
+        },
+        {
+          "geometryId": 17,
+          "value": 0.0307
+        },
+        {
+          "geometryId": 18,
+          "value": 0.0436
+        },
+        {
+          "geometryId": 19,
+          "value": 0.0279
+        },
+        {
+          "geometryId": 20,
+          "value": 0.073
+        },
+        {
+          "geometryId": 21,
+          "value": 0.0594
+        },
+        {
+          "geometryId": 22,
+          "value": 0.0348
+        },
+        {
+          "geometryId": 23,
+          "value": 0.0384
+        },
+        {
+          "geometryId": 24,
+          "value": 0.0358
+        },
+        {
+          "geometryId": 25,
+          "value": 0.0213
+        },
+        {
+          "geometryId": 26,
+          "value": 0.095
+        },
+        {
+          "geometryId": 27,
+          "value": 0.0667
+        },
+        {
+          "geometryId": 28,
+          "value": 0.0354
+        },
+        {
+          "geometryId": 29,
+          "value": 0.0531
+        },
+        {
+          "geometryId": 30,
+          "value": 0.0222
+        },
+        {
+          "geometryId": 31,
+          "value": 0.027
+        },
+        {
+          "geometryId": 32,
+          "value": 0.092
+        },
+        {
+          "geometryId": 33,
+          "value": 0.0218
+        },
+        {
+          "geometryId": 34,
+          "value": 0.0649
+        },
+        {
+          "geometryId": 35,
+          "value": 0.0892
+        },
+        {
+          "geometryId": 36,
+          "value": 0.0275
+        },
+        {
+          "geometryId": 37,
+          "value": 0.0356
+        },
+        {
+          "geometryId": 38,
+          "value": 0.0493
+        },
+        {
+          "geometryId": 39,
+          "value": 0.0456
+        },
+        {
+          "geometryId": 40,
+          "value": 0.0661
+        },
+        {
+          "geometryId": 41,
+          "value": 0.0467
+        },
+        {
+          "geometryId": 42,
+          "value": 0.0261
+        },
+        {
+          "geometryId": 43,
+          "value": 0.0215
+        },
+        {
+          "geometryId": 44,
+          "value": 0.0275
+        },
+        {
+          "geometryId": 45,
+          "value": 0.1007
+        },
+        {
+          "geometryId": 46,
+          "value": 0.0297
+        },
+        {
+          "geometryId": 47,
+          "value": 0.0388
+        },
+        {
+          "geometryId": 48,
+          "value": 0.0874
+        },
+        {
+          "geometryId": 49,
+          "value": 0.0708
+        },
+        {
+          "geometryId": 50,
+          "value": 0.0501
+        },
+        {
+          "geometryId": 51,
+          "value": 0.0565
+        },
+        {
+          "geometryId": 52,
+          "value": 0.0348
+        },
+        {
+          "geometryId": 53,
+          "value": 0.0724
+        },
+        {
+          "geometryId": 54,
+          "value": 0.0635
+        },
+        {
+          "geometryId": 55,
+          "value": 0.0212
+        },
+        {
+          "geometryId": 56,
+          "value": 0.0548
+        },
+        {
+          "geometryId": 57,
+          "value": 0.0344
+        },
+        {
+          "geometryId": 58,
+          "value": 0.0283
+        },
+        {
+          "geometryId": 59,
+          "value": 0.0653
+        },
+        {
+          "geometryId": 60,
+          "value": 0.0876
+        },
+        {
+          "geometryId": 61,
+          "value": 0.0249
+        },
+        {
+          "geometryId": 62,
+          "value": 0.0962
+        },
+        {
+          "geometryId": 63,
+          "value": 0.0485
+        },
+        {
+          "geometryId": 64,
+          "value": 0.0525
+        },
+        {
+          "geometryId": 65,
+          "value": 0.0347
+        },
+        {
+          "geometryId": 66,
+          "value": 0.0549
+        },
+        {
+          "geometryId": 67,
+          "value": 0.042
+        },
+        {
+          "geometryId": 68,
+          "value": 0.0448
+        },
+        {
+          "geometryId": 69,
+          "value": 0.069
+        },
+        {
+          "geometryId": 70,
+          "value": 0.0805
+        },
+        {
+          "geometryId": 71,
+          "value": 0.0866
+        },
+        {
+          "geometryId": 72,
+          "value": 0.0608
+        },
+        {
+          "geometryId": 73,
+          "value": 0.04
+        },
+        {
+          "geometryId": 74,
+          "value": 0.0408
+        },
+        {
+          "geometryId": 75,
+          "value": 0.0285
+        },
+        {
+          "geometryId": 76,
+          "value": 0.0382
+        },
+        {
+          "geometryId": 77,
+          "value": 0.0865
+        },
+        {
+          "geometryId": 78,
+          "value": 0.0292
+        },
+        {
+          "geometryId": 79,
+          "value": 0.0756
+        },
+        {
+          "geometryId": 80,
+          "value": 0.0746
+        },
+        {
+          "geometryId": 81,
+          "value": 0.0356
+        },
+        {
+          "geometryId": 82,
+          "value": 0.0764
+        },
+        {
+          "geometryId": 83,
+          "value": 0.026
+        },
+        {
+          "geometryId": 84,
+          "value": 0.0327
+        },
+        {
+          "geometryId": 85,
+          "value": 0.0678
+        },
+        {
+          "geometryId": 86,
+          "value": 0.0629
+        },
+        {
+          "geometryId": 87,
+          "value": 0.0308
+        },
+        {
+          "geometryId": 88,
+          "value": 0.0516
+        },
+        {
+          "geometryId": 89,
+          "value": 0.0453
+        },
+        {
+          "geometryId": 90,
+          "value": 0.09
+        },
+        {
+          "geometryId": 91,
+          "value": 0.059
+        },
+        {
+          "geometryId": 92,
+          "value": 0.0556
+        },
+        {
+          "geometryId": 93,
+          "value": 0.0663
+        },
+        {
+          "geometryId": 94,
+          "value": 0.0509
+        },
+        {
+          "geometryId": 95,
+          "value": 0.0503
+        },
+        {
+          "geometryId": 96,
+          "value": 0.0242
+        }
+      ]
+    },
+    "cumulative-65plus": {
+      "70": [
+        {
+          "geometryId": 1,
+          "value": 0.6729
+        },
+        {
+          "geometryId": 2,
+          "value": 0.7137
+        },
+        {
+          "geometryId": 3,
+          "value": 0.537
+        },
+        {
+          "geometryId": 4,
+          "value": 0.6604
+        },
+        {
+          "geometryId": 5,
+          "value": 0.6627
+        },
+        {
+          "geometryId": 6,
+          "value": 0.6824
+        },
+        {
+          "geometryId": 7,
+          "value": 0.6783
+        },
+        {
+          "geometryId": 8,
+          "value": 0.6743
+        },
+        {
+          "geometryId": 9,
+          "value": 0.6577
+        },
+        {
+          "geometryId": 10,
+          "value": 0.6143
+        },
+        {
+          "geometryId": 11,
+          "value": 0.6023
+        },
+        {
+          "geometryId": 12,
+          "value": 0.6929
+        },
+        {
+          "geometryId": 13,
+          "value": 0.6014
+        },
+        {
+          "geometryId": 14,
+          "value": 0.6631
+        },
+        {
+          "geometryId": 15,
+          "value": 0.7002
+        },
+        {
+          "geometryId": 16,
+          "value": 0.6403
+        },
+        {
+          "geometryId": 17,
+          "value": 0.6025
+        },
+        {
+          "geometryId": 18,
+          "value": 0.627
+        },
+        {
+          "geometryId": 19,
+          "value": 0.6033
+        },
+        {
+          "geometryId": 20,
+          "value": 0.671
+        },
+        {
+          "geometryId": 21,
+          "value": 0.6575
+        },
+        {
+          "geometryId": 22,
+          "value": 0.6202
+        },
+        {
+          "geometryId": 23,
+          "value": 0.619
+        },
+        {
+          "geometryId": 24,
+          "value": 0.6126
+        },
+        {
+          "geometryId": 25,
+          "value": 0.5711
+        },
+        {
+          "geometryId": 26,
+          "value": 0.7021
+        },
+        {
+          "geometryId": 27,
+          "value": 0.6566
+        },
+        {
+          "geometryId": 28,
+          "value": 0.6153
+        },
+        {
+          "geometryId": 29,
+          "value": 0.6299
+        },
+        {
+          "geometryId": 30,
+          "value": 0.5725
+        },
+        {
+          "geometryId": 31,
+          "value": 0.5947
+        },
+        {
+          "geometryId": 32,
+          "value": 0.694
+        },
+        {
+          "geometryId": 33,
+          "value": 0.5711
+        },
+        {
+          "geometryId": 34,
+          "value": 0.665
+        },
+        {
+          "geometryId": 35,
+          "value": 0.7021
+        },
+        {
+          "geometryId": 36,
+          "value": 0.5884
+        },
+        {
+          "geometryId": 37,
+          "value": 0.6189
+        },
+        {
+          "geometryId": 38,
+          "value": 0.6395
+        },
+        {
+          "geometryId": 39,
+          "value": 0.6353
+        },
+        {
+          "geometryId": 40,
+          "value": 0.6613
+        },
+        {
+          "geometryId": 41,
+          "value": 0.6586
+        },
+        {
+          "geometryId": 42,
+          "value": 0.5754
+        },
+        {
+          "geometryId": 43,
+          "value": 0.5786
+        },
+        {
+          "geometryId": 44,
+          "value": 0.5995
+        },
+        {
+          "geometryId": 45,
+          "value": 0.7125
+        },
+        {
+          "geometryId": 46,
+          "value": 0.604
+        },
+        {
+          "geometryId": 47,
+          "value": 0.6412
+        },
+        {
+          "geometryId": 48,
+          "value": 0.6862
+        },
+        {
+          "geometryId": 49,
+          "value": 0.6761
+        },
+        {
+          "geometryId": 50,
+          "value": 0.6441
+        },
+        {
+          "geometryId": 51,
+          "value": 0.6383
+        },
+        {
+          "geometryId": 52,
+          "value": 0.5958
+        },
+        {
+          "geometryId": 53,
+          "value": 0.6687
+        },
+        {
+          "geometryId": 54,
+          "value": 0.6696
+        },
+        {
+          "geometryId": 55,
+          "value": 0.5654
+        },
+        {
+          "geometryId": 56,
+          "value": 0.6709
+        },
+        {
+          "geometryId": 57,
+          "value": 0.6147
+        },
+        {
+          "geometryId": 58,
+          "value": 0.5903
+        },
+        {
+          "geometryId": 59,
+          "value": 0.664
+        },
+        {
+          "geometryId": 60,
+          "value": 0.6861
+        },
+        {
+          "geometryId": 61,
+          "value": 0.5874
+        },
+        {
+          "geometryId": 62,
+          "value": 0.7047
+        },
+        {
+          "geometryId": 63,
+          "value": 0.6307
+        },
+        {
+          "geometryId": 64,
+          "value": 0.6325
+        },
+        {
+          "geometryId": 65,
+          "value": 0.6263
+        },
+        {
+          "geometryId": 66,
+          "value": 0.6475
+        },
+        {
+          "geometryId": 67,
+          "value": 0.6254
+        },
+        {
+          "geometryId": 68,
+          "value": 0.6308
+        },
+        {
+          "geometryId": 69,
+          "value": 0.6717
+        },
+        {
+          "geometryId": 70,
+          "value": 0.6732
+        },
+        {
+          "geometryId": 71,
+          "value": 0.6917
+        },
+        {
+          "geometryId": 72,
+          "value": 0.6579
+        },
+        {
+          "geometryId": 73,
+          "value": 0.6193
+        },
+        {
+          "geometryId": 74,
+          "value": 0.6218
+        },
+        {
+          "geometryId": 75,
+          "value": 0.6045
+        },
+        {
+          "geometryId": 76,
+          "value": 0.6173
+        },
+        {
+          "geometryId": 77,
+          "value": 0.6798
+        },
+        {
+          "geometryId": 78,
+          "value": 0.5977
+        },
+        {
+          "geometryId": 79,
+          "value": 0.6826
+        },
+        {
+          "geometryId": 80,
+          "value": 0.6642
+        },
+        {
+          "geometryId": 81,
+          "value": 0.6178
+        },
+        {
+          "geometryId": 82,
+          "value": 0.671
+        },
+        {
+          "geometryId": 83,
+          "value": 0.5897
+        },
+        {
+          "geometryId": 84,
+          "value": 0.6168
+        },
+        {
+          "geometryId": 85,
+          "value": 0.658
+        },
+        {
+          "geometryId": 86,
+          "value": 0.6635
+        },
+        {
+          "geometryId": 87,
+          "value": 0.5887
+        },
+        {
+          "geometryId": 88,
+          "value": 0.6422
+        },
+        {
+          "geometryId": 89,
+          "value": 0.6419
+        },
+        {
+          "geometryId": 90,
+          "value": 0.6916
+        },
+        {
+          "geometryId": 91,
+          "value": 0.6557
+        },
+        {
+          "geometryId": 92,
+          "value": 0.6458
+        },
+        {
+          "geometryId": 93,
+          "value": 0.6615
+        },
+        {
+          "geometryId": 94,
+          "value": 0.6535
+        },
+        {
+          "geometryId": 95,
+          "value": 0.6392
+        },
+        {
+          "geometryId": 96,
+          "value": 0.5816
+        }
+      ],
+      "75": [
+        {
+          "geometryId": 1,
+          "value": 0.4137
+        },
+        {
+          "geometryId": 2,
+          "value": 0.4583
+        },
+        {
+          "geometryId": 3,
+          "value": 0.2424
+        },
+        {
+          "geometryId": 4,
+          "value": 0.3961
+        },
+        {
+          "geometryId": 5,
+          "value": 0.3826
+        },
+        {
+          "geometryId": 6,
+          "value": 0.4285
+        },
+        {
+          "geometryId": 7,
+          "value": 0.4048
+        },
+        {
+          "geometryId": 8,
+          "value": 0.3991
+        },
+        {
+          "geometryId": 9,
+          "value": 0.382
+        },
+        {
+          "geometryId": 10,
+          "value": 0.3377
+        },
+        {
+          "geometryId": 11,
+          "value": 0.3216
+        },
+        {
+          "geometryId": 12,
+          "value": 0.4242
+        },
+        {
+          "geometryId": 13,
+          "value": 0.323
+        },
+        {
+          "geometryId": 14,
+          "value": 0.3996
+        },
+        {
+          "geometryId": 15,
+          "value": 0.4369
+        },
+        {
+          "geometryId": 16,
+          "value": 0.3667
+        },
+        {
+          "geometryId": 17,
+          "value": 0.3145
+        },
+        {
+          "geometryId": 18,
+          "value": 0.3505
+        },
+        {
+          "geometryId": 19,
+          "value": 0.3083
+        },
+        {
+          "geometryId": 20,
+          "value": 0.4085
+        },
+        {
+          "geometryId": 21,
+          "value": 0.3875
+        },
+        {
+          "geometryId": 22,
+          "value": 0.3372
+        },
+        {
+          "geometryId": 23,
+          "value": 0.3348
+        },
+        {
+          "geometryId": 24,
+          "value": 0.3211
+        },
+        {
+          "geometryId": 25,
+          "value": 0.2633
+        },
+        {
+          "geometryId": 26,
+          "value": 0.4507
+        },
+        {
+          "geometryId": 27,
+          "value": 0.3882
+        },
+        {
+          "geometryId": 28,
+          "value": 0.3227
+        },
+        {
+          "geometryId": 29,
+          "value": 0.3573
+        },
+        {
+          "geometryId": 30,
+          "value": 0.2775
+        },
+        {
+          "geometryId": 31,
+          "value": 0.3007
+        },
+        {
+          "geometryId": 32,
+          "value": 0.4195
+        },
+        {
+          "geometryId": 33,
+          "value": 0.2742
+        },
+        {
+          "geometryId": 34,
+          "value": 0.4011
+        },
+        {
+          "geometryId": 35,
+          "value": 0.4349
+        },
+        {
+          "geometryId": 36,
+          "value": 0.3019
+        },
+        {
+          "geometryId": 37,
+          "value": 0.3333
+        },
+        {
+          "geometryId": 38,
+          "value": 0.3657
+        },
+        {
+          "geometryId": 39,
+          "value": 0.3608
+        },
+        {
+          "geometryId": 40,
+          "value": 0.3921
+        },
+        {
+          "geometryId": 41,
+          "value": 0.3908
+        },
+        {
+          "geometryId": 42,
+          "value": 0.2871
+        },
+        {
+          "geometryId": 43,
+          "value": 0.284
+        },
+        {
+          "geometryId": 44,
+          "value": 0.3146
+        },
+        {
+          "geometryId": 45,
+          "value": 0.4524
+        },
+        {
+          "geometryId": 46,
+          "value": 0.312
+        },
+        {
+          "geometryId": 47,
+          "value": 0.3291
+        },
+        {
+          "geometryId": 48,
+          "value": 0.4305
+        },
+        {
+          "geometryId": 49,
+          "value": 0.4095
+        },
+        {
+          "geometryId": 50,
+          "value": 0.3646
+        },
+        {
+          "geometryId": 51,
+          "value": 0.3729
+        },
+        {
+          "geometryId": 52,
+          "value": 0.3146
+        },
+        {
+          "geometryId": 53,
+          "value": 0.41
+        },
+        {
+          "geometryId": 54,
+          "value": 0.4042
+        },
+        {
+          "geometryId": 55,
+          "value": 0.2775
+        },
+        {
+          "geometryId": 56,
+          "value": 0.4335
+        },
+        {
+          "geometryId": 57,
+          "value": 0.3289
+        },
+        {
+          "geometryId": 58,
+          "value": 0.3043
+        },
+        {
+          "geometryId": 59,
+          "value": 0.4011
+        },
+        {
+          "geometryId": 60,
+          "value": 0.4154
+        },
+        {
+          "geometryId": 61,
+          "value": 0.3022
+        },
+        {
+          "geometryId": 62,
+          "value": 0.4425
+        },
+        {
+          "geometryId": 63,
+          "value": 0.3532
+        },
+        {
+          "geometryId": 64,
+          "value": 0.3613
+        },
+        {
+          "geometryId": 65,
+          "value": 0.3333
+        },
+        {
+          "geometryId": 66,
+          "value": 0.375
+        },
+        {
+          "geometryId": 67,
+          "value": 0.3512
+        },
+        {
+          "geometryId": 68,
+          "value": 0.3542
+        },
+        {
+          "geometryId": 69,
+          "value": 0.4037
+        },
+        {
+          "geometryId": 70,
+          "value": 0.4029
+        },
+        {
+          "geometryId": 71,
+          "value": 0.4306
+        },
+        {
+          "geometryId": 72,
+          "value": 0.3902
+        },
+        {
+          "geometryId": 73,
+          "value": 0.3422
+        },
+        {
+          "geometryId": 74,
+          "value": 0.3563
+        },
+        {
+          "geometryId": 75,
+          "value": 0.3202
+        },
+        {
+          "geometryId": 76,
+          "value": 0.3345
+        },
+        {
+          "geometryId": 77,
+          "value": 0.4153
+        },
+        {
+          "geometryId": 78,
+          "value": 0.3318
+        },
+        {
+          "geometryId": 79,
+          "value": 0.4165
+        },
+        {
+          "geometryId": 80,
+          "value": 0.3996
+        },
+        {
+          "geometryId": 81,
+          "value": 0.3343
+        },
+        {
+          "geometryId": 82,
+          "value": 0.4008
+        },
+        {
+          "geometryId": 83,
+          "value": 0.311
+        },
+        {
+          "geometryId": 84,
+          "value": 0.335
+        },
+        {
+          "geometryId": 85,
+          "value": 0.3897
+        },
+        {
+          "geometryId": 86,
+          "value": 0.3963
+        },
+        {
+          "geometryId": 87,
+          "value": 0.3002
+        },
+        {
+          "geometryId": 88,
+          "value": 0.3753
+        },
+        {
+          "geometryId": 89,
+          "value": 0.3738
+        },
+        {
+          "geometryId": 90,
+          "value": 0.418
+        },
+        {
+          "geometryId": 91,
+          "value": 0.3804
+        },
+        {
+          "geometryId": 92,
+          "value": 0.3816
+        },
+        {
+          "geometryId": 93,
+          "value": 0.3951
+        },
+        {
+          "geometryId": 94,
+          "value": 0.3784
+        },
+        {
+          "geometryId": 95,
+          "value": 0.3696
+        },
+        {
+          "geometryId": 96,
+          "value": 0.2926
+        }
+      ]
+    },
+    "5year-65plus": {
+      "65-69": [
+        {
+          "geometryId": 1,
+          "value": 0.3271
+        },
+        {
+          "geometryId": 2,
+          "value": 0.2863
+        },
+        {
+          "geometryId": 3,
+          "value": 0.463
+        },
+        {
+          "geometryId": 4,
+          "value": 0.3396
+        },
+        {
+          "geometryId": 5,
+          "value": 0.3373
+        },
+        {
+          "geometryId": 6,
+          "value": 0.3176
+        },
+        {
+          "geometryId": 7,
+          "value": 0.3217
+        },
+        {
+          "geometryId": 8,
+          "value": 0.3257
+        },
+        {
+          "geometryId": 9,
+          "value": 0.3423
+        },
+        {
+          "geometryId": 10,
+          "value": 0.3857
+        },
+        {
+          "geometryId": 11,
+          "value": 0.3977
+        },
+        {
+          "geometryId": 12,
+          "value": 0.3071
+        },
+        {
+          "geometryId": 13,
+          "value": 0.3986
+        },
+        {
+          "geometryId": 14,
+          "value": 0.3369
+        },
+        {
+          "geometryId": 15,
+          "value": 0.2998
+        },
+        {
+          "geometryId": 16,
+          "value": 0.3597
+        },
+        {
+          "geometryId": 17,
+          "value": 0.3975
+        },
+        {
+          "geometryId": 18,
+          "value": 0.373
+        },
+        {
+          "geometryId": 19,
+          "value": 0.3967
+        },
+        {
+          "geometryId": 20,
+          "value": 0.329
+        },
+        {
+          "geometryId": 21,
+          "value": 0.3425
+        },
+        {
+          "geometryId": 22,
+          "value": 0.3798
+        },
+        {
+          "geometryId": 23,
+          "value": 0.381
+        },
+        {
+          "geometryId": 24,
+          "value": 0.3874
+        },
+        {
+          "geometryId": 25,
+          "value": 0.4289
+        },
+        {
+          "geometryId": 26,
+          "value": 0.2979
+        },
+        {
+          "geometryId": 27,
+          "value": 0.3434
+        },
+        {
+          "geometryId": 28,
+          "value": 0.3847
+        },
+        {
+          "geometryId": 29,
+          "value": 0.3701
+        },
+        {
+          "geometryId": 30,
+          "value": 0.4275
+        },
+        {
+          "geometryId": 31,
+          "value": 0.4053
+        },
+        {
+          "geometryId": 32,
+          "value": 0.306
+        },
+        {
+          "geometryId": 33,
+          "value": 0.4289
+        },
+        {
+          "geometryId": 34,
+          "value": 0.335
+        },
+        {
+          "geometryId": 35,
+          "value": 0.2979
+        },
+        {
+          "geometryId": 36,
+          "value": 0.4116
+        },
+        {
+          "geometryId": 37,
+          "value": 0.3811
+        },
+        {
+          "geometryId": 38,
+          "value": 0.3605
+        },
+        {
+          "geometryId": 39,
+          "value": 0.3647
+        },
+        {
+          "geometryId": 40,
+          "value": 0.3387
+        },
+        {
+          "geometryId": 41,
+          "value": 0.3414
+        },
+        {
+          "geometryId": 42,
+          "value": 0.4246
+        },
+        {
+          "geometryId": 43,
+          "value": 0.4214
+        },
+        {
+          "geometryId": 44,
+          "value": 0.4005
+        },
+        {
+          "geometryId": 45,
+          "value": 0.2875
+        },
+        {
+          "geometryId": 46,
+          "value": 0.396
+        },
+        {
+          "geometryId": 47,
+          "value": 0.3588
+        },
+        {
+          "geometryId": 48,
+          "value": 0.3138
+        },
+        {
+          "geometryId": 49,
+          "value": 0.3239
+        },
+        {
+          "geometryId": 50,
+          "value": 0.3559
+        },
+        {
+          "geometryId": 51,
+          "value": 0.3617
+        },
+        {
+          "geometryId": 52,
+          "value": 0.4042
+        },
+        {
+          "geometryId": 53,
+          "value": 0.3313
+        },
+        {
+          "geometryId": 54,
+          "value": 0.3304
+        },
+        {
+          "geometryId": 55,
+          "value": 0.4346
+        },
+        {
+          "geometryId": 56,
+          "value": 0.3291
+        },
+        {
+          "geometryId": 57,
+          "value": 0.3853
+        },
+        {
+          "geometryId": 58,
+          "value": 0.4097
+        },
+        {
+          "geometryId": 59,
+          "value": 0.336
+        },
+        {
+          "geometryId": 60,
+          "value": 0.3139
+        },
+        {
+          "geometryId": 61,
+          "value": 0.4126
+        },
+        {
+          "geometryId": 62,
+          "value": 0.2953
+        },
+        {
+          "geometryId": 63,
+          "value": 0.3693
+        },
+        {
+          "geometryId": 64,
+          "value": 0.3675
+        },
+        {
+          "geometryId": 65,
+          "value": 0.3737
+        },
+        {
+          "geometryId": 66,
+          "value": 0.3525
+        },
+        {
+          "geometryId": 67,
+          "value": 0.3746
+        },
+        {
+          "geometryId": 68,
+          "value": 0.3692
+        },
+        {
+          "geometryId": 69,
+          "value": 0.3283
+        },
+        {
+          "geometryId": 70,
+          "value": 0.3268
+        },
+        {
+          "geometryId": 71,
+          "value": 0.3083
+        },
+        {
+          "geometryId": 72,
+          "value": 0.3421
+        },
+        {
+          "geometryId": 73,
+          "value": 0.3807
+        },
+        {
+          "geometryId": 74,
+          "value": 0.3782
+        },
+        {
+          "geometryId": 75,
+          "value": 0.3955
+        },
+        {
+          "geometryId": 76,
+          "value": 0.3827
+        },
+        {
+          "geometryId": 77,
+          "value": 0.3202
+        },
+        {
+          "geometryId": 78,
+          "value": 0.4023
+        },
+        {
+          "geometryId": 79,
+          "value": 0.3174
+        },
+        {
+          "geometryId": 80,
+          "value": 0.3358
+        },
+        {
+          "geometryId": 81,
+          "value": 0.3822
+        },
+        {
+          "geometryId": 82,
+          "value": 0.329
+        },
+        {
+          "geometryId": 83,
+          "value": 0.4103
+        },
+        {
+          "geometryId": 84,
+          "value": 0.3832
+        },
+        {
+          "geometryId": 85,
+          "value": 0.342
+        },
+        {
+          "geometryId": 86,
+          "value": 0.3365
+        },
+        {
+          "geometryId": 87,
+          "value": 0.4113
+        },
+        {
+          "geometryId": 88,
+          "value": 0.3578
+        },
+        {
+          "geometryId": 89,
+          "value": 0.3581
+        },
+        {
+          "geometryId": 90,
+          "value": 0.3084
+        },
+        {
+          "geometryId": 91,
+          "value": 0.3443
+        },
+        {
+          "geometryId": 92,
+          "value": 0.3542
+        },
+        {
+          "geometryId": 93,
+          "value": 0.3385
+        },
+        {
+          "geometryId": 94,
+          "value": 0.3465
+        },
+        {
+          "geometryId": 95,
+          "value": 0.3608
+        },
+        {
+          "geometryId": 96,
+          "value": 0.4184
+        }
+      ],
+      "70-74": [
+        {
+          "geometryId": 1,
+          "value": 0.2592
+        },
+        {
+          "geometryId": 2,
+          "value": 0.2554
+        },
+        {
+          "geometryId": 3,
+          "value": 0.2946
+        },
+        {
+          "geometryId": 4,
+          "value": 0.2643
+        },
+        {
+          "geometryId": 5,
+          "value": 0.2801
+        },
+        {
+          "geometryId": 6,
+          "value": 0.2539
+        },
+        {
+          "geometryId": 7,
+          "value": 0.2735
+        },
+        {
+          "geometryId": 8,
+          "value": 0.2751
+        },
+        {
+          "geometryId": 9,
+          "value": 0.2757
+        },
+        {
+          "geometryId": 10,
+          "value": 0.2766
+        },
+        {
+          "geometryId": 11,
+          "value": 0.2807
+        },
+        {
+          "geometryId": 12,
+          "value": 0.2688
+        },
+        {
+          "geometryId": 13,
+          "value": 0.2784
+        },
+        {
+          "geometryId": 14,
+          "value": 0.2635
+        },
+        {
+          "geometryId": 15,
+          "value": 0.2633
+        },
+        {
+          "geometryId": 16,
+          "value": 0.2736
+        },
+        {
+          "geometryId": 17,
+          "value": 0.2879
+        },
+        {
+          "geometryId": 18,
+          "value": 0.2765
+        },
+        {
+          "geometryId": 19,
+          "value": 0.295
+        },
+        {
+          "geometryId": 20,
+          "value": 0.2625
+        },
+        {
+          "geometryId": 21,
+          "value": 0.2701
+        },
+        {
+          "geometryId": 22,
+          "value": 0.2829
+        },
+        {
+          "geometryId": 23,
+          "value": 0.2842
+        },
+        {
+          "geometryId": 24,
+          "value": 0.2915
+        },
+        {
+          "geometryId": 25,
+          "value": 0.3078
+        },
+        {
+          "geometryId": 26,
+          "value": 0.2514
+        },
+        {
+          "geometryId": 27,
+          "value": 0.2683
+        },
+        {
+          "geometryId": 28,
+          "value": 0.2926
+        },
+        {
+          "geometryId": 29,
+          "value": 0.2725
+        },
+        {
+          "geometryId": 30,
+          "value": 0.295
+        },
+        {
+          "geometryId": 31,
+          "value": 0.294
+        },
+        {
+          "geometryId": 32,
+          "value": 0.2745
+        },
+        {
+          "geometryId": 33,
+          "value": 0.2969
+        },
+        {
+          "geometryId": 34,
+          "value": 0.2639
+        },
+        {
+          "geometryId": 35,
+          "value": 0.2672
+        },
+        {
+          "geometryId": 36,
+          "value": 0.2865
+        },
+        {
+          "geometryId": 37,
+          "value": 0.2856
+        },
+        {
+          "geometryId": 38,
+          "value": 0.2737
+        },
+        {
+          "geometryId": 39,
+          "value": 0.2745
+        },
+        {
+          "geometryId": 40,
+          "value": 0.2693
+        },
+        {
+          "geometryId": 41,
+          "value": 0.2678
+        },
+        {
+          "geometryId": 42,
+          "value": 0.2882
+        },
+        {
+          "geometryId": 43,
+          "value": 0.2946
+        },
+        {
+          "geometryId": 44,
+          "value": 0.2849
+        },
+        {
+          "geometryId": 45,
+          "value": 0.2601
+        },
+        {
+          "geometryId": 46,
+          "value": 0.292
+        },
+        {
+          "geometryId": 47,
+          "value": 0.3121
+        },
+        {
+          "geometryId": 48,
+          "value": 0.2557
+        },
+        {
+          "geometryId": 49,
+          "value": 0.2666
+        },
+        {
+          "geometryId": 50,
+          "value": 0.2795
+        },
+        {
+          "geometryId": 51,
+          "value": 0.2653
+        },
+        {
+          "geometryId": 52,
+          "value": 0.2812
+        },
+        {
+          "geometryId": 53,
+          "value": 0.2588
+        },
+        {
+          "geometryId": 54,
+          "value": 0.2654
+        },
+        {
+          "geometryId": 55,
+          "value": 0.288
+        },
+        {
+          "geometryId": 56,
+          "value": 0.2373
+        },
+        {
+          "geometryId": 57,
+          "value": 0.2859
+        },
+        {
+          "geometryId": 58,
+          "value": 0.286
+        },
+        {
+          "geometryId": 59,
+          "value": 0.2629
+        },
+        {
+          "geometryId": 60,
+          "value": 0.2707
+        },
+        {
+          "geometryId": 61,
+          "value": 0.2852
+        },
+        {
+          "geometryId": 62,
+          "value": 0.2622
+        },
+        {
+          "geometryId": 63,
+          "value": 0.2775
+        },
+        {
+          "geometryId": 64,
+          "value": 0.2712
+        },
+        {
+          "geometryId": 65,
+          "value": 0.293
+        },
+        {
+          "geometryId": 66,
+          "value": 0.2725
+        },
+        {
+          "geometryId": 67,
+          "value": 0.2742
+        },
+        {
+          "geometryId": 68,
+          "value": 0.2767
+        },
+        {
+          "geometryId": 69,
+          "value": 0.268
+        },
+        {
+          "geometryId": 70,
+          "value": 0.2703
+        },
+        {
+          "geometryId": 71,
+          "value": 0.2611
+        },
+        {
+          "geometryId": 72,
+          "value": 0.2677
+        },
+        {
+          "geometryId": 73,
+          "value": 0.2772
+        },
+        {
+          "geometryId": 74,
+          "value": 0.2655
+        },
+        {
+          "geometryId": 75,
+          "value": 0.2843
+        },
+        {
+          "geometryId": 76,
+          "value": 0.2828
+        },
+        {
+          "geometryId": 77,
+          "value": 0.2645
+        },
+        {
+          "geometryId": 78,
+          "value": 0.2659
+        },
+        {
+          "geometryId": 79,
+          "value": 0.2661
+        },
+        {
+          "geometryId": 80,
+          "value": 0.2646
+        },
+        {
+          "geometryId": 81,
+          "value": 0.2836
+        },
+        {
+          "geometryId": 82,
+          "value": 0.2702
+        },
+        {
+          "geometryId": 83,
+          "value": 0.2787
+        },
+        {
+          "geometryId": 84,
+          "value": 0.2818
+        },
+        {
+          "geometryId": 85,
+          "value": 0.2684
+        },
+        {
+          "geometryId": 86,
+          "value": 0.2672
+        },
+        {
+          "geometryId": 87,
+          "value": 0.2885
+        },
+        {
+          "geometryId": 88,
+          "value": 0.2669
+        },
+        {
+          "geometryId": 89,
+          "value": 0.2682
+        },
+        {
+          "geometryId": 90,
+          "value": 0.2736
+        },
+        {
+          "geometryId": 91,
+          "value": 0.2753
+        },
+        {
+          "geometryId": 92,
+          "value": 0.2642
+        },
+        {
+          "geometryId": 93,
+          "value": 0.2664
+        },
+        {
+          "geometryId": 94,
+          "value": 0.2751
+        },
+        {
+          "geometryId": 95,
+          "value": 0.2697
+        },
+        {
+          "geometryId": 96,
+          "value": 0.289
+        }
+      ],
+      "75": [
+        {
+          "geometryId": 1,
+          "value": 0.4137
+        },
+        {
+          "geometryId": 2,
+          "value": 0.4583
+        },
+        {
+          "geometryId": 3,
+          "value": 0.2424
+        },
+        {
+          "geometryId": 4,
+          "value": 0.3961
+        },
+        {
+          "geometryId": 5,
+          "value": 0.3826
+        },
+        {
+          "geometryId": 6,
+          "value": 0.4285
+        },
+        {
+          "geometryId": 7,
+          "value": 0.4048
+        },
+        {
+          "geometryId": 8,
+          "value": 0.3991
+        },
+        {
+          "geometryId": 9,
+          "value": 0.382
+        },
+        {
+          "geometryId": 10,
+          "value": 0.3377
+        },
+        {
+          "geometryId": 11,
+          "value": 0.3216
+        },
+        {
+          "geometryId": 12,
+          "value": 0.4242
+        },
+        {
+          "geometryId": 13,
+          "value": 0.323
+        },
+        {
+          "geometryId": 14,
+          "value": 0.3996
+        },
+        {
+          "geometryId": 15,
+          "value": 0.4369
+        },
+        {
+          "geometryId": 16,
+          "value": 0.3667
+        },
+        {
+          "geometryId": 17,
+          "value": 0.3145
+        },
+        {
+          "geometryId": 18,
+          "value": 0.3505
+        },
+        {
+          "geometryId": 19,
+          "value": 0.3083
+        },
+        {
+          "geometryId": 20,
+          "value": 0.4085
+        },
+        {
+          "geometryId": 21,
+          "value": 0.3875
+        },
+        {
+          "geometryId": 22,
+          "value": 0.3372
+        },
+        {
+          "geometryId": 23,
+          "value": 0.3348
+        },
+        {
+          "geometryId": 24,
+          "value": 0.3211
+        },
+        {
+          "geometryId": 25,
+          "value": 0.2633
+        },
+        {
+          "geometryId": 26,
+          "value": 0.4507
+        },
+        {
+          "geometryId": 27,
+          "value": 0.3882
+        },
+        {
+          "geometryId": 28,
+          "value": 0.3227
+        },
+        {
+          "geometryId": 29,
+          "value": 0.3573
+        },
+        {
+          "geometryId": 30,
+          "value": 0.2775
+        },
+        {
+          "geometryId": 31,
+          "value": 0.3007
+        },
+        {
+          "geometryId": 32,
+          "value": 0.4195
+        },
+        {
+          "geometryId": 33,
+          "value": 0.2742
+        },
+        {
+          "geometryId": 34,
+          "value": 0.4011
+        },
+        {
+          "geometryId": 35,
+          "value": 0.4349
+        },
+        {
+          "geometryId": 36,
+          "value": 0.3019
+        },
+        {
+          "geometryId": 37,
+          "value": 0.3333
+        },
+        {
+          "geometryId": 38,
+          "value": 0.3657
+        },
+        {
+          "geometryId": 39,
+          "value": 0.3608
+        },
+        {
+          "geometryId": 40,
+          "value": 0.3921
+        },
+        {
+          "geometryId": 41,
+          "value": 0.3908
+        },
+        {
+          "geometryId": 42,
+          "value": 0.2871
+        },
+        {
+          "geometryId": 43,
+          "value": 0.284
+        },
+        {
+          "geometryId": 44,
+          "value": 0.3146
+        },
+        {
+          "geometryId": 45,
+          "value": 0.4524
+        },
+        {
+          "geometryId": 46,
+          "value": 0.312
+        },
+        {
+          "geometryId": 47,
+          "value": 0.3291
+        },
+        {
+          "geometryId": 48,
+          "value": 0.4305
+        },
+        {
+          "geometryId": 49,
+          "value": 0.4095
+        },
+        {
+          "geometryId": 50,
+          "value": 0.3646
+        },
+        {
+          "geometryId": 51,
+          "value": 0.3729
+        },
+        {
+          "geometryId": 52,
+          "value": 0.3146
+        },
+        {
+          "geometryId": 53,
+          "value": 0.41
+        },
+        {
+          "geometryId": 54,
+          "value": 0.4042
+        },
+        {
+          "geometryId": 55,
+          "value": 0.2775
+        },
+        {
+          "geometryId": 56,
+          "value": 0.4335
+        },
+        {
+          "geometryId": 57,
+          "value": 0.3289
+        },
+        {
+          "geometryId": 58,
+          "value": 0.3043
+        },
+        {
+          "geometryId": 59,
+          "value": 0.4011
+        },
+        {
+          "geometryId": 60,
+          "value": 0.4154
+        },
+        {
+          "geometryId": 61,
+          "value": 0.3022
+        },
+        {
+          "geometryId": 62,
+          "value": 0.4425
+        },
+        {
+          "geometryId": 63,
+          "value": 0.3532
+        },
+        {
+          "geometryId": 64,
+          "value": 0.3613
+        },
+        {
+          "geometryId": 65,
+          "value": 0.3333
+        },
+        {
+          "geometryId": 66,
+          "value": 0.375
+        },
+        {
+          "geometryId": 67,
+          "value": 0.3512
+        },
+        {
+          "geometryId": 68,
+          "value": 0.3542
+        },
+        {
+          "geometryId": 69,
+          "value": 0.4037
+        },
+        {
+          "geometryId": 70,
+          "value": 0.4029
+        },
+        {
+          "geometryId": 71,
+          "value": 0.4306
+        },
+        {
+          "geometryId": 72,
+          "value": 0.3902
+        },
+        {
+          "geometryId": 73,
+          "value": 0.3422
+        },
+        {
+          "geometryId": 74,
+          "value": 0.3563
+        },
+        {
+          "geometryId": 75,
+          "value": 0.3202
+        },
+        {
+          "geometryId": 76,
+          "value": 0.3345
+        },
+        {
+          "geometryId": 77,
+          "value": 0.4153
+        },
+        {
+          "geometryId": 78,
+          "value": 0.3318
+        },
+        {
+          "geometryId": 79,
+          "value": 0.4165
+        },
+        {
+          "geometryId": 80,
+          "value": 0.3996
+        },
+        {
+          "geometryId": 81,
+          "value": 0.3343
+        },
+        {
+          "geometryId": 82,
+          "value": 0.4008
+        },
+        {
+          "geometryId": 83,
+          "value": 0.311
+        },
+        {
+          "geometryId": 84,
+          "value": 0.335
+        },
+        {
+          "geometryId": 85,
+          "value": 0.3897
+        },
+        {
+          "geometryId": 86,
+          "value": 0.3963
+        },
+        {
+          "geometryId": 87,
+          "value": 0.3002
+        },
+        {
+          "geometryId": 88,
+          "value": 0.3753
+        },
+        {
+          "geometryId": 89,
+          "value": 0.3738
+        },
+        {
+          "geometryId": 90,
+          "value": 0.418
+        },
+        {
+          "geometryId": 91,
+          "value": 0.3804
+        },
+        {
+          "geometryId": 92,
+          "value": 0.3816
+        },
+        {
+          "geometryId": 93,
+          "value": 0.3951
+        },
+        {
+          "geometryId": 94,
+          "value": 0.3784
+        },
+        {
+          "geometryId": 95,
+          "value": 0.3696
+        },
+        {
+          "geometryId": 96,
+          "value": 0.2926
+        }
+      ]
+    }
+  }
 }
