@@ -9,6 +9,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "i18n": "ttoss-i18n",
     "lint": "eslint",
     "start": "next start",
     "test": "jest --projects tests/unit"
