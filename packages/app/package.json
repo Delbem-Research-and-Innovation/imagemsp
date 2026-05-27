@@ -16,7 +16,10 @@
   "dependencies": {
     "@chakra-ui/react": "^3.35.0",
     "@emotion/react": "^11.14.0",
+    "@iconify/icons-maki": "^1.2.18",
+    "@iconify/icons-ph": "^1.2.5",
     "@ttoss/geovis": "0.1.10",
+    "@ttoss/react-icons": "^0.7.12",
     "maplibre-gl": "^5.24.0",
     "next": "16.2.6",
     "next-themes": "^0.4.6",
@@ -25,12 +28,15 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^10.4.0",
     "eslint-config-next": "16.2.6",
     "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "tailwindcss": "^4",
     "typescript": "^6.0.3"
   }
