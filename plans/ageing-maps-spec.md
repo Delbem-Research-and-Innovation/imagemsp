@@ -7,7 +7,7 @@
 | **Author**  | naneshoru               |
 | **Created** | 2026-05-26              |
 | **Package** | `packages/app`          |
-| **Route**   | `/maps`, `/metodologia` |
+| **Route**   | `/mapa`, `/metodologia` |
 
 ---
 
