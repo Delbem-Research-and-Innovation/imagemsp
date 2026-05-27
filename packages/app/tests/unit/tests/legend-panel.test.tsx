@@ -13,36 +13,49 @@ jest.mock('@ttoss/geovis', () => ({
   GeoVisLegend: () => null,
 }));
 
-const renderPanel = (onClose = jest.fn()) =>
+const renderPanel = (isOpen = true, onToggle = jest.fn()) =>
   render(
     <ChakraProvider value={defaultSystem}>
-      <LegendPanel category="cumulative-total" group="65" onClose={onClose} />
+      <LegendPanel
+        category="cumulative-total"
+        group="65"
+        isOpen={isOpen}
+        onToggle={onToggle}
+      />
     </ChakraProvider>
   );
 
-describe('LegendPanel — close button', () => {
-  it('close button has aria-label="Fechar painel"', () => {
-    renderPanel();
+describe('LegendPanel — toggle button', () => {
+  it('toggle button has aria-label="Fechar painel" when open', () => {
+    renderPanel(true);
 
-    const closeButton = screen.getByRole('button', { name: /fechar painel/i });
+    const toggleButton = screen.getByRole('button', { name: /fechar painel/i });
 
-    expect(closeButton).toBeInTheDocument();
+    expect(toggleButton).toBeInTheDocument();
   });
 
-  it('clicking the close button calls the onClose callback once', () => {
-    const onClose = jest.fn();
-    renderPanel(onClose);
+  it('toggle button has aria-label="Abrir painel" when closed', () => {
+    renderPanel(false);
+
+    const toggleButton = screen.getByRole('button', { name: /abrir painel/i });
+
+    expect(toggleButton).toBeInTheDocument();
+  });
+
+  it('clicking the toggle button calls the onToggle callback once', () => {
+    const onToggle = jest.fn();
+    renderPanel(true, onToggle);
 
     fireEvent.click(screen.getByRole('button', { name: /fechar painel/i }));
 
-    expect(onClose).toHaveBeenCalledTimes(1);
+    expect(onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it('close button renders as a native <button> element, not a <div>', () => {
+  it('toggle button renders as a native <button> element, not a <div>', () => {
     renderPanel();
 
-    const closeButton = screen.getByRole('button', { name: /fechar painel/i });
+    const toggleButton = screen.getByRole('button', { name: /fechar painel/i });
 
-    expect(closeButton.tagName).toBe('BUTTON');
+    expect(toggleButton.tagName).toBe('BUTTON');
   });
 });

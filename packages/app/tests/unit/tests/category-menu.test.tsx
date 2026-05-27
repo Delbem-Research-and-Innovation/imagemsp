@@ -4,7 +4,7 @@
 import '@testing-library/jest-dom';
 
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import { CategoryMenu } from '@/components/map/CategoryMenu';
@@ -22,6 +22,7 @@ const renderMenu = (
         group={group}
         onCategoryChange={onCategoryChange}
         onGroupChange={onGroupChange}
+        isOpen={true}
       />
     </ChakraProvider>
   );
@@ -73,6 +74,9 @@ describe('CategoryMenu — menu items', () => {
       .filter((btn) => btn.getAttribute('aria-pressed') === 'false');
 
     fireEvent.click(inactiveButtons[0]);
+    act(() => {
+      jest.runAllTimers();
+    });
 
     expect(onCategoryChange).toHaveBeenCalled();
   });

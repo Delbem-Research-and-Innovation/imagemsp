@@ -6,6 +6,9 @@ export default jestUnitConfig({
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/../../src/$1',
   },
+  transformIgnorePatterns: [
+    '/node_modules/(?!.*@ttoss/react-icons)',
+  ],
   coverageThreshold: {
     global: {
       lines: 50,
