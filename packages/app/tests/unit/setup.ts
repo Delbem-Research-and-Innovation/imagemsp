@@ -3,5 +3,9 @@
 if (typeof global.structuredClone === 'undefined') {
   // Usa a função nativa do Node se disponível
   // @ts-ignore
-  global.structuredClone = (...args: any[]) => (globalThis.structuredClone ? globalThis.structuredClone(...args) : args[0]);
+  const nativeStructuredClone = globalThis.structuredClone;
+  global.structuredClone = (...args: any[]) =>
+    typeof nativeStructuredClone === 'function' && nativeStructuredClone !== global.structuredClone
+      ? nativeStructuredClone(...args)
+      : args[0];
 }
