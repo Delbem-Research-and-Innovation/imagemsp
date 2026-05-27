@@ -2,10 +2,9 @@
 // scope automatically. Chakra UI v3 requires it for slot recipe evaluation.
 if (typeof global.structuredClone === 'undefined') {
   // Usa a função nativa do Node se disponível
-  // @ts-ignore
-  const nativeStructuredClone = globalThis.structuredClone;
-  global.structuredClone = (...args: any[]) =>
+  const nativeStructuredClone = globalThis.structuredClone as typeof structuredClone | undefined;
+  global.structuredClone = <T>(value: T): T =>
     typeof nativeStructuredClone === 'function' && nativeStructuredClone !== global.structuredClone
-      ? nativeStructuredClone(...args)
-      : args[0];
+      ? nativeStructuredClone(value)
+      : value;
 }
