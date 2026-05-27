@@ -12,8 +12,7 @@ import React from 'react';
 
 import { CategoryMenu, GROUP_OPTIONS } from '@/components/map/CategoryMenu';
 import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
-import { IndicatorSelector } from '@/components/map/IndicatorSelector';
-import type { Category, Group, IndicatorId } from '@/lib/indicators';
+import type { Category, Group } from '@/lib/indicators';
 import mapsData from '../../data/maps-data.json';
 
 // Pre-computed data types and constants
@@ -135,8 +134,7 @@ const MapsPage = () => {
   const [selection, setSelection] = React.useState<{
     category: Category;
     group: Group;
-    indicator: IndicatorId;
-  }>({ category: 'cumulative-total', group: '65', indicator: 'pop-60plus' });
+  }>({ category: 'cumulative-total', group: '65' });
   const [leftOpen, setLeftOpen] = React.useState(true);
   const [rightOpen, setRightOpen] = React.useState(true);
 
@@ -148,12 +146,11 @@ const MapsPage = () => {
   return (
     <GeoVisProvider spec={spec}>
       <Box position="relative" height="100vh" overflow="hidden">
-        {/* Menu esquerdo — toggle integrado ao componente */}
+
         <CategoryMenu
           category={selection.category}
           group={selection.group}
           isOpen={leftOpen}
-          onToggle={() => setLeftOpen((prev) => !prev)}
           onCategoryChange={(c) =>
             setSelection((prev) => ({
               ...prev,
@@ -165,11 +162,6 @@ const MapsPage = () => {
             setSelection((prev) => ({ ...prev, group: g }))
           }
         />
-
-          {/* <IndicatorSelector
-            value={selection.indicator}
-            onChange={(ind) => setSelection((prev) => ({ ...prev, indicator: ind }))}
-          /> */}
 
           <GeoVisCanvas
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
@@ -186,21 +178,21 @@ const MapsPage = () => {
             borderWidth="2px"
             borderStyle="solid"
             borderColor="blue.800"
-            outline="1px solid #e3dede"
+            boxShadow="0 0 0 1px #e3dede"
             borderRadius="md"
             fontWeight="bold"
             fontSize="lg"
             textTransform="uppercase"
             letterSpacing="0.03em"
             px={6}
-            minH="40px"
+            minH="44px"
             onClick={() => setLeftOpen((prev) => !prev)}
             _hover={{ bg: 'blue.50' }}
+            _focusVisible={{ outline: '2px solid', outlineColor: 'blue.800', outlineOffset: '2px' }}
           >
             DEMOGRAFIA
           </Button>
 
-          {/* Painel de legenda — toggle integrado ao componente */}
           <LegendPanel
             category={selection.category}
             group={selection.group}

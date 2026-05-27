@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, IconButton, Text } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 import React from 'react';
 
 import type { Category, Group } from '@/lib/indicators';
@@ -34,7 +34,6 @@ interface CategoryMenuProps {
   onCategoryChange: (c: Category) => void;
   onGroupChange: (g: Group) => void;
   isOpen: boolean;
-  onToggle: () => void;
 }
 
 export const CategoryMenu = ({
@@ -43,7 +42,6 @@ export const CategoryMenu = ({
   onCategoryChange,
   onGroupChange,
   isOpen,
-  onToggle,
 }: CategoryMenuProps) => {
   /** Espelha o offset responsivo do painel da legenda */
   const leftOffset = 'clamp(0.75rem, 5vw, 16rem)';
@@ -73,12 +71,16 @@ export const CategoryMenu = ({
     position="absolute"
     top="120px"
     left={leftOffset}
-    width={isOpen ? '300px' : '0'}
     overflow="visible"
     zIndex={30}
     data-theme="light"
-    style={{ transition: 'width 0.3s ease' }}
   >
+    {/* Clipping wrapper — controls slide animation and clips hidden content */}
+    <Box
+      overflow="hidden"
+      width={isOpen ? '300px' : '0'}
+      style={{ transition: 'width 0.3s ease' }}
+    >
     <Box
       width="300px"
       bg="white"
@@ -92,6 +94,7 @@ export const CategoryMenu = ({
       opacity={fading || !isOpen ? 0 : 1}
       border="1px solid #e3dede"
       pointerEvents={isOpen ? undefined : 'none'}
+      aria-hidden={!isOpen}
       style={{ transition: 'opacity 0.2s ease' }}
     >
         <Box>
@@ -121,6 +124,7 @@ export const CategoryMenu = ({
                 aria-pressed={active}
                 onClick={() => handleCategoryChange(opt.value)}
                 _hover={{ bg: '#f5f1f1', color: 'blue.800' }}
+                _focusVisible={{ outline: '2px solid', outlineColor: 'blue.800', outlineOffset: '1px' }}
                 minH="44px"
                 px={3}
                 mb="2px"
@@ -131,7 +135,7 @@ export const CategoryMenu = ({
           })}
         </Box>
 
-        <Box overflowY="auto" maxH="220px">
+        <Box>
           <Text
             fontSize="xs"
             fontWeight="semibold"
@@ -158,6 +162,7 @@ export const CategoryMenu = ({
                 aria-pressed={active}
                 onClick={() => handleGroupChange(opt.value)}
                 _hover={{ bg: '#f5f1f1', color: 'blue.800' }}
+                _focusVisible={{ outline: '2px solid', outlineColor: 'blue.800', outlineOffset: '1px' }}
                 minH="44px"
                 px={3}
                 mb="2px"
@@ -168,9 +173,7 @@ export const CategoryMenu = ({
           })}
         </Box>
       </Box>
-
-    {/* Botão de toggle — centrado no meio do painel */}
-  
+    </Box>
   </Box>
   );
 };
