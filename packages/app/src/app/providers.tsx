@@ -4,6 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { I18nProvider } from '@ttoss/react-i18n';
 import type { LoadLocaleData } from '@ttoss/react-i18n';
 
+import { EmotionRegistry } from './emotion-registry';
 import { system } from './theme';
 
 /**
@@ -35,9 +36,9 @@ export const Providers = ({
   children: React.ReactNode;
   locale?: string;
 }) => (
-  <I18nProvider locale={locale} loadLocaleData={loadLocaleData}>
-    <ChakraProvider value={system}>
-        {children}
-    </ChakraProvider>
-  </I18nProvider>
+  <EmotionRegistry>
+    <I18nProvider locale={locale} loadLocaleData={loadLocaleData}>
+      <ChakraProvider value={system}>{children}</ChakraProvider>
+    </I18nProvider>
+  </EmotionRegistry>
 );
