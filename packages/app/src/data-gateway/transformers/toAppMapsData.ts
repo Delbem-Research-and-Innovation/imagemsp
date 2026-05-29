@@ -1,14 +1,6 @@
 import type { StaticMapsDataSource } from '../../data-source-static/types';
 import type { MapDataRow, MapsDataContract } from '../schema';
-
-/**
- * NYC fixed-interval thresholds shared by all map categories and groups.
- * Defined here (not in JSON) because classification is an application concern,
- * independent of the raw population data.
- *
- * Source: IMAGE:NYC choroplethConfig.js (urbanresearchmaps.org/imagenycmap).
- */
-const NYC_THRESHOLDS = [0.1, 0.2, 0.4, 0.6, 0.7, 0.8];
+import { NYC_THRESHOLDS } from '../../lib/mapConfig';
 
 /** Pre-built thresholds injected into every {@link MapsDataContract}. */
 const ALL_THRESHOLDS: MapsDataContract['thresholds'] = {
@@ -56,6 +48,12 @@ const makeRow = (
  * // { year: 2025, thresholds: { ... }, mapData: { ... } }
  */
 export const toAppMapsData = (source: StaticMapsDataSource): MapsDataContract => {
+  if (source.districts.length === 0) {
+    throw new Error(
+      '[data-gateway] toAppMapsData received an empty districts array'
+    );
+  }
+
   const ct65: MapDataRow[] = [];
   const ct70: MapDataRow[] = [];
   const ct75: MapDataRow[] = [];

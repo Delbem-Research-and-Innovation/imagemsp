@@ -5,9 +5,7 @@ import React from 'react';
 
 import { Icon, ICONS } from '@/lib/icons';
 import type { Category, Group } from '@/lib/indicators';
-
-/** NYC IMAGE fixed-interval thresholds shared by all map categories. */
-const NYC_THRESHOLDS = [0.1, 0.2, 0.4, 0.6, 0.7, 0.8];
+import { NYC_THRESHOLDS } from '@/lib/mapConfig';
 
 /** ColorBrewer blue7 sequential palette used in all choropleth layers. */
 const LEGEND_COLORS = [

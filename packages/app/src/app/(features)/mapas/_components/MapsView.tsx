@@ -11,6 +11,7 @@ import { CategoryMenu, GROUP_OPTIONS } from '@/components/map/CategoryMenu';
 import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
 import type { MapsDataContract } from '@/data-gateway/schema';
 import type { Category, Group } from '@/lib/indicators';
+import { NYC_THRESHOLDS } from '@/lib/mapConfig';
 
 // Sequential blue palette from ColorBrewer Blues-7 (IMAGE:NYC blue7 scale)
 const COLORS = [
@@ -51,7 +52,7 @@ const buildSpec = (
   const thresholds =
     (
       data.thresholds[category] as Partial<Record<string, number[]>> | undefined
-    )?.[group] ?? [0.1, 0.2, 0.4, 0.6, 0.7, 0.8];
+    )?.[group] ?? NYC_THRESHOLDS;
 
   const title =
     (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';
