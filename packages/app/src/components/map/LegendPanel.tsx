@@ -1,49 +1,94 @@
 'use client';
 
 import { Box, IconButton, Link, Text } from '@chakra-ui/react';
-import { GeoVisLegend } from '@ttoss/geovis';
 import React from 'react';
 
 import { Icon, ICONS } from '@/lib/icons';
 import type { Category, Group } from '@/lib/indicators';
 
-const LEGEND_ID = 'pop-legend';
+/** NYC IMAGE fixed-interval thresholds shared by all map categories. */
+const NYC_THRESHOLDS = [0.1, 0.2, 0.4, 0.6, 0.7, 0.8];
+
+/** ColorBrewer blue7 sequential palette used in all choropleth layers. */
+const LEGEND_COLORS = [
+  '#c6dbef',
+  '#9ecae1',
+  '#6baed6',
+  '#4292c6',
+  '#2171b5',
+  '#08519c',
+  '#08306b',
+];
 
 export const MAP_TITLES: Record<Category, Partial<Record<Group, string>>> = {
   'cumulative-total': {
-    '65': 'POPULAÇÃO COM 65 ANOS OU MAIS',
-    '70': 'POPULAÇÃO COM 70 ANOS OU MAIS',
-    '75': 'POPULAÇÃO COM 75 ANOS OU MAIS',
+    '65': 'POPULAÇÃO 65+ COMO % DA POPULAÇÃO TOTAL',
+    '70': 'POPULAÇÃO 70+ COMO % DA POPULAÇÃO TOTAL',
+    '75': 'POPULAÇÃO 75+ COMO % DA POPULAÇÃO TOTAL',
   },
   'cumulative-65plus': {
     '70': '70+ COMO % DA POPULAÇÃO 65+',
     '75': '75+ COMO % DA POPULAÇÃO 65+',
   },
   '5year-65plus': {
-    '65-69': '65 A 69 ANOS, % DA POPULAÇÃO 65+',
-    '70-74': '70 A 74 ANOS, % DA POPULAÇÃO 65+',
-    '75': '75 ANOS OU MAIS, % DA POPULAÇÃO 65+',
+    '65-69': '65–69 ANOS COMO % DA POPULAÇÃO 65+',
+    '70-74': '70–74 ANOS COMO % DA POPULAÇÃO 65+',
+    '75': '75+ COMO % DA POPULAÇÃO 65+',
   },
 };
 
 const MAP_DESCRIPTIONS: Record<Category, Partial<Record<Group, string>>> = {
   'cumulative-total': {
-    '65': 'Proporção da população total do distrito com 65 anos ou mais, 2025.',
-    '70': 'Proporção da população total do distrito com 70 anos ou mais, 2025.',
-    '75': 'Proporção da população total do distrito com 75 anos ou mais, 2025.',
+    '65': 'Proporção da população total do distrito com 65 anos ou mais.',
+    '70': 'Proporção da população total do distrito com 70 anos ou mais.',
+    '75': 'Proporção da população total do distrito com 75 anos ou mais.',
   },
   'cumulative-65plus': {
-    '70': 'Proporção da população 65+ que tem 70 anos ou mais, 2025.',
-    '75': 'Proporção da população 65+ que tem 75 anos ou mais, 2025.',
+    '70': 'Proporção da população 65+ que tem 70 anos ou mais.',
+    '75': 'Proporção da população 65+ que tem 75 anos ou mais.',
   },
   '5year-65plus': {
-    '65-69': 'Parcela da população 65+ na faixa de 65 a 69 anos, 2025.',
-    '70-74': 'Parcela da população 65+ na faixa de 70 a 74 anos, 2025.',
-    '75': 'Parcela da população 65+ com 75 anos ou mais, 2025.',
+    '65-69': 'Parcela da população 65+ na faixa de 65 a 69 anos.',
+    '70-74': 'Parcela da população 65+ na faixa de 70 a 74 anos.',
+    '75': 'Parcela da população 65+ com 75 anos ou mais.',
   },
 };
 
-const formatPercent = (value: number) => `${(value * 100).toFixed(1)}%`;
+const formatPercent = (value: number) => {
+  const pct = value * 100;
+  return `${pct % 1 === 0 ? pct.toFixed(0) : pct.toFixed(1)}%`;
+};
+
+/** Builds one legend item per class from the NYC fixed breakpoints. */
+const buildLegendItems = () => {
+  const breaks = [0, ...NYC_THRESHOLDS, 1];
+  return breaks.slice(0, -1).map((lower, i) => ({
+    color: LEGEND_COLORS[i],
+    label: `${formatPercent(lower)} \u2013 ${formatPercent(breaks[i + 1])}`,
+  }));
+};
+
+const ThresholdLegend = () => {
+  const items = buildLegendItems();
+  return (
+    <Box display="flex" flexDirection="column" gap={1}>
+      {items.map(({ color, label }) => (
+        <Box key={label} display="flex" alignItems="center" gap={2}>
+          <Box
+            width="20px"
+            height="14px"
+            borderRadius="2px"
+            flexShrink={0}
+            style={{ backgroundColor: color }}
+          />
+          <Text fontSize="xs" color="gray.700">
+            {label}
+          </Text>
+        </Box>
+      ))}
+    </Box>
+  );
+};
 
 interface LegendPanelProps {
   category: Category;
@@ -123,7 +168,7 @@ export const LegendPanel = ({
           </Box>
 
           <Box color="gray.900">
-            <GeoVisLegend legendId={LEGEND_ID} formatValue={formatPercent} />
+            <ThresholdLegend />
           </Box>
 
           <Box>

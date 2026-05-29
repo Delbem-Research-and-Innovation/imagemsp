@@ -12,8 +12,16 @@ import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
 import type { MapsDataContract } from '@/data-gateway/schema';
 import type { Category, Group } from '@/lib/indicators';
 
-// Sequential blue palette from ColorBrewer Blues-5
-const COLORS = ['#deebf7', '#9ecae1', '#6baed6', '#2171b5', '#08519c'];
+// Sequential blue palette from ColorBrewer Blues-7 (IMAGE:NYC blue7 scale)
+const COLORS = [
+  '#c6dbef',
+  '#9ecae1',
+  '#6baed6',
+  '#4292c6',
+  '#2171b5',
+  '#08519c',
+  '#08306b',
+];
 
 const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
@@ -43,7 +51,7 @@ const buildSpec = (
   const thresholds =
     (
       data.thresholds[category] as Partial<Record<string, number[]>> | undefined
-    )?.[group] ?? [0.2, 0.4, 0.6, 0.8];
+    )?.[group] ?? [0.1, 0.2, 0.4, 0.6, 0.7, 0.8];
 
   const title =
     (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';
