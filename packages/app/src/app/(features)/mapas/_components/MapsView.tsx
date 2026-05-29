@@ -35,14 +35,15 @@ const buildSpec = (
 ): VisualizationSpec => {
   const mapDataRows =
     (
-      data.mapData[category] as Partial<
-        Record<Group, { geometryId: number; value: number }[]>
-      >
-    )[group] ?? [];
+      data.mapData[category] as
+        | Partial<Record<Group, { geometryId: number; value: number }[]>>
+        | undefined
+    )?.[group] ?? [];
 
   const thresholds =
-    (data.thresholds[category] as Partial<Record<string, number[]>>)[group] ??
-    [0.2, 0.4, 0.6, 0.8];
+    (
+      data.thresholds[category] as Partial<Record<string, number[]>> | undefined
+    )?.[group] ?? [0.2, 0.4, 0.6, 0.8];
 
   const title =
     (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';

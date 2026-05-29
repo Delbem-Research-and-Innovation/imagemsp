@@ -1,6 +1,6 @@
 'use client';
 
-import { Icon as IconifyIcon } from '@iconify/react';
+import { Icon as IconifyIcon } from '@ttoss/react-icons';
 
 type Props = {
   /** Iconify icon name, e.g. `mdi:menu` or `lucide:x`. */
