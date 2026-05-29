@@ -9,11 +9,19 @@ describe('readStaticMapsData — validation', () => {
 
   it('resolves with the parsed data when the snapshot is well-formed', async () => {
     jest.doMock('@/data-source-static/data/maps-data.json', () => ({
-      year: 2025,
-      thresholds: { 'cumulative-total': { '65': [0.1, 0.3, 0.5, 0.7] } },
-      mapData: {
-        'cumulative-total': { '65': [{ geometryId: 1, value: 0.45 }] },
-      },
+      districts: [
+        {
+          ano: 2025,
+          cod_distr: 80008,
+          nome: 'Belém',
+          municipio: 'São Paulo',
+          geometry_id: 8,
+          count_65_69: 1782,
+          count_70_74: 1301,
+          count_75plus: 2659,
+          total: 47772,
+        },
+      ],
     }));
 
     const { readStaticMapsData } = await import(
@@ -21,19 +29,14 @@ describe('readStaticMapsData — validation', () => {
     );
     const result = await readStaticMapsData();
 
-    expect(result.year).toBe(2025);
-    expect(result.thresholds).toEqual({
-      'cumulative-total': { '65': [0.1, 0.3, 0.5, 0.7] },
-    });
-    expect(result.mapData).toEqual({
-      'cumulative-total': { '65': [{ geometryId: 1, value: 0.45 }] },
-    });
+    expect(result.districts).toHaveLength(1);
+    expect(result.districts[0].ano).toBe(2025);
+    expect(result.districts[0].nome).toBe('Belém');
   });
 
   it('throws when top-level required fields are missing', async () => {
     jest.doMock('@/data-source-static/data/maps-data.json', () => ({
-      year: 2025,
-      // thresholds and mapData missing
+      // districts missing
     }));
 
     const { readStaticMapsData } = await import(
@@ -42,13 +45,9 @@ describe('readStaticMapsData — validation', () => {
     await expect(readStaticMapsData()).rejects.toThrow('[data-source-static]');
   });
 
-  it('throws when a threshold entry contains a non-array value', async () => {
+  it('throws when districts is not an array', async () => {
     jest.doMock('@/data-source-static/data/maps-data.json', () => ({
-      year: 2025,
-      thresholds: { 'cumulative-total': { '65': 'not-an-array' } },
-      mapData: {
-        'cumulative-total': { '65': [{ geometryId: 1, value: 0.45 }] },
-      },
+      districts: 'not-an-array',
     }));
 
     const { readStaticMapsData } = await import(
@@ -57,13 +56,9 @@ describe('readStaticMapsData — validation', () => {
     await expect(readStaticMapsData()).rejects.toThrow('[data-source-static]');
   });
 
-  it('throws when a mapData row is missing geometryId or value', async () => {
+  it('throws when a district row is missing required fields', async () => {
     jest.doMock('@/data-source-static/data/maps-data.json', () => ({
-      year: 2025,
-      thresholds: { 'cumulative-total': { '65': [0.1, 0.3, 0.5, 0.7] } },
-      mapData: {
-        'cumulative-total': { '65': [{ id: 99 }] }, // missing geometryId + value
-      },
+      districts: [{ cod_distr: 80008 }], // missing nome, geometry_id, counts, total
     }));
 
     const { readStaticMapsData } = await import(

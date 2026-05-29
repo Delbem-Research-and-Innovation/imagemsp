@@ -2,51 +2,32 @@ import mapsData from './data/maps-data.json';
 
 import type { StaticMapsDataSource } from './types';
 
-/**
- * Returns true when every value in a nested `Record<string, unknown>` satisfies
- * the provided predicate. Used to validate that nested map data objects have the
- * expected shape before the app casts them to a narrower contract type.
- */
-const allNestedValues = (
-  outer: Record<string, unknown>,
-  predicate: (value: unknown) => boolean
-): boolean => {
-  return Object.values(outer).every((inner) => {
-    if (typeof inner !== 'object' || inner === null) {
-      return false;
-    }
-    return Object.values(inner as Record<string, unknown>).every(predicate);
-  });
-};
-
-const isNumberArray = (value: unknown): boolean => {
-  return Array.isArray(value) && value.every((v) => typeof v === 'number');
-};
-
-const isMapDataRowArray = (value: unknown): boolean => {
+const isDistrictData = (value: unknown): boolean => {
+  if (typeof value !== 'object' || value === null) {
+    return false;
+  }
+  const row = value as Record<string, unknown>;
   return (
-    Array.isArray(value) &&
-    value.every(
-      (row) =>
-        typeof row === 'object' &&
-        row !== null &&
-        typeof (row as Record<string, unknown>)['geometryId'] === 'number' &&
-        typeof (row as Record<string, unknown>)['value'] === 'number'
-    )
+    typeof row['ano'] === 'number' &&
+    typeof row['cod_distr'] === 'number' &&
+    typeof row['nome'] === 'string' &&
+    typeof row['municipio'] === 'string' &&
+    typeof row['geometry_id'] === 'number' &&
+    typeof row['count_65_69'] === 'number' &&
+    typeof row['count_70_74'] === 'number' &&
+    typeof row['count_75plus'] === 'number' &&
+    typeof row['total'] === 'number'
   );
 };
 
 /**
- * Validates that a parsed value matches the expected `StaticMapsDataSource`
- * shape, including nested `thresholds` (number arrays) and `mapData`
- * (MapDataRow arrays).
+ * Returns true when `value` matches the expected `StaticMapsDataSource` shape:
+ * a `districts` array where every element
+ * satisfies {@link isDistrictData}.
  *
  * @remarks
- * The shallow-only check (year/thresholds/mapData top-level keys) is
- * insufficient: a snapshot with malformed nested values would pass the
- * top-level guard and still cause runtime crashes downstream. This validator
- * recurses into the nested objects so malformed snapshots are rejected early
- * at the data boundary.
+ * Field-level validation is intentional: a shallow top-level check would pass
+ * a snapshot with malformed district rows and cause runtime crashes downstream.
  */
 const isStaticMapsDataSource = (
   value: unknown
@@ -54,25 +35,13 @@ const isStaticMapsDataSource = (
   if (
     typeof value !== 'object' ||
     value === null ||
-    typeof (value as Record<string, unknown>)['year'] !== 'number' ||
-    typeof (value as Record<string, unknown>)['thresholds'] !== 'object' ||
-    typeof (value as Record<string, unknown>)['mapData'] !== 'object'
+    !Array.isArray((value as Record<string, unknown>)['districts'])
   ) {
     return false;
   }
-
-  const thresholds = (value as Record<string, unknown>)[
-    'thresholds'
-  ] as Record<string, unknown>;
-  const mapData = (value as Record<string, unknown>)['mapData'] as Record<
-    string,
-    unknown
-  >;
-
   return (
-    allNestedValues(thresholds, isNumberArray) &&
-    allNestedValues(mapData, isMapDataRowArray)
-  );
+    (value as Record<string, unknown>)['districts'] as unknown[]
+  ).every(isDistrictData);
 };
 
 /**
@@ -83,7 +52,7 @@ const isStaticMapsDataSource = (
  *
  * @example
  * const mapsData = await readStaticMapsData();
- * // { year: 2025, thresholds: { ... }, mapData: { ... } }
+ * // { districts: [...] }
  */
 export const readStaticMapsData = async (): Promise<StaticMapsDataSource> => {
   const parsed: unknown = mapsData;

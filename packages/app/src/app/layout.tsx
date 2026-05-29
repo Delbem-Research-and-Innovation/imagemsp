@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import { cookies, headers } from 'next/headers';
 
-import { isLocale } from '../config/locales';
 import { Providers } from './providers';
 
 import './globals.css';
@@ -16,18 +14,10 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieLocale = (await cookies()).get('locale')?.value;
-  const acceptLanguage = (await headers()).get('accept-language') ?? '';
-  const locale = isLocale(cookieLocale)
-    ? cookieLocale
-    : acceptLanguage.toLowerCase().includes('pt')
-      ? 'pt-BR'
-      : 'en';
-
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body>
-        <Providers locale={locale}>{children}</Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

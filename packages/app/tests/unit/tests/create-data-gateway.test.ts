@@ -11,13 +11,19 @@ const mockReadStaticMapsData = readStaticMapsData as jest.MockedFunction<
 >;
 
 const MOCK_SOURCE = {
-  year: 2025,
-  thresholds: {
-    'cumulative-total': { '65': [0.1, 0.3, 0.5, 0.7] },
-  },
-  mapData: {
-    'cumulative-total': { '65': [{ geometryId: 1, value: 0.45 }] },
-  },
+  districts: [
+    {
+      ano: 2025,
+      cod_distr: 80008,
+      nome: 'Belém',
+      municipio: 'São Paulo',
+      geometry_id: 8,
+      count_65_69: 1782,
+      count_70_74: 1301,
+      count_75plus: 2659,
+      total: 47772,
+    },
+  ],
 };
 
 describe('createDataGateway', () => {
@@ -67,14 +73,18 @@ describe('createDataGateway', () => {
       expect(typeof data.mapData).toBe('object');
     });
 
-    it('returns data from readStaticMapsData via toAppMapsData', async () => {
+    it('returns data derived from readStaticMapsData districts', async () => {
       delete process.env['DATA_SOURCE'];
       const gateway = createDataGateway();
       const data = await gateway.getMapsData();
 
-      expect(data.year).toBe(MOCK_SOURCE.year);
-      expect(data.thresholds).toEqual(MOCK_SOURCE.thresholds);
-      expect(data.mapData).toEqual(MOCK_SOURCE.mapData);
+      expect(data.year).toBe(MOCK_SOURCE.districts[0].ano);
+      // thresholds come from app constants (NYC fixed intervals), not from the source JSON
+      expect(data.thresholds['cumulative-total']?.['65']).toEqual([
+        0.1, 0.2, 0.4, 0.6, 0.7, 0.8,
+      ]);
+      // mapData is computed from district counts
+      expect(data.mapData['cumulative-total']?.['65']?.[0]?.geometryId).toBe(8);
       expect(mockReadStaticMapsData).toHaveBeenCalledTimes(1);
     });
   });
