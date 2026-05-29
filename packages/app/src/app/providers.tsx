@@ -7,10 +7,8 @@ import { system } from './theme';
 
 export const Providers = ({
   children,
-  locale,
 }: {
   children: React.ReactNode;
-  locale?: string;
 }) => (
   <EmotionRegistry>
       <ChakraProvider value={system}>{children}</ChakraProvider>
