@@ -5,18 +5,7 @@ import React from 'react';
 
 import { Icon, ICONS } from '@/lib/icons';
 import type { Category, Group } from '@/lib/indicators';
-import { NYC_THRESHOLDS } from '@/lib/mapConfig';
-
-/** ColorBrewer blue7 sequential palette used in all choropleth layers. */
-const LEGEND_COLORS = [
-  '#c6dbef',
-  '#9ecae1',
-  '#6baed6',
-  '#4292c6',
-  '#2171b5',
-  '#08519c',
-  '#08306b',
-];
+import { NYC_THRESHOLDS, LEGEND_COLORS } from '@/lib/mapConfig';
 
 export const MAP_TITLES: Record<Category, Partial<Record<Group, string>>> = {
   'cumulative-total': {

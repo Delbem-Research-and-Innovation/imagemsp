@@ -2,27 +2,26 @@
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { Box, Button } from '@chakra-ui/react';
-import { GeoVisCanvas, GeoVisProvider } from '@ttoss/geovis';
+import { Box, Button, Text } from '@chakra-ui/react';
+import {
+  GeoVisCanvas,
+  GeoVisHoverTooltip,
+  GeoVisProvider,
+  useGeoVisClick,
+  useGeoVisHover,
+} from '@ttoss/geovis';
 import type { VisualizationSpec } from '@ttoss/geovis';
 import React from 'react';
 
 import { CategoryMenu, GROUP_OPTIONS } from '@/components/map/CategoryMenu';
 import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
+import type { MapDataRow } from '@/data-gateway/schema';
 import type { MapsDataContract } from '@/data-gateway/schema';
 import type { Category, Group } from '@/lib/indicators';
-import { NYC_THRESHOLDS } from '@/lib/mapConfig';
+import { getBandIndex, LEGEND_COLORS, NYC_THRESHOLDS } from '@/lib/mapConfig';
 
-// Sequential blue palette from ColorBrewer Blues-7 (IMAGE:NYC blue7 scale)
-const COLORS = [
-  '#c6dbef',
-  '#9ecae1',
-  '#6baed6',
-  '#4292c6',
-  '#2171b5',
-  '#08519c',
-  '#08306b',
-];
+// Sequential blue palette from ColorBrewer Blues-7 — imported from mapConfig
+// LEGEND_COLORS is the canonical reference used by all choropleth UI.
 
 const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
@@ -81,6 +80,9 @@ const buildSpec = (
         geometry: 'polygon',
         mapDataId: MAP_DATA_ID,
         activeLegendId: LEGEND_ID,
+        hoverPaint: { lineColor: '#333333', lineWidth: 2 },
+        selectedPaint: { lineColor: '#1a1a1a', lineWidth: 3 },
+        clickAnchor: { color: '#2171b5' },
         legends: [
           {
             id: LEGEND_ID,
@@ -90,7 +92,7 @@ const buildSpec = (
               property: 'value',
               scale: 'threshold',
               thresholds,
-              colors: COLORS,
+              colors: LEGEND_COLORS,
             },
           },
         ],
@@ -108,6 +110,51 @@ const buildSpec = (
 
 export type MapsViewProps = {
   mapsData: MapsDataContract;
+};
+
+/** District tooltip rendered inside GeoVisHoverTooltip as children. */
+const DistrictTooltip = ({
+  rowLookup,
+}: {
+  rowLookup: Map<number, MapDataRow>;
+}) => {
+  const hover = useGeoVisHover();
+  const click = useGeoVisClick();
+  const info = click ?? hover;
+  if (!info) return null;
+
+  const row = rowLookup.get(Number(info.featureId));
+  const bandIndex = row != null ? getBandIndex(row.value) : null;
+  const swatchColor =
+    bandIndex != null ? LEGEND_COLORS[bandIndex] : '#e2e8f0';
+
+  return (
+    <Box display="flex" flexDirection="column" gap="1" minWidth="160px">
+      <Box display="flex" alignItems="center" gap="2">
+        <Box
+          width="14px"
+          height="14px"
+          borderRadius="2px"
+          flexShrink={0}
+          style={{ backgroundColor: swatchColor }}
+        />
+        <Text fontWeight="bold" fontSize="sm" lineHeight="tight">
+          {row?.name ?? String(info.featureId)}
+        </Text>
+      </Box>
+      {row && (
+        <Text fontSize="xs" color="gray.600">
+          {(row.value * 100).toFixed(1)}%
+          {row.count != null && row.totalCount != null && (
+            <>
+              {' '}
+              ({row.count.toLocaleString()} / {row.totalCount.toLocaleString()})
+            </>
+          )}
+        </Text>
+      )}
+    </Box>
+  );
 };
 
 /**
@@ -131,6 +178,12 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
     () => buildSpec(mapsData, selection.category, selection.group),
     [mapsData, selection]
   );
+
+  const rowLookup = React.useMemo(() => {
+    const rows =
+      mapsData.mapData[selection.category]?.[selection.group] ?? [];
+    return new Map(rows.map((r) => [r.geometryId, r] as const));
+  }, [mapsData, selection.category, selection.group]);
 
   return (
     <GeoVisProvider spec={spec}>
@@ -159,6 +212,20 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
             height: '100%',
           }}
         />
+
+        <GeoVisHoverTooltip
+          persistOnClick
+          style={{
+            background: 'white',
+            color: '#1a202c',
+            border: '1px solid #e2e8f0',
+            borderRadius: 6,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
+            padding: '8px 12px',
+          }}
+        >
+          <DistrictTooltip rowLookup={rowLookup} />
+        </GeoVisHoverTooltip>
 
         <Button
           position="absolute"
