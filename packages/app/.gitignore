@@ -42,3 +42,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+i18n/compiled/
+i18n/missing/
+i18n/unused/
