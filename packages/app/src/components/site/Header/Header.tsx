@@ -44,11 +44,8 @@ const Header = () => {
       zIndex={50}
       transition={`background-color 0.5s ${EXPO_OUT}, box-shadow 0.5s ${EXPO_OUT}`}
       bg={scrolled ? 'rgba(244, 240, 232, 0)' : 'transparent'}
-      style={{
-        backdropFilter: scrolled ? 'blur(16px) saturate(1.4)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(1.4)' : 'none',
-        boxShadow: scrolled ? '0 1px 0 rgba(75, 63, 37, 0.07)' : 'none',
-      }}
+      backdropFilter={scrolled ? 'blur(16px) saturate(1.4)' : 'none'}
+      boxShadow={scrolled ? '0 1px 0 rgba(75, 63, 37, 0.07)' : 'none'}
     >
       <Container>
         <Flex h="72px" align="center" justify="space-between">

@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Termos de Uso — ImagemSP',
 };
 
-const TermosHeader = () => {
+const TermosPage = () => {
   return (
     <Stack gap={2}>
       <Heading as="h1" size="2xl">
@@ -14,13 +14,8 @@ const TermosHeader = () => {
       <Text color="fg.muted" fontSize="sm">
         Última atualização: maio de 2026
       </Text>
+      <p>Termos de Uso — em breve.</p>
     </Stack>
-  );
-};
-
-const TermosPage = () => {
-  return (
-    <p>Termos de Uso — em breve.</p>
   );
 };
 

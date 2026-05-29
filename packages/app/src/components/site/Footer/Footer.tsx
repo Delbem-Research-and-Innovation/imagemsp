@@ -1,21 +1,10 @@
 import { Box, Grid, GridItem, Link, Stack, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
+import { legalNav, mainNav } from '../../../config/navigation';
 import Container from '../../ui/Container';
 
 const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
-
-const NAV_LINKS = [
-  { href: '/mapas', label: 'Mapas' },
-  { href: '/sobre', label: 'Sobre' },
-  { href: '/contato', label: 'Contato' },
-];
-
-const LEGAL_LINKS = [
-  { href: '/termos', label: 'Termos' },
-  { href: '/cookies', label: 'Privacidade' },
-  { href: '/contato', label: 'Acessibilidade' },
-];
 
 /**
  * SiteFooter — coral.500 background, large brand mark, three nav columns.
@@ -56,10 +45,10 @@ const Footer = () => {
           {/* Nav links — cols 5–8 */}
           <GridItem colSpan={{ base: 1, md: 4 }} colStart={{ base: 1, md: 5 }}>
             <Stack as="nav" gap={4} aria-label="Navegação do rodapé">
-              {NAV_LINKS.map((entry) => {
+              {mainNav.map((entry) => {
                 return (
                   <Link
-                    key={entry.href}
+                    key={entry.id}
                     asChild
                     textStyle="body-sm"
                     color="charcoal.900"
@@ -77,10 +66,10 @@ const Footer = () => {
           {/* Legal links — cols 9–12 */}
           <GridItem colSpan={{ base: 1, md: 4 }} colStart={{ base: 1, md: 9 }}>
             <Stack as="nav" gap={4} aria-label="Links legais">
-              {LEGAL_LINKS.map((entry) => {
+              {legalNav.map((entry) => {
                 return (
                   <Link
-                    key={entry.href}
+                    key={entry.id}
                     asChild
                     textStyle="body-sm"
                     color="charcoal.900"

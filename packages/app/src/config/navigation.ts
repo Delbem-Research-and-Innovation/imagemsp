@@ -12,6 +12,7 @@ export type NavEntry = {
  * mainNav.map((entry) => <NavLink key={entry.id} href={entry.href} label={entry.label} />)
  */
 export const mainNav: NavEntry[] = [
+  // TODO(i18n): extract user-facing labels to FormatJS messages (en/pt-BR)
   { id: 'mapa', href: '/mapas', label: 'Mapas' },
   { id: 'sobre', href: '/sobre', label: 'Sobre' },
   { id: 'contato', href: '/contato', label: 'Contato' },
@@ -26,4 +27,6 @@ export const mainNav: NavEntry[] = [
 export const legalNav: NavEntry[] = [
   { id: 'termos', href: '/termos', label: 'Termos de Uso' },
   { id: 'cookies', href: '/cookies', label: 'Cookies' },
+  // TODO(i18n): extract user-facing labels to FormatJS messages (en/pt-BR)
+  { id: 'acessibilidade', href: '/contato', label: 'Acessibilidade' },
 ];
