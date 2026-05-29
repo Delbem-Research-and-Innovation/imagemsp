@@ -12,11 +12,18 @@ const EXPO_OUT = 'cubic-bezier(0.19, 1, 0.22, 1)';
  * Full-screen mobile navigation overlay triggered by a hamburger icon.
  * Dark charcoal background, column links, expo-out entrance animation.
  *
+ * Keyboard: Esc closes the overlay and returns focus to the trigger button.
+ * Tab cycles focus within the overlay (focus trap) while it is open.
+ *
  * @example
  * <MobileMenu />
  */
 const MobileMenu = () => {
   const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const overlayRef = React.useRef<HTMLDivElement>(null);
+  const hasOpenedRef = React.useRef(false);
 
   React.useEffect(() => {
     if (open) {
@@ -29,10 +36,46 @@ const MobileMenu = () => {
     };
   }, [open]);
 
+  // Focus management: open → close button; close → trigger (only after first open)
+  React.useEffect(() => {
+    if (open) {
+      hasOpenedRef.current = true;
+      closeButtonRef.current?.focus();
+    } else if (hasOpenedRef.current) {
+      triggerRef.current?.focus();
+    }
+  }, [open]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape') {
+      setOpen(false);
+      return;
+    }
+    if (e.key === 'Tab' && overlayRef.current) {
+      const focusable = Array.from(
+        overlayRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter((el) => !el.hasAttribute('disabled'));
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    }
+  };
+
   return (
     <>
       <IconButton
+        ref={triggerRef}
         aria-label={open ? 'Fechar menu' : 'Abrir menu de navegação'}
+        aria-expanded={open}
+        aria-controls="mobile-nav-overlay"
         variant="ghost"
         color="charcoal.900"
         onClick={() => {
@@ -70,11 +113,17 @@ const MobileMenu = () => {
         </Box>
       </IconButton>
 
-      {/* Full-screen overlay */}
+      {/* Full-screen overlay — zIndex 51 sits above the fixed header (zIndex 50) */}
       <Box
+        ref={overlayRef}
+        id="mobile-nav-overlay"
+        role="dialog"
+        aria-modal
+        aria-label="Menu de navegação"
+        aria-hidden={!open}
         position="fixed"
         inset={0}
-        zIndex={49}
+        zIndex={51}
         bg="charcoal.900"
         display="flex"
         flexDirection="column"
@@ -84,9 +133,10 @@ const MobileMenu = () => {
         opacity={open ? 1 : 0}
         transform={open ? 'none' : 'translateY(-8px)'}
         pointerEvents={open ? 'auto' : 'none'}
-        aria-hidden={!open}
+        onKeyDown={handleKeyDown}
       >
         <IconButton
+          ref={closeButtonRef}
           aria-label="Fechar menu"
           variant="ghost"
           color="ivory.100"
@@ -124,7 +174,7 @@ const MobileMenu = () => {
             />
           </Box>
         </IconButton>
-        <Stack as="nav" gap={6} aria-label="Menu de navegação">
+        <Stack as="nav" gap={6} aria-label="Navegação principal">
           {mainNav.map((entry, i) => {
             return (
               <Link
