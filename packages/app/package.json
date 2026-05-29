@@ -10,7 +10,6 @@
     "prebuild": "pnpm run i18n",
     "build": "next build",
     "dev": "next dev",
-    "i18n": "ttoss-i18n",
     "lint": "eslint",
     "start": "next start",
     "test": "jest --projects tests/unit"
@@ -22,7 +21,6 @@
     "@iconify/icons-maki": "^1.2.18",
     "@iconify/icons-ph": "^1.2.5",
     "@ttoss/geovis": "0.1.10",
-    "@ttoss/react-i18n": "^2.2.12",
     "@ttoss/react-icons": "^0.7.12",
     "maplibre-gl": "^5.24.0",
     "next": "16.2.6",
@@ -33,7 +31,6 @@
     "@swc/plugin-formatjs": "9.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
-    "@ttoss/i18n-cli": "^0.8.11",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^19",
