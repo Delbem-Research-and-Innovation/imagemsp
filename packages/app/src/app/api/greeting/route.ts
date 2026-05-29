@@ -1,4 +1,4 @@
-import { gateway } from '../../../gateway';
+import { gateway } from '../../gateway';
 
 export const GET = async () => {
   const mapsData = await gateway.getMapsData();
