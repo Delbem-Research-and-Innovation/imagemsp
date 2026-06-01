@@ -78,7 +78,7 @@ const OportunidadesHero = () => {
                 </CtaLink>
               ) : (
                 <CtaLink
-                  href={`mailto:contato@imagemsp.org.br?subject=${encodeURIComponent('[Interesse] IMAGEM:SP')}`}
+                  href={`mailto:contato-imagemsp@usp.br?subject=${encodeURIComponent('[Interesse] IMAGEM:SP')}`}
                 >
                   Enviar email de interesse
                 </CtaLink>
