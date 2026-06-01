@@ -104,55 +104,55 @@ const config = defineConfig({
       },
       colors: {
         /**
-         * Paper — warm surface scale. Anchors: page bg #F4DFC5 (300), raised #FFF4E8 (100).
+         * Paper — warm linen surface scale. Anchors: page bg #E8E4DB (300), raised #F8F6F2 (100).
          */
         paper: {
-          50: { value: '#FFF9F0' },
-          100: { value: '#FFF4E8' },
-          200: { value: '#FCEBD7' },
-          300: { value: '#F4DFC5' },
-          400: { value: '#E7D4B7' },
-          500: { value: '#D6C1A2' },
+          50: { value: '#FDFDF9' },
+          100: { value: '#F8F6F2' },
+          200: { value: '#F1EEE7' },
+          300: { value: '#E8E4DB' },
+          400: { value: '#DAD5CB' },
+          500: { value: '#C5C0B5' },
         },
-        /** Ink — text scale, never pure black. Anchor: primary #1F1712 (950). */
+        /** Ink — text scale, never pure black. Anchor: primary #1A1A16 (950). */
         ink: {
-          600: { value: '#6B5F54' },
-          700: { value: '#51463D' },
-          800: { value: '#3A3028' },
-          950: { value: '#1F1712' },
+          600: { value: '#6A6862' },
+          700: { value: '#4E4E48' },
+          800: { value: '#353530' },
+          950: { value: '#1A1A16' },
         },
-        /** Olive — primary brand. Anchors: brand #3F4F30 (700), muted #5F6B4A (500). */
+        /** Forest — primary brand. Anchors: brand #1B412B (700), muted #35754F (500). */
         olive: {
-          50: { value: '#F0F3E8' },
-          100: { value: '#DDE5CF' },
-          200: { value: '#C3CEAA' },
-          300: { value: '#9EAD7E' },
-          400: { value: '#75845B' },
-          500: { value: '#5F6B4A' },
-          600: { value: '#4E5B3B' },
-          700: { value: '#3F4F30' },
-          800: { value: '#334024' },
-          900: { value: '#273219' },
+          50: { value: '#EEF5F0' },
+          100: { value: '#D2E9DA' },
+          200: { value: '#A5CDB3' },
+          300: { value: '#72AF8B' },
+          400: { value: '#499167' },
+          500: { value: '#35754F' },
+          600: { value: '#275B3C' },
+          700: { value: '#1B412B' },
+          800: { value: '#13301F' },
+          900: { value: '#0B1F14' },
         },
-        /** Clay — accent; secondary CTAs, highlights, alerts. Anchor: #9C5737 (500). */
+        /** Clay — accent; secondary CTAs, highlights, alerts. Anchor: #AD501B (500). */
         clay: {
-          50: { value: '#F8E8DF' },
-          100: { value: '#EBC8B6' },
-          200: { value: '#D99B7C' },
-          300: { value: '#BF734E' },
-          400: { value: '#A65F3E' },
-          500: { value: '#9C5737' },
-          600: { value: '#81452C' },
-          700: { value: '#673421' },
+          50: { value: '#FDF2EC' },
+          100: { value: '#F6D5BF' },
+          200: { value: '#EBA880' },
+          300: { value: '#DB7A45' },
+          400: { value: '#C45E22' },
+          500: { value: '#AD501B' },
+          600: { value: '#8C3F14' },
+          700: { value: '#6D300E' },
         },
-        /** Amber — warm editorial accent; callouts, warnings. Anchor: #8A5A13 (400). */
+        /** Amber — warm editorial accent; callouts, warnings. Anchor: #8A6512 (400). */
         amber: {
-          50: { value: '#FAECD4' },
-          100: { value: '#E9C993' },
-          200: { value: '#C58E45' },
-          300: { value: '#9A6420' },
-          400: { value: '#8A5A13' },
-          500: { value: '#70470D' },
+          50: { value: '#FDF5E0' },
+          100: { value: '#F5DC94' },
+          200: { value: '#D4A938' },
+          300: { value: '#A87C18' },
+          400: { value: '#8A6512' },
+          500: { value: '#6D4F0C' },
         },
         /** Blue — focus ring, info states, auxiliary links. Anchor: #2F5F73 (500). */
         blue: {
@@ -220,23 +220,23 @@ const config = defineConfig({
       },
       shadows: {
         /** Zero-elevation outline — card borders, panel hairlines. */
-        hairline: { value: '0 0 0 1px rgba(31, 23, 18, 0.08)' },
+        hairline: { value: '0 0 0 1px rgba(26, 26, 22, 0.10)' },
         /** Standard card elevation. */
         raised: {
           value:
-            '0 1px 2px rgba(31, 23, 18, 0.08), 0 8px 24px rgba(31, 23, 18, 0.06)',
+            '0 1px 2px rgba(26, 26, 22, 0.08), 0 8px 24px rgba(26, 26, 22, 0.06)',
         },
         /** Floating panel elevation — drawers, dropdowns, modals. */
         floating: {
           value:
-            '0 4px 12px rgba(31, 23, 18, 0.10), 0 20px 48px rgba(31, 23, 18, 0.08)',
+            '0 4px 12px rgba(26, 26, 22, 0.10), 0 20px 48px rgba(26, 26, 22, 0.08)',
         },
         /** Focus ring glow — complements :focus-visible outline. */
         focus: { value: '0 0 0 3px rgba(47, 95, 115, 0.35)' },
         /** card — alias for raised; used in content cards. */
         card: {
           value:
-            '0 1px 2px rgba(31, 23, 18, 0.08), 0 8px 24px rgba(31, 23, 18, 0.06)',
+            '0 1px 2px rgba(26, 26, 22, 0.08), 0 8px 24px rgba(26, 26, 22, 0.06)',
         },
       },
     },
@@ -448,21 +448,21 @@ const config = defineConfig({
           /** Base reading container — clean, light. */
           base: { value: '{colors.paper.100}' },
           /** Raised card surface — default container elevation. */
-          raised: { value: '#FFF6E8' },
+          raised: { value: '#FFFFFF' },
           /** Muted zone — depressed areas, sidebars. */
           muted: { value: '{colors.paper.400}' },
           /** Inset surface — input backgrounds, nested containers. */
-          inset: { value: '#EEDCC2' },
+          inset: { value: '{colors.paper.200}' },
           /** Data surface — indicator panels, precise and technical. */
           data: { value: '{colors.paper.100}' },
-          /** Map canvas — cartographic, warm near-neutral. */
-          map: { value: '#F6E7D1' },
+          /** Map canvas — cartographic, clean warm-neutral. */
+          map: { value: '#EDEDEA' },
           /** Action surface — CTAs, filters, interactive zones. */
           action: { value: '{colors.olive.50}' },
           /** Trust surface — sources, methodology, institutional strips. */
           trust: { value: '{colors.paper.200}' },
-          /** High-contrast section — olive.900; pair with text.onContrast. */
-          contrast: { value: '{colors.olive.900}' },
+          /** High-contrast section — olive.700; pair with text.onContrast. Distinct from footer (olive.900). */
+          contrast: { value: '{colors.olive.700}' },
           /** Site footer — olive.900; text.onFooter gives 11:1 contrast. */
           footer: { value: '{colors.olive.900}' },
           /** Site header — matches page background. */
@@ -483,14 +483,14 @@ const config = defineConfig({
           /** Paper on olive.900 footer — 11:1 contrast. */
           onFooter: { value: '{colors.paper.300}' },
           /** Muted warm text on olive.900 footer — body and mission copy. */
-          onFooterMuted: { value: '{colors.paper.500}' },
+          onFooterMuted: { value: '{colors.paper.400}' },
         },
         /** Borders — structural dividers and component outlines. */
         border: {
           /** Subtle divider — card edges, section separators on paper. */
-          subtle: { value: '#D9C6A9' },
+          subtle: { value: '#D2CFC6' },
           /** Default border — form inputs, panel outlines. */
-          default: { value: '#BDA98C' },
+          default: { value: '#B8B3A8' },
           /** Strong border — active selection, focused input outline. */
           strong: { value: '{colors.olive.700}' },
         },
@@ -530,9 +530,9 @@ const config = defineConfig({
         state: {
           /** Positive outcome, verified data, completed action. */
           success: {
-            solid: { value: '#41613B' },
+            solid: { value: '{colors.olive.600}' },
             subtle: { value: '{colors.olive.50}' },
-            fg: { value: '#41613B' },
+            fg: { value: '{colors.olive.600}' },
             contrast: { value: '{colors.paper.200}' },
           },
           /** Caution, data limitation notice, attention required. */

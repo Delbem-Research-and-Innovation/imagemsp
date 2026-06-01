@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import Container from '@/components/ui/Container';
 
 export const metadata: Metadata = {
-  title: 'Termos de Uso — IMAGEMSP',
+  title: 'Termos de Uso — IMAGEM:SP',
 };
 
 /** "Uso permitido" section — allowed uses and prohibitions. */
@@ -44,7 +44,7 @@ const TermosUsoSection = () => {
 };
 
 /**
- * Terms of use page — governs access and use of the IMAGEMSP platform.
+ * Terms of use page — governs access and use of the IMAGEM:SP platform.
  *
  * Uses project text tokens throughout (`text.primary`, `text.muted`, `textStyle`).
  * Rendered inside `LegalLayout` (compact header, no nav, footer).
@@ -72,9 +72,9 @@ const TermosPage = () => {
             </Text>
             <Text>
               Os presentes Termos de Uso regem o acesso e a utilização da
-              plataforma IMAGEMSP (&quot;Plataforma&quot;), mantida no âmbito do
-              Projeto IMAGEMSP FAPESP. Ao acessar ou utilizar a Plataforma, o
-              usuário declara ter lido, compreendido e concordado com estes
+              plataforma IMAGEM:SP (&quot;Plataforma&quot;), mantida no âmbito
+              do Projeto IMAGEM:SP FAPESP. Ao acessar ou utilizar a Plataforma,
+              o usuário declara ter lido, compreendido e concordado com estes
               Termos.
             </Text>
           </Stack>
@@ -105,7 +105,7 @@ const TermosPage = () => {
               Creative Commons Atribuição 4.0 Internacional (CC BY 4.0), salvo
               indicação contrária. Os dados primários provenientes de fontes
               governamentais são de domínio público. O logotipo e a identidade
-              visual do Programa IMAGEMSP pertencem ao Ministério do
+              visual do Programa IMAGEM:SP pertencem ao Ministério do
               Desenvolvimento e Assistência Social, Família e Combate à Fome
               (MDS).
             </Text>
@@ -131,7 +131,7 @@ const TermosPage = () => {
               6. Limitação de responsabilidade
             </Text>
             <Text>
-              A equipe do Projeto IMAGEMSP não se responsabiliza por danos
+              A equipe do Projeto IMAGEM:SP não se responsabiliza por danos
               diretos ou indiretos decorrentes do uso ou da impossibilidade de
               uso da Plataforma, nem pela eventual incorreção de dados
               provenientes de fontes externas devidamente identificadas.

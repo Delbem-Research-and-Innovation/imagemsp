@@ -4,7 +4,7 @@ import Container from '../../../components/ui/Container';
 import MapPreviewCard from './MapPreviewCard';
 
 /**
- * "Product preview" section — demonstrates the IMAGEMSP interface with
+ * "Product preview" section — demonstrates the IMAGEM:SP interface with
  * a static/lightweight mock that looks and reads like the real product.
  *
  * No live GIS engine is loaded. The MapPreviewCard component renders

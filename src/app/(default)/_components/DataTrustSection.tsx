@@ -76,20 +76,20 @@ const DataTrustSection = () => {
               um adendo.
             </Text>
 
-            <CtaLink href="/dados">Ver dados e metodologia</CtaLink>
+            <CtaLink href="/mapas">Ver dados e metodologia</CtaLink>
           </Stack>
 
           {/* Right: trust pillars */}
           <Stack gap={3}>
-            {TRUST_POINTS.map((point, i) => {
+            {TRUST_POINTS.map((point) => {
               return (
                 <Box
                   key={point.id}
                   p={5}
                   borderRadius="card"
                   border="1px solid"
-                  borderColor={i === 0 ? 'olive.200' : 'border.subtle'}
-                  bg={i === 0 ? 'olive.50' : 'surface.base'}
+                  borderColor="border.subtle"
+                  bg="olive.50"
                 >
                   <Stack gap={1}>
                     <Text

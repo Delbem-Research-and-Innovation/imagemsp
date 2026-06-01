@@ -190,7 +190,7 @@ const PreviewIndicatorPanel = () => {
 };
 
 /**
- * Lightweight static mock of the IMAGEMSP product interface.
+ * Lightweight static mock of the IMAGEM:SP product interface.
  *
  * Demonstrates the map + territory selection + indicator panel without loading
  * a GIS engine. Contains source metadata exactly as the real product would show.

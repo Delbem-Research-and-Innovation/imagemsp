@@ -6,7 +6,7 @@ import CtaLink from '../../../components/ui/CtaLink';
 /**
  * Homepage closing — Act 3 routing.
  *
- * Rendered on `surface.contrast` (olive.900) to signal institutional authority
+ * Rendered on `surface.contrast` (olive.700) to signal institutional authority
  * and mark the deliberate end of the editorial sequence. Its role is routing,
  * not navigation — it converts comprehension and trust into action.
  *
@@ -26,7 +26,7 @@ const ClosingCtaSection = () => {
       <Container>
         <Stack gap={10} maxW={{ base: '100%', lg: '64ch' }}>
           <Stack gap={5}>
-            <Text textStyle="eyebrow" color="olive.400">
+            <Text textStyle="eyebrow" color="olive.200">
               Atlas público de inteligência territorial
             </Text>
             <Text
@@ -52,9 +52,6 @@ const ClosingCtaSection = () => {
           >
             <CtaLink href="/mapas" variant="solid-amber">
               Explorar o mapa
-            </CtaLink>
-            <CtaLink href="/sobre" variant="outline-dark">
-              Conhecer o projeto
             </CtaLink>
           </Flex>
         </Stack>

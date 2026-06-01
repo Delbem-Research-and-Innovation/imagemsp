@@ -63,7 +63,7 @@ const CartographicMicro = ({ accent }: { accent: number }) => {
 };
 
 /**
- * "What IMAGEMSP reveals" — four question cards that turn product value into
+ * "What IMAGEM:SP reveals" — four question cards that turn product value into
  * concrete territorial questions.
  *
  * Informational only; each card does not require live data.
@@ -85,7 +85,7 @@ const RevealQuestionCards = () => {
         <Stack gap={10}>
           <Stack gap={3} maxW="52ch">
             <Text textStyle="eyebrow" color="olive.600">
-              O que o IMAGEMSP revela
+              O que o IMAGEM:SP revela
             </Text>
             <Text
               as="h2"

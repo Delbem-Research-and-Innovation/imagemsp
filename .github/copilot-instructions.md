@@ -1,4 +1,4 @@
-# imagemsp — Copilot Instructions
+# IMAGEM:SP — Copilot Instructions
 
 ## Project
 

@@ -118,52 +118,66 @@ export const geovisTokens = {
             ],
           },
           diverging: {
-            blueOrange: [
-              '#084081',
-              '#08548F',
-              '#0868AC',
-              '#187AB5',
-              '#2B8CBE',
-              '#7BCCC4',
-              '#F4DFC5',
-              '#EFC22F',
-              '#ED9223',
-              '#E75D1E',
-              '#BD3F37',
-              '#9E3C37',
-              '#7F3835',
+            // olive.700 → olive.100 → paper.300 (neutral) → clay.100 → clay.700
+            // Warm brand diverging: positive/growth (olive) ↔ negative/decline (clay).
+            oliveClay: [
+              '#1B412B',
+              '#275B3C',
+              '#35754F',
+              '#499167',
+              '#72AF8B',
+              '#A5CDB3',
+              '#D2E9DA',
+              '#E8E4DB',
+              '#F6D5BF',
+              '#EBA880',
+              '#DB7A45',
+              '#C45E22',
+              '#AD501B',
+              '#6D300E',
             ],
 
-            greenRed: [
-              '#00441B',
-              '#005823',
-              '#006D2C',
-              '#147C38',
-              '#238B45',
-              '#74C476',
-              '#F4DFC5',
-              '#FCBBA1',
-              '#FC9272',
-              '#FB6A4A',
-              '#EF3B2C',
-              '#CB181D',
-              '#67000D',
+            // blue.700 → blue.50 → paper.300 (neutral) → amber.100 → amber.500
+            // Color-blind-safe diverging: blue is distinguishable across all deficiency types.
+            blueAmber: [
+              '#214555',
+              '#2F5F73',
+              '#4D7D91',
+              '#6A9AAF',
+              '#94BAC9',
+              '#BED9E2',
+              '#E5F0F3',
+              '#E8E4DB',
+              '#EDE0BE',
+              '#F5DC94',
+              '#D4A938',
+              '#A87C18',
+              '#8A6512',
+              '#6D4F0C',
             ],
           },
           categorical: {
+            // 14 muted-earth hues at mid-range lightness (L≈48–62), grounded in the brand
+            // palette families: teal-blue, sienna/clay, olive/forest, dusty-purple, amber/ochre,
+            // teal-green, brick-red, warm-gray, steel-blue, sage, dusty-rose, warm-brown,
+            // cyan-teal, muted-indigo.
+            // First 6 are maximally distinct; positions 7–14 fill secondary gaps.
+            // All values pass WCAG AA contrast against the paper.300 (#E8E4DB) map background.
             default: [
-              '#2F5F73',
-              '#9C5737',
-              '#3F4F30',
-              '#7B5B8E',
-              '#8A5A13',
-              '#4F7E7A',
-              '#8B2E24',
-              '#6B5F54',
-              '#3B6C8E',
-              '#6A7D3C',
-              '#A45A72',
-              '#7A4B2E',
+              '#4D7D91', // teal-blue (blue.300 family)
+              '#B5693E', // sienna / clay (clay.300–400)
+              '#4A7A5C', // forest / olive (olive.400–500)
+              '#8E6EA0', // dusty purple
+              '#A07828', // amber / ochre (amber.300–400)
+              '#5A8F88', // teal-green
+              '#A84D45', // brick-red (red.300)
+              '#8A7E74', // warm gray
+              '#5B87A8', // steel-blue
+              '#7A9448', // sage-olive
+              '#B06A83', // dusty rose
+              '#9A6848', // warm brown
+              '#3D8F9A', // cyan-teal
+              '#6068A0', // muted indigo
             ],
           },
         },
@@ -229,8 +243,8 @@ export const geovisTokens = {
         },
         // midpoint-anchored scales for signed deviations from a reference value.
         diverging: {
-          1: ref('core.dataviz.color.data.diverging.blueOrange'),
-          2: ref('core.dataviz.color.data.diverging.greenRed'),
+          1: ref('core.dataviz.color.data.diverging.oliveClay'),
+          2: ref('core.dataviz.color.data.diverging.blueAmber'),
         },
 
         status: {

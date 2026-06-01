@@ -89,6 +89,9 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
         color="paper.300"
         minH="44px"
         minW="44px"
+        position="absolute"
+        top={3}
+        right={4}
         _hover={{ bg: 'olive.800' }}
         onClick={onClose}
       >
@@ -133,16 +136,16 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
             px={6}
             py="13px"
             borderRadius="pill"
-            bg="amber.400"
+            bg="amber.100"
             color="ink.950"
-            fontSize="0.875rem"
+            fontSize="0.8125rem"
             fontWeight="600"
             letterSpacing="0.04em"
             textTransform="uppercase"
             textDecoration="none"
             minH="52px"
             transition={`all 0.3s ${EXPO_OUT}`}
-            _hover={{ bg: 'amber.300' }}
+            _hover={{ bg: 'amber.200', transform: 'translateY(-1px)' }}
             onClick={onClose}
           >
             <NextLink href="/mapas">Explorar o mapa</NextLink>
@@ -159,10 +162,10 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
         letterSpacing="0.08em"
         textTransform="uppercase"
       >
-        IMAGEMSP
+        IMAGEM:SP
       </Text>
 
-      {/* Text resizer — bottom-right, symmetrical with the IMAGEMSP watermark */}
+      {/* Text resizer — bottom-right, symmetrical with the IMAGEM:SP watermark */}
       <Box position="absolute" bottom={8} right={8}>
         <TextResizer onDark />
       </Box>
