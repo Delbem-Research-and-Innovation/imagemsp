@@ -2,7 +2,7 @@ import { Box, Link, Stack, Text } from '@chakra-ui/react';
 
 import Container from '../../../../components/ui/Container';
 
-const EMAIL = 'contato@imagemsp.org.br';
+const EMAIL = 'contato-imagemsp@usp.br';
 
 /**
  * Contact page primary email block — presents the official email above the fold.

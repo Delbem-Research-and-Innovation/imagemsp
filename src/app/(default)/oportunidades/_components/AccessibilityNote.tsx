@@ -3,7 +3,7 @@ import { Box, Link, Stack, Text } from '@chakra-ui/react';
 import Container from '../../../../components/ui/Container';
 import CtaLink from '../../../../components/ui/CtaLink';
 
-const CONTACT_EMAIL = 'contato@imagemsp.org.br';
+const CONTACT_EMAIL = 'contato-imagemsp@usp.br';
 
 /**
  * Accessibility and inclusion note — communicates IMAGEM:SP's commitment to

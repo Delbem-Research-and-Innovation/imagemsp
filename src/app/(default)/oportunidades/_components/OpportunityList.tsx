@@ -4,7 +4,7 @@ import Container from '../../../../components/ui/Container';
 import CtaLink from '../../../../components/ui/CtaLink';
 import { OPPORTUNITIES, type Opportunity } from '../_data/opportunities';
 
-const CONTACT_EMAIL = 'contato@imagemsp.org.br';
+const CONTACT_EMAIL = 'contato-imagemsp@usp.br';
 
 const applyMailto = (opp: Opportunity) => {
   const subject = encodeURIComponent(`[Candidatura] ${opp.title}`);
