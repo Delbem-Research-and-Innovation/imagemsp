@@ -1,3 +1,3 @@
-import { commitlintConfig } from '@ttoss/config';
+const { commitlintConfig } = require('@ttoss/config');
 
-export default commitlintConfig();
+module.exports = commitlintConfig();
