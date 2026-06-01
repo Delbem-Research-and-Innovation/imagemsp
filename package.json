@@ -1,47 +1,50 @@
 {
-  "name": "imagemsp",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [
-    "imagemsp",
-    "dataset",
-    "computer-vision"
-  ],
+  "name": "imgemsp",
+  "version": "0.1.0",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Delbem-Research-and-Innovation/imagemsp.git"
   },
-  "license": "ISC",
-  "author": "",
-  "contributors": [
-    "Ricardo Atakiama <ricardo.atakiama@outlook.com.br>"
-  ],
-  "type": "module",
-  "main": "index.js",
   "scripts": {
-    "lint": "lint-staged --diff main --quiet",
-    "ls": "lerna ls",
-    "prepare": "husky || true",
-    "syncpack:fix": "syncpack fix",
-    "syncpack:list": "syncpack lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "next build --webpack",
+    "dev": "next dev --webpack",
+    "lint": "eslint .",
+    "prepare": "husky",
+    "start": "next start",
+    "test": "jest --projects tests/unit",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^3.35.0",
+    "@emotion/cache": "11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@iconify/icons-maki": "^1.2.18",
+    "@iconify/icons-ph": "^1.2.5",
+    "@iconify/react": "^6.0.2",
+    "@ttoss/geovis": "0.1.10",
+    "@ttoss/react-icons": "^0.7.12",
+    "maplibre-gl": "^5.24.0",
+    "next": "^16.2.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.0.1",
     "@ttoss/config": "^1.37.11",
     "@ttoss/eslint-config": "^1.27.0",
-    "@ttoss/monorepo": "^1.29.11",
-    "eslint": "^10.4.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.3",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9",
     "husky": "^9.1.7",
+    "jest": "^30.4.2",
     "lint-staged": "^17.0.5",
     "prettier": "^3.8.3",
-    "syncpack": "^15.3.1",
-    "turbo": "^2.9.14",
-    "typescript": "^6.0.3"
+    "typescript": "~6.0.3"
   },
-  "packageManager": "pnpm@11.0.0+sha512.5bd187500e49cc6c3d891d973b432c02b844a5eb7209172c90a517a3ef4f579ed5c23d409b699e6a9dc418ff7b2b1890e63f6d74f1d3fc49848f37779c89c84c",
   "engines": {
-    "node": "^24.0.0",
-    "pnpm": "^11.0.0"
+    "node": "^24.0.0"
   }
 }
