@@ -1,5 +1,5 @@
 /**
- * Central icon registry for the imagemsp app.
+ * Central icon registry for the IMAGEM:SP app.
  *
  * Convention:
  *   - UI navigation / menus  → Phosphor regular (line)  e.g. "ph:caret-left"

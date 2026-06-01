@@ -8,11 +8,11 @@ import RevealQuestionCards from './_components/RevealQuestionCards';
 import ThemeCards from './_components/ThemeCards';
 
 export const metadata: Metadata = {
-  title: 'IMAGEMSP — Mapa Inteligente do Envelhecimento de São Paulo',
+  title: 'IMAGEM:SP — Mapa Inteligente do Envelhecimento de São Paulo',
   description:
     'Plataforma pública para entender o envelhecimento em São Paulo pelo território, com dados sobre população idosa, serviços, mobilidade, saúde, moradia e condições urbanas.',
   openGraph: {
-    title: 'IMAGEMSP — Mapa Inteligente do Envelhecimento de São Paulo',
+    title: 'IMAGEM:SP — Mapa Inteligente do Envelhecimento de São Paulo',
     description:
       'Plataforma pública para entender o envelhecimento em São Paulo pelo território, com dados sobre população idosa, serviços, mobilidade, saúde, moradia e condições urbanas.',
     type: 'website',
