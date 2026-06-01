@@ -53,7 +53,7 @@ const Footer = () => {
                   color="text.onFooter"
                   lineHeight="1"
                 >
-                  IMAGEMSP
+                  IMAGEM:SP
                 </Text>
               </NextLink>
             </Link>
@@ -151,7 +151,7 @@ const Footer = () => {
             })}
           </HStack>
           <Text textStyle="caption" color="text.onFooterMuted">
-            © {year} IMAGEMSP. Dados públicos, uso livre com atribuição.
+            © {year} IMAGEM:SP. Dados públicos, uso livre com atribuição.
           </Text>
         </Flex>
       </Container>

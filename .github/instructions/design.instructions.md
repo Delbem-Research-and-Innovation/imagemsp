@@ -1,8 +1,8 @@
 ---
-applyTo: 'packages/app/**/*.{ts,tsx,css,scss,md,mdx,json}'
+applyTo: 'src/app/**,src/components/**,src/config/**'
 ---
 
-# IMAGEMSP Civic Atlas System — Design Instructions
+# IMAGEM:SP Civic Atlas System — Design Instructions
 
 Apply to all UI, UX, copy, layout, component, token, and visual work.
 
@@ -39,11 +39,11 @@ Good: _"Entenda o envelhecimento em São Paulo pelo território."_ — Bad: _"A 
 
 ## Tokens
 
-`src/app/theme.ts` is the single source of truth for all design tokens: palette colors, semantic colors, text styles, radii, sizes, durations, easings, and shadows. Read it before writing any visual value.
+`src/config/theme.ts` is the single source of truth for all design tokens: palette colors, semantic colors, text styles, radii, sizes, durations, easings, and shadows. Read it before writing any visual value.
 
 **Mandate:** always reference tokens. Never hardcode a value that has a token equivalent.
 
-**Semantic layer is the component API.** Prefer `surface.card`, `text.primary`, `brand.solid` over raw palette references (`parchment.200`, `inkBrown.900`). Use raw palette values only when defining new semantic tokens inside `theme.ts`.
+**Semantic layer is the component API.** Prefer `surface.raised`, `surface.base`, `text.primary`, `brand.solid` over raw palette references (`paper.200`, `olive.900`). Use raw palette values only when defining new semantic tokens inside `theme.ts`.
 
 **When a token is missing:** add it to `theme.ts` as a semantic token. Name by role, not appearance — `surface.input`, not `gray.100`. Place palette values in `tokens`, role mappings in `semanticTokens`.
 
@@ -51,7 +51,7 @@ Good: _"Entenda o envelhecimento em São Paulo pelo território."_ — Bad: _"A 
 
 ## Color
 
-80% warm neutrals (warm paper, parchment, stone), 15% deep olive (institutional authority), 5% warm accent (amber, clay, terracota — rare and memorable). Cartographic accessible scales for data layers. Never color areas by raw counts; use rates and proportions. Color values are defined in `src/app/theme.ts` — never hardcoded in components.
+80% warm neutrals (warm linen, stone, paper), 15% deep forest green (institutional authority), 5% warm accent (amber, clay, terracotta — rare and memorable). Cartographic accessible scales for data layers. Never color areas by raw counts; use rates and proportions. Color values are defined in `src/app/theme.ts` — never hardcoded in components.
 
 ## Surfaces
 

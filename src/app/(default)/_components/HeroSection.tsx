@@ -9,7 +9,7 @@ import CtaLink from '../../../components/ui/CtaLink';
  *
  * Establishes product identity and routes users to the map.
  * Headline leads with the territorial insight ("Entenda o envelhecimento…");
- * IMAGEMSP acts as the institutional eyebrow above it.
+ * IMAGEM:SP acts as the institutional eyebrow above it.
  *
  * Desktop: two-column layout (text + map preview).
  * Mobile: stacked, text first, preview below.
@@ -26,7 +26,7 @@ const HeroSection = () => {
       mt="-4.5rem"
       pt="clamp(5rem, calc(4rem + 3vw), 7.5rem)"
       pb="clamp(2.5rem, calc(2rem + 2vw), 5rem)"
-      h="100vh"
+      h={{ base: 'auto', lg: '100vh' }}
       display="flex"
       flexDirection="column"
       justifyContent="center"

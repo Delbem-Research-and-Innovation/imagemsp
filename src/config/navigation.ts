@@ -22,6 +22,7 @@ export type FooterNavGroup = {
 export const mainNav: NavEntry[] = [
   { id: 'mapa', href: '/mapas', label: 'Mapa' },
   { id: 'sobre', href: '/sobre', label: 'Sobre' },
+  { id: 'oportunidades', href: '/oportunidades', label: 'Oportunidades' },
   { id: 'contato', href: '/contato', label: 'Contato' },
 ];
 
@@ -39,17 +40,17 @@ export const footerNavGroups: FooterNavGroup[] = [
     label: 'Explorar',
     entries: [
       { id: 'mapa', href: '/mapas', label: 'Mapa' },
-      { id: 'como-usar', href: '/como-usar', label: 'Como usar' },
-      { id: 'temas', href: '/temas', label: 'Temas' },
+      { id: 'como-usar', href: '/', label: 'Como usar' },
+      { id: 'temas', href: '/', label: 'Temas' },
     ],
   },
   {
     id: 'dados',
     label: 'Dados',
     entries: [
-      { id: 'indicadores', href: '/dados', label: 'Indicadores' },
-      { id: 'metodologia', href: '/metodologia', label: 'Metodologia' },
-      { id: 'relatorios', href: '/relatorios', label: 'Relatórios' },
+      { id: 'indicadores', href: '/', label: 'Indicadores' },
+      { id: 'metodologia', href: '/', label: 'Metodologia' },
+      { id: 'relatorios', href: '/', label: 'Relatórios' },
     ],
   },
   {
@@ -57,7 +58,7 @@ export const footerNavGroups: FooterNavGroup[] = [
     label: 'Projeto',
     entries: [
       { id: 'sobre', href: '/sobre', label: 'Sobre' },
-      { id: 'participacao', href: '/participacao', label: 'Participação' },
+      { id: 'oportunidades', href: '/oportunidades', label: 'Oportunidades' },
       { id: 'contato', href: '/contato', label: 'Contato' },
     ],
   },
@@ -72,5 +73,5 @@ export const footerNavGroups: FooterNavGroup[] = [
 export const legalNav: NavEntry[] = [
   { id: 'termos', href: '/termos', label: 'Termos de Uso' },
   { id: 'cookies', href: '/cookies', label: 'Cookies' },
-  { id: 'acessibilidade', href: '/acessibilidade', label: 'Acessibilidade' },
+  { id: 'acessibilidade', href: '/', label: 'Acessibilidade' },
 ];

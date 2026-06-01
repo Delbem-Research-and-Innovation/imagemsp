@@ -57,7 +57,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'IMAGEMSP — Mapa Inteligente do Envelhecimento de São Paulo',
+  title: 'IMAGEM:SP — Mapa Inteligente do Envelhecimento de São Paulo',
   description:
     'Atlas digital de inteligência territorial sobre o envelhecimento em São Paulo. Dados públicos para apoiar compreensão, pesquisa, planejamento e políticas baseadas em evidências.',
 };
@@ -82,7 +82,7 @@ export default function RootLayout({
          */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('imagemsp-text-size');if(s==='large'||s==='extra-large'){document.documentElement.setAttribute('data-text-size',s);}}catch(e){}})();`,
+            __html: `(function(){try{var s=localStorage.getItem('IMAGEM:SP-text-size');if(s==='large'||s==='extra-large'){document.documentElement.setAttribute('data-text-size',s);}}catch(e){}})();`,
           }}
         />
         <style

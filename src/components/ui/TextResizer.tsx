@@ -7,7 +7,7 @@ import { EXPO_OUT } from '../../config/site';
 
 type TextSize = 'default' | 'large' | 'extra-large';
 
-const STORAGE_KEY = 'imagemsp-text-size';
+const STORAGE_KEY = 'IMAGEM:SP-text-size';
 
 type SizeOption = {
   size: TextSize;

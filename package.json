@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Delbem-Research-and-Innovation/imagemsp.git"
+    "url": "git+https://github.com/Delbem-Research-and-Innovation/IMAGEM:SP.git"
   },
   "scripts": {
     "build": "next build --webpack",

@@ -62,7 +62,7 @@ const BrandLogo = ({
       <NextLink href="/">
         <NextImage
           src={VARIANT_SRC[variant]}
-          alt="IMAGEMSP"
+          alt="IMAGEM:SP"
           width={width}
           height={height}
           priority

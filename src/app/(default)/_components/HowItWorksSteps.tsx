@@ -38,31 +38,10 @@ const STEPS: Step[] = [
  * Step card used in the "How it works" sequence.
  *
  * @param step - Step data.
- * @param isLast - Whether this is the last step; hides the connector line.
  */
-const StepCard = ({ step, isLast }: { step: Step; isLast: boolean }) => {
+const StepCard = ({ step }: { step: Step }) => {
   return (
-    <Flex
-      direction="column"
-      flex={1}
-      position="relative"
-      gap={4}
-      _after={
-        !isLast
-          ? {
-              content: '""',
-              display: { base: 'none', md: 'block' },
-              position: 'absolute',
-              top: '20px',
-              left: 'calc(100% + 1px)',
-              w: '100%',
-              h: '1px',
-              bg: 'border.subtle',
-              zIndex: 0,
-            }
-          : {}
-      }
-    >
+    <Flex direction="column" flex={1} gap={4}>
       {/* Step number circle */}
       <Box
         w="40px"
@@ -130,6 +109,17 @@ const HowItWorksSteps = () => {
             gap={{ base: 8, md: 0 }}
             align="flex-start"
             position="relative"
+            _before={{
+              content: '""',
+              display: { base: 'none', md: 'block' },
+              position: 'absolute',
+              top: '20px',
+              left: 0,
+              right: 0,
+              h: '1px',
+              bg: 'border.subtle',
+              zIndex: 0,
+            }}
           >
             {STEPS.map((step, i) => {
               return (
@@ -139,7 +129,7 @@ const HowItWorksSteps = () => {
                   px={{ base: 0, md: i === 0 ? 0 : 8 }}
                   pr={{ base: 0, md: i === STEPS.length - 1 ? 0 : 8 }}
                 >
-                  <StepCard step={step} isLast={i === STEPS.length - 1} />
+                  <StepCard step={step} />
                 </Box>
               );
             })}
