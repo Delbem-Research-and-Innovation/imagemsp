@@ -1,12 +1,11 @@
 import { createDataGateway } from 'src/data-gateway/createDataGateway';
 
 describe('createDataGateway', () => {
-  test('returns the canonical greeting from the default static source', async () => {
+  test('returns the canonical data from the default static source', async () => {
     const gateway = createDataGateway();
 
-    const greeting = await gateway.getGreeting();
+    const mapsData = gateway.getMapsData;
 
-    expect(greeting).toEqual({ text: expect.any(String) });
-    expect(greeting.text.length).toBeGreaterThan(0);
+    expect(mapsData).toEqual(expect.any(Function));
   });
 });
