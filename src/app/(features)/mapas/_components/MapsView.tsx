@@ -13,9 +13,13 @@ import * as React from 'react';
 
 import { CategoryMenu, GROUP_OPTIONS } from '@/components/map/CategoryMenu';
 import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
+import type { Category, Group } from '@/components/map/lib/indicators';
+import {
+  getBandIndex,
+  LEGEND_COLORS,
+  NYC_THRESHOLDS,
+} from '@/components/map/lib/mapConfig';
 import type { MapDataRow, MapsDataContract } from '@/data-gateway/schema';
-import type { Category, Group } from '@/lib/indicators';
-import { getBandIndex, LEGEND_COLORS, NYC_THRESHOLDS } from '@/lib/mapConfig';
 
 // Sequential blue palette from ColorBrewer Blues-7 — imported from mapConfig
 // LEGEND_COLORS is the canonical reference used by all choropleth UI.

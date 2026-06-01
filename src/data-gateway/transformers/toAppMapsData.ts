@@ -1,4 +1,5 @@
-import { NYC_THRESHOLDS } from '../../config/mapConfig';
+import { NYC_THRESHOLDS } from '@/components/map/lib/mapConfig';
+
 import type { StaticMapsDataSource } from '../../data-source-static/types';
 import type { MapDataRow, MapsDataContract } from '../schema';
 

@@ -2,9 +2,9 @@
 
 import { Box, IconButton, Link, Text } from '@chakra-ui/react';
 
-import { Icon, ICONS } from '@/lib/icons';
-import type { Category, Group } from '@/lib/indicators';
-import { LEGEND_COLORS, NYC_THRESHOLDS } from '@/lib/mapConfig';
+import { Icon, ICONS } from '@/components/map/lib/icons';
+import type { Category, Group } from '@/components/map/lib/indicators';
+import { LEGEND_COLORS, NYC_THRESHOLDS } from '@/components/map/lib/mapConfig';
 
 export const MAP_TITLES: Record<Category, Partial<Record<Group, string>>> = {
   'cumulative-total': {
