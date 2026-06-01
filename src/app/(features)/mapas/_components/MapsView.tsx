@@ -261,8 +261,8 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
           }}
           style={{
             background: 'white',
-            color: '#1a202c',
-            border: '1px solid #e2e8f0',
+            color: 'var(--chakra-colors-gray-800)',
+            border: '1px solid var(--chakra-colors-gray-200)',
             borderRadius: 6,
             boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
             padding: '8px 12px',

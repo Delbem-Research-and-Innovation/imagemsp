@@ -1,98 +1,140 @@
-# IMAGEM:SP — Mapa Inteligente do Envelhecimento de São Paulo
+# IMAGEM:SP — Intelligent Map of Ageing in São Paulo
 
-Plataforma pública de visualização territorial do envelhecimento em São Paulo, desenvolvida no âmbito do projeto FAPESP. Permite que gestores, pesquisadores e cidadãos explorem dados sobre população idosa, serviços de saúde, mobilidade e condições urbanas por distrito municipal.
+Public territorial visualization platform for population ageing in São Paulo, developed under the FAPESP project. Enables managers, researchers, and citizens to explore data on elderly population, health services, mobility, and urban conditions by municipal district.
 
 ---
 
-## Sumário
+## Table of Contents
 
-- [Sobre o Projeto](#sobre-o-projeto)
+- [About](#about)
 - [Stack](#stack)
-- [Arquitetura](#arquitetura)
-- [Rotas](#rotas)
-- [Dados](#dados)
-- [Desenvolvimento](#desenvolvimento)
-- [Qualidade](#qualidade)
+- [Architecture](#architecture)
+- [Routes](#routes)
+- [Route /mapas](#route-mapas)
+- [Data](#data)
+- [Development](#development)
+- [Quality](#quality)
 - [Roadmap](#roadmap)
 
 ---
 
-## Sobre o Projeto
+## About
 
-O **IMAGEM:SP** responde à pergunta central:
+**IMAGEM:SP** answers the central question:
 
-> **Onde há maior pressão potencial do envelhecimento e menor cobertura básica de serviços, por território?**
+> **Where is the potential pressure from ageing greatest, and where is basic service coverage lowest, by territory?**
 
-A aplicação exibe um mapa coroplético por distrito municipal de São Paulo com indicadores de população idosa (65+), permite filtrar por categoria e faixa etária, e expõe painel de legenda com classificação por quebras naturais.
+The application displays a choropleth map of São Paulo municipal districts with elderly population indicators (65+), allows filtering by category and age group, and shows a legend panel with threshold-based classification.
 
 ---
 
 ## Stack
 
-| Categoria   | Tecnologia                             |
-| ----------- | -------------------------------------- |
-| Framework   | Next.js 16 (App Router)                |
-| UI          | React 19 + Chakra UI v3                |
-| Mapa        | MapLibre GL + `@ttoss/geovis`          |
-| Linguagem   | TypeScript ~6                          |
-| Estilos     | Chakra UI (sem Tailwind)               |
-| Ícones      | `@iconify/react`                       |
-| Testes      | Jest + `@ttoss/config`                 |
-| Linting     | ESLint 9 + Prettier                    |
-| CI          | GitHub Actions (typecheck, lint, test) |
-| Gerenciador | pnpm                                   |
-| Node        | ≥ 24                                   |
+| Category  | Technology                             |
+| --------- | -------------------------------------- |
+| Framework | Next.js 16 (App Router)                |
+| UI        | React 19 + Chakra UI v3                |
+| Map       | MapLibre GL + `@ttoss/geovis`          |
+| Language  | TypeScript ~6                          |
+| Styles    | Chakra UI (no Tailwind)                |
+| Icons     | `@iconify/react`                       |
+| Tests     | Jest + `@ttoss/config`                 |
+| Linting   | ESLint 9 + Prettier                    |
+| CI        | GitHub Actions (typecheck, lint, test) |
+| Manager   | pnpm                                   |
+| Node      | ≥ 24                                   |
 
 ---
 
-## Arquitetura
+## Architecture
 
 ```
 src/
 ├── app/
-│   ├── (default)/         # Homepage e páginas informacionais (com Header/Footer)
-│   ├── (features)/        # Páginas de features (layout sem rodapé editorial)
-│   │   └── mapas/         # Mapa interativo /mapas
-│   ├── (internal)/        # Páginas internas
-│   └── (legal)/           # Termos, cookies, acessibilidade
+│   ├── (default)/         # Homepage and informational pages (with Header/Footer)
+│   ├── (features)/        # Feature pages (layout without editorial footer)
+│   │   └── mapas/         # Interactive map /mapas
+│   ├── (internal)/        # Internal pages
+│   └── (legal)/           # Terms, cookies, accessibility
 ├── components/
 │   ├── map/               # CategoryMenu, LegendPanel
+│   │   └── lib/           # mapConfig, indicators, icons (canonical)
 │   ├── site/              # Header, Footer
 │   ├── layouts/           # DefaultLayout, FeaturesLayout, LegalLayout
-│   ├── ui/                # Primitivos Chakra (Provider, tokens)
-│   └── decorative-hero-map/
+│   └── ui/                # Chakra primitives (Provider, tokens)
 ├── config/
 │   ├── navigation.ts      # mainNav, footerNavGroups, legalNav
-│   ├── site.ts            # BRAND_NAME, constantes de motion
-│   ├── theme.ts           # Tokens Chakra customizados
-│   └── mapConfig.ts
-├── data-source-static/    # Leitura do snapshot JSON (readStaticMapsData)
-├── data-gateway/          # Transformers + schema tipado (MapsDataContract)
-└── gateway.ts             # Instância singleton do gateway
+│   ├── theme.ts           # Custom Chakra tokens
+│   └── locales.ts
+├── data-source-static/    # Reads pre-computed JSON snapshot (readStaticMapsData)
+├── data-gateway/          # Transformers + typed schema (MapsDataContract)
+└── gateway.ts             # Gateway singleton instance
 ```
 
-A camada `data-source-static` lê o `maps-data.json` pré-computado. O `data-gateway` transforma o dado bruto para o contrato `MapsDataContract`, garantindo separação entre fonte de dados e domínio da aplicação.
+The `data-source-static` layer reads the pre-computed `maps-data.json`. The `data-gateway` transforms raw data into the `MapsDataContract` contract, ensuring separation between data source and application domain.
 
 ---
 
-## Rotas
+## Routes
 
-| Rota                  | Descrição                                                        |
-| --------------------- | ---------------------------------------------------------------- |
-| `/`                   | Homepage editorial (Hero, temas, como funciona, fontes de dados) |
-| `/mapas`              | Mapa interativo de envelhecimento por distrito                   |
-| `/sobre`              | Sobre o projeto                                                  |
-| `/oportunidades`      | Oportunidades de colaboração                                     |
-| `/contato`            | Contato                                                          |
-| `/termos`, `/cookies` | Páginas legais                                                   |
+| Route                 | Description                                                   |
+| --------------------- | ------------------------------------------------------------- |
+| `/`                   | Editorial homepage (Hero, themes, how it works, data sources) |
+| `/mapas`              | Interactive ageing map by district                            |
+| `/sobre`              | About the project                                             |
+| `/oportunidades`      | Collaboration opportunities                                   |
+| `/contato`            | Contact                                                       |
+| `/termos`, `/cookies` | Legal pages                                                   |
 
 ---
 
-## Dados
+## Route /mapas
 
-Os dados são pré-computados offline a partir de microdados do Censo e do SEADE, salvos em `src/data-source-static/data/maps-data.json`.
+The `/mapas` route renders an interactive choropleth map of São Paulo's 96 municipal districts showing population ageing indicators.
 
-**Schema canônico (`MapsDataContract`):**
+### Visualization
+
+- **Choropleth map** rendered by [MapLibre GL](https://maplibre.org/) via the [`@ttoss/geovis`](https://github.com/ttoss/ttoss) adapter.
+- **GeoJSON source**: `public/distrito-municipal-v2.geojson` — São Paulo municipal district boundaries.
+- **Color scale**: ColorBrewer Blues-7 (`#c6dbef` → `#08306b`), 7 bands with fixed thresholds `[0.1, 0.2, 0.4, 0.6, 0.7, 0.8]` defined in `src/components/map/lib/mapConfig.ts`.
+- **Hover tooltip**: `GeoVisHoverTooltip` renders district name, percentage value, and absolute counts (numerator / denominator) for the selected indicator.
+
+### Filters
+
+| Component      | Location                          | Description                                           |
+| -------------- | --------------------------------- | ----------------------------------------------------- |
+| `CategoryMenu` | `src/components/map/CategoryMenu` | Slide-out panel with category and age group selectors |
+| `LegendPanel`  | `src/components/map/LegendPanel`  | Fixed panel showing color bands and value ranges      |
+
+**Category options** (`Category` type):
+
+| Value               | Description                                 |
+| ------------------- | ------------------------------------------- |
+| `cumulative-total`  | Elderly population as % of total population |
+| `cumulative-65plus` | Subgroup as % of the 65+ population         |
+| `5year-65plus`      | 5-year age band as % of the 65+ population  |
+
+**Age group options** (`Group` type): `65`, `70`, `75`, `65-69`, `70-74` — available groups vary by category.
+
+### Data flow
+
+```
+maps-data.json (static)
+  └─ readStaticMapsData()         # data-source-static
+       └─ toAppMapsData()         # data-gateway transformer
+            └─ MapsDataContract   # passed as prop to MapsView (client component)
+                 └─ buildSpec()   # constructs VisualizationSpec for @ttoss/geovis
+```
+
+All rate values are pre-computed offline from census microdata. The gateway layer (`toAppMapsData`) injects `NYC_THRESHOLDS` at transformation time — thresholds are never read from the JSON source.
+
+---
+
+## Data
+
+Data is pre-computed offline from census microdata (IBGE) and SEADE, saved in `src/data-source-static/data/maps-data.json`.
+
+**Canonical schema (`MapsDataContract`):**
 
 ```ts
 type Category = 'cumulative-total' | 'cumulative-65plus' | '5year-65plus';
@@ -101,9 +143,9 @@ type Group = '65' | '70' | '75' | '65-69' | '70-74';
 type MapDataRow = {
   geometryId: number;
   value: number;
-  name?: string; // nome do distrito (tooltip)
-  count?: number; // numerador da taxa
-  totalCount?: number; // denominador da taxa
+  name?: string; // district name (tooltip)
+  count?: number; // rate numerator
+  totalCount?: number; // rate denominator
 };
 
 type MapsDataContract = {
@@ -115,71 +157,71 @@ type MapsDataContract = {
 
 ---
 
-## Desenvolvimento
+## Development
 
 ```bash
-# instalar dependências
+# install dependencies
 pnpm install
 
-# servidor de desenvolvimento
+# development server
 pnpm dev
 
-# build de produção
+# production build
 pnpm build
 
-# checar tipos
+# type check
 pnpm typecheck
 
-# lint (com auto-fix)
+# lint (with auto-fix)
 pnpm eslint --fix
 
-# testes
+# tests
 pnpm test
 ```
 
-> **Pré-requisito:** Node ≥ 24 e pnpm.
+> **Prerequisites:** Node ≥ 24 and pnpm.
 
-### Convenções
+### Conventions
 
-- Commits seguem [Conventional Commits](https://www.conventionalcommits.org/) com `commitlint`.
-- Hooks via `husky` + `lint-staged` rodam typecheck e lint no staged diff antes de cada commit.
-- Código em inglês; conteúdo da interface em pt-BR.
-- Arrow functions; sem classes. Parâmetros como objeto quando > 1 argumento.
+- Commits follow [Conventional Commits](https://www.conventionalcommits.org/) with `commitlint`.
+- Hooks via `husky` + `lint-staged` run typecheck and lint on the staged diff before each commit.
+- Code in English; UI content in pt-BR.
+- Arrow functions; no classes. Parameters as objects when > 1 argument.
 
 ---
 
-## Qualidade
+## Quality
 
-O CI (`/.github/workflows/pr.yml`) executa em todo pull request:
+The CI (`/.github/workflows/pr.yml`) runs on every pull request:
 
-1. `pnpm typecheck` — zero erros TypeScript
-2. `pnpm lint` — zero warnings ESLint
-3. `pnpm test` — cobertura mínima de 10 % (branches, functions, lines, statements)
+1. `pnpm typecheck` — zero TypeScript errors
+2. `pnpm lint` — zero ESLint warnings
+3. `pnpm test` — minimum 10% coverage (branches, functions, lines, statements)
 
-Coverage nunca pode diminuir — o threshold em `tests/unit/jest.config.ts` é atualizado a cada mudança de código.
+Coverage must never decrease — the threshold in `tests/unit/jest.config.ts` is updated with every code change.
 
 ---
 
 ## Roadmap
 
-O corte vertical mínimo **Ageing Maps V0** inclui as seguintes funcionalidades ainda não implementadas:
+The minimum vertical slice **Ageing Maps V0** includes the following features not yet implemented:
 
-| Funcionalidade                             | Status                          |
-| ------------------------------------------ | ------------------------------- |
-| Tooltip com dados do distrito (hover)      | 🔄 Em revisão (PR #11)          |
-| Internacionalização pt-BR / en-US          | 🔄 Em revisão (PR #5, Issue #4) |
-| Camada de pontos UBS (oferta de serviços)  | ⏳ Planejado                    |
-| Painel lateral de detalhes do território   | ⏳ Planejado                    |
-| Comparação A vs B no painel                | ⏳ Planejado                    |
-| URL permalink com estado (`?ind=&ubs=&t=`) | ⏳ Planejado                    |
-| Busca de território por nome               | ⏳ Planejado                    |
-| Indicador GAP Prioritário (composto)       | ⏳ Planejado                    |
-| Indicador proxy de vulnerabilidade         | ⏳ Planejado                    |
-| Indicador % pop 60+                        | ⏳ Planejado                    |
-| Página `/metodologia`                      | ⏳ Planejado                    |
+| Feature                                    | Status                         |
+| ------------------------------------------ | ------------------------------ |
+| District data tooltip (hover)              | 🔄 In review (PR #11)          |
+| Internationalisation pt-BR / en-US         | 🔄 In review (PR #5, Issue #4) |
+| UBS points layer (service supply)          | ⏳ Planned                     |
+| Territory detail side panel                | ⏳ Planned                     |
+| A vs B comparison panel                    | ⏳ Planned                     |
+| URL permalink with state (`?ind=&ubs=&t=`) | ⏳ Planned                     |
+| Territory search by name                   | ⏳ Planned                     |
+| Priority GAP indicator (composite)         | ⏳ Planned                     |
+| Vulnerability proxy indicator              | ⏳ Planned                     |
+| % 60+ population indicator                 | ⏳ Planned                     |
+| `/metodologia` page                        | ⏳ Planned                     |
 
 ---
 
-## Licença
+## License
 
-Repositório privado — Delbem Research and Innovation / FAPESP. Todos os direitos reservados.
+Private repository — Delbem Research and Innovation / FAPESP. All rights reserved.

@@ -6,9 +6,7 @@ import { readStaticMapsData } from '@/data-source-static/readStaticMapsData';
 
 jest.mock('@/data-source-static/readStaticMapsData');
 
-const mockReadStaticMapsData = readStaticMapsData as jest.MockedFunction<
-  typeof readStaticMapsData
->;
+const mockReadStaticMapsData = jest.mocked(readStaticMapsData);
 
 const MOCK_SOURCE = {
   districts: [

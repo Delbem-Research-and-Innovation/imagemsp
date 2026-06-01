@@ -46,10 +46,9 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-const MenuButton = ({ value, label, active, onClick }: ButtonProps) => {
+const MenuButton = ({ value: _value, label, active, onClick }: ButtonProps) => {
   return (
     <Button
-      key={value}
       variant="ghost"
       size="sm"
       width="100%"
@@ -60,7 +59,7 @@ const MenuButton = ({ value, label, active, onClick }: ButtonProps) => {
       data-active={active ? '' : undefined}
       aria-pressed={active}
       onClick={onClick}
-      _hover={{ bg: '#f5f1f1', color: 'blue.800' }}
+      _hover={{ bg: 'gray.100', color: 'blue.800' }}
       _focusVisible={{
         outline: '2px solid',
         outlineColor: 'blue.800',
