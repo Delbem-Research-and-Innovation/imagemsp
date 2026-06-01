@@ -170,14 +170,14 @@ const renderTooltipContent = (
               height="14px"
               borderRadius="2px"
               flexShrink={0}
-              style={{ backgroundColor: swatchColor }}
+              bg={swatchColor}
             />
-            <Text fontSize="xs" color="gray.600" lineHeight="tight">
+            <Text fontSize="xs" color="text.muted" lineHeight="tight">
               {(row.value * 100).toFixed(1)}% {getTooltipText(category, group)}
             </Text>
           </Box>
           {row.count != null && row.totalCount != null && (
-            <Text fontSize="xs" color="gray.600" lineHeight="tight" pl="22px">
+            <Text fontSize="xs" color="text.muted" lineHeight="tight" pl="22px">
               ({row.count.toLocaleString('pt-BR')} de{' '}
               {row.totalCount.toLocaleString('pt-BR')} pessoas)
             </Text>
@@ -260,9 +260,9 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
             );
           }}
           style={{
-            background: 'white',
-            color: 'var(--chakra-colors-gray-800)',
-            border: '1px solid var(--chakra-colors-gray-200)',
+            background: 'var(--chakra-colors-surface-raised)',
+            color: 'var(--chakra-colors-text-primary)',
+            border: '1px solid var(--chakra-colors-border-subtle)',
             borderRadius: 6,
             boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
             padding: '8px 12px',
@@ -276,12 +276,12 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
           left="50%"
           transform="translateX(-50%)"
           zIndex={25}
-          bg="white"
-          color="blue.800"
+          bg="surface.raised"
+          color="brand.fg"
           borderWidth="2px"
           borderStyle="solid"
-          borderColor="blue.800"
-          boxShadow="0 0 0 1px #e3dede"
+          borderColor="brand.fg"
+          boxShadow="hairline"
           borderRadius="md"
           fontWeight="bold"
           fontSize="lg"
@@ -294,10 +294,10 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
               return !prev;
             });
           }}
-          _hover={{ bg: 'blue.50' }}
+          _hover={{ bg: 'brand.subtle' }}
           _focusVisible={{
             outline: '2px solid',
-            outlineColor: 'blue.800',
+            outlineColor: 'focus.ring',
             outlineOffset: '2px',
           }}
         >

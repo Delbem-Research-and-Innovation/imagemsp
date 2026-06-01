@@ -54,15 +54,15 @@ const MenuButton = ({ value: _value, label, active, onClick }: ButtonProps) => {
       width="100%"
       justifyContent="flex-start"
       fontWeight={active ? 'semibold' : 'normal'}
-      color={active ? 'blue.800' : 'gray.800'}
-      bg={active ? 'blue.50' : undefined}
+      color={active ? 'brand.fg' : 'text.primary'}
+      bg={active ? 'brand.subtle' : undefined}
       data-active={active ? '' : undefined}
       aria-pressed={active}
       onClick={onClick}
-      _hover={{ bg: 'gray.100', color: 'blue.800' }}
+      _hover={{ bg: 'surface.inset', color: 'brand.fg' }}
       _focusVisible={{
         outline: '2px solid',
-        outlineColor: 'blue.800',
+        outlineColor: 'focus.ring',
         outlineOffset: '1px',
       }}
       minH="44px"
@@ -129,8 +129,8 @@ export const CategoryMenu = ({
           width="18.75rem"
           minWidth="18rem"
           maxWidth="min(23rem, 90vw)"
-          bg="white"
-          color="gray.900"
+          bg="surface.raised"
+          color="text.primary"
           p={4}
           display="flex"
           flexDirection="column"
@@ -138,7 +138,8 @@ export const CategoryMenu = ({
           maxHeight="80vh"
           overflowY="auto"
           opacity={fading || !isOpen ? 0 : 1}
-          border="1px solid #e3dede"
+          border="1px solid"
+          borderColor="border.subtle"
           pointerEvents={isOpen ? undefined : 'none'}
           aria-hidden={!isOpen}
           style={{ transition: 'opacity 0.2s ease' }}
@@ -147,7 +148,7 @@ export const CategoryMenu = ({
             <Text
               fontSize="xs"
               fontWeight="semibold"
-              color="gray.700"
+              color="text.secondary"
               textTransform="uppercase"
               letterSpacing="wider"
               mb={2}
@@ -173,7 +174,7 @@ export const CategoryMenu = ({
             <Text
               fontSize="xs"
               fontWeight="semibold"
-              color="gray.700"
+              color="text.secondary"
               textTransform="uppercase"
               letterSpacing="wider"
               mb={2}
