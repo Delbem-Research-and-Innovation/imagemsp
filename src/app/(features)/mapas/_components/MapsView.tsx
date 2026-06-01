@@ -8,8 +8,6 @@ import {
   GeoVisCanvas,
   GeoVisHoverTooltip,
   GeoVisProvider,
-  useGeoVisClick,
-  useGeoVisHover,
 } from '@ttoss/geovis';
 import * as React from 'react';
 
@@ -26,6 +24,31 @@ const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
 const SOURCE_ID = 'sp-districts';
 const LAYER_ID = 'sp-districts-fill';
+
+/**
+ * Generates dynamic tooltip text based on selected category and group.
+ *
+ * @param category - The demographic category.
+ * @param group - The age group.
+ * @returns Descriptive text for the tooltip value line.
+ */
+const getTooltipText = (category: Category, group: Group): string => {
+  const ageLabels: Record<Group, string> = {
+    '65': '65+',
+    '70': '70+',
+    '75': '75+',
+    '65-69': '65 a 69 anos',
+    '70-74': '70 a 74 anos',
+  };
+
+  const contextLabels: Record<Category, string> = {
+    'cumulative-total': 'do total',
+    'cumulative-65plus': 'da pop 65+',
+    '5year-65plus': 'da pop 65+',
+  };
+
+  return `População com idade ${ageLabels[group]} ${contextLabels[category]}`;
+};
 
 /**
  * Builds a GeoVis VisualizationSpec for rendering a choropleth map.
@@ -79,9 +102,6 @@ const buildSpec = (
         geometry: 'polygon',
         mapDataId: MAP_DATA_ID,
         activeLegendId: LEGEND_ID,
-        hoverPaint: { lineColor: '#333333', lineWidth: 2 },
-        selectedPaint: { lineColor: '#1a1a1a', lineWidth: 3 },
-        clickAnchor: { color: '#2171b5' },
         legends: [
           {
             id: LEGEND_ID,
@@ -111,45 +131,54 @@ export type MapsViewProps = {
   mapsData: MapsDataContract;
 };
 
-/** District tooltip rendered inside GeoVisHoverTooltip as children. */
-const DistrictTooltip = ({
-  rowLookup,
-}: {
-  rowLookup: Map<number, MapDataRow>;
-}) => {
-  const hover = useGeoVisHover();
-  const click = useGeoVisClick();
-  const info = click ?? hover;
-  if (!info) return null;
-
-  const row = rowLookup.get(Number(info.featureId));
+/**
+ * Renders the tooltip content for a district feature.
+ *
+ * @param featureId - The feature ID from the hover event.
+ * @param rowLookup - Map of geometryId to MapDataRow.
+ * @param category - Current selected category.
+ * @param group - Current selected group.
+ * @returns Tooltip JSX content.
+ */
+const renderTooltipContent = (
+  featureId: string | number,
+  rowLookup: Map<number, MapDataRow>,
+  category: Category,
+  group: Group
+) => {
+  const row = rowLookup.get(Number(featureId));
   const bandIndex = row != null ? getBandIndex(row.value) : null;
   const swatchColor = bandIndex != null ? LEGEND_COLORS[bandIndex] : '#e2e8f0';
 
   return (
-    <Box display="flex" flexDirection="column" gap="1" minWidth="160px">
-      <Box display="flex" alignItems="center" gap="2">
-        <Box
-          width="14px"
-          height="14px"
-          borderRadius="2px"
-          flexShrink={0}
-          style={{ backgroundColor: swatchColor }}
-        />
-        <Text fontWeight="bold" fontSize="sm" lineHeight="tight">
-          {row?.name ?? String(info.featureId)}
-        </Text>
-      </Box>
+    <Box display="flex" flexDirection="column" gap="2" minWidth="200px">
+      {/* District name */}
+      <Text fontWeight="bold" fontSize="md" lineHeight="tight">
+        {row?.name ?? String(featureId)}
+      </Text>
+
+      {/* Value with color swatch */}
       {row && (
-        <Text fontSize="xs" color="gray.600">
-          {(row.value * 100).toFixed(1)}%
+        <Box display="flex" flexDirection="column" gap="1">
+          <Box display="flex" alignItems="center" gap="2">
+            <Box
+              width="14px"
+              height="14px"
+              borderRadius="2px"
+              flexShrink={0}
+              style={{ backgroundColor: swatchColor }}
+            />
+            <Text fontSize="xs" color="gray.600" lineHeight="tight">
+              {(row.value * 100).toFixed(1)}% {getTooltipText(category, group)}
+            </Text>
+          </Box>
           {row.count != null && row.totalCount != null && (
-            <>
-              {' '}
-              ({row.count.toLocaleString()} / {row.totalCount.toLocaleString()})
-            </>
+            <Text fontSize="xs" color="gray.600" lineHeight="tight" pl="22px">
+              ({row.count.toLocaleString('pt-BR')} de{' '}
+              {row.totalCount.toLocaleString('pt-BR')} pessoas)
+            </Text>
           )}
-        </Text>
+        </Box>
       )}
     </Box>
   );
@@ -218,7 +247,14 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
         />
 
         <GeoVisHoverTooltip
-          persistOnClick
+          render={(info) => {
+            return renderTooltipContent(
+              info.featureId,
+              rowLookup,
+              selection.category,
+              selection.group
+            );
+          }}
           style={{
             background: 'white',
             color: '#1a202c',
@@ -226,14 +262,13 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
             borderRadius: 6,
             boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
             padding: '8px 12px',
+            zIndex: 50,
           }}
-        >
-          <DistrictTooltip rowLookup={rowLookup} />
-        </GeoVisHoverTooltip>
+        />
 
         <Button
           position="absolute"
-          top="-4px"
+          top="-8px"
           left="50%"
           transform="translateX(-50%)"
           zIndex={25}
