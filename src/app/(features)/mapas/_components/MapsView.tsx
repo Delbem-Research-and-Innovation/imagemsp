@@ -152,7 +152,10 @@ const renderTooltipContent = (
 ) => {
   const row = rowLookup.get(Number(featureId));
   const bandIndex = row != null ? getBandIndex(row.value) : null;
-  const swatchColor = bandIndex != null ? LEGEND_COLORS[bandIndex] : '#e2e8f0';
+  const swatchColor =
+    bandIndex != null
+      ? LEGEND_COLORS[bandIndex]
+      : 'var(--chakra-colors-border-subtle)';
 
   return (
     <Box display="flex" flexDirection="column" gap="2" minWidth="200px">
@@ -263,9 +266,9 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
             background: 'var(--chakra-colors-surface-raised)',
             color: 'var(--chakra-colors-text-primary)',
             border: '1px solid var(--chakra-colors-border-subtle)',
-            borderRadius: 6,
-            boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
-            padding: '8px 12px',
+            borderRadius: 'var(--chakra-radii-md)',
+            boxShadow: 'var(--chakra-shadows-md)',
+            padding: 'var(--chakra-spacing-2) var(--chakra-spacing-3)',
             zIndex: 50,
           }}
         />

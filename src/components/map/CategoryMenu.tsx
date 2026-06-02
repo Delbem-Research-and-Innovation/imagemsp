@@ -40,13 +40,12 @@ interface CategoryMenuProps {
 }
 
 type ButtonProps = {
-  value: string;
   label: string;
   active: boolean;
   onClick: () => void;
 };
 
-const MenuButton = ({ value: _value, label, active, onClick }: ButtonProps) => {
+const MenuButton = ({ label, active, onClick }: ButtonProps) => {
   return (
     <Button
       variant="ghost"
@@ -159,7 +158,6 @@ export const CategoryMenu = ({
               return (
                 <MenuButton
                   key={opt.value}
-                  value={opt.value}
                   label={opt.label}
                   active={category === opt.value}
                   onClick={() => {
@@ -185,7 +183,6 @@ export const CategoryMenu = ({
               return (
                 <MenuButton
                   key={opt.value}
-                  value={opt.value}
                   label={opt.label}
                   active={group === opt.value}
                   onClick={() => {
