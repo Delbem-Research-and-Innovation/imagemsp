@@ -2,32 +2,57 @@
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Text } from '@chakra-ui/react';
 import type { VisualizationSpec } from '@ttoss/geovis';
-import { GeoVisCanvas, GeoVisProvider } from '@ttoss/geovis';
+import {
+  GeoVisCanvas,
+  GeoVisHoverTooltip,
+  GeoVisProvider,
+} from '@ttoss/geovis';
 import * as React from 'react';
 
 import { CategoryMenu, GROUP_OPTIONS } from '@/components/map/CategoryMenu';
 import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
 import type { Category, Group } from '@/components/map/lib/indicators';
-import { NYC_THRESHOLDS } from '@/components/map/lib/mapConfig';
-import type { MapsDataContract } from '@/data-gateway/schema';
+import {
+  getBandIndex,
+  LEGEND_COLORS,
+  NYC_THRESHOLDS,
+} from '@/components/map/lib/mapConfig';
+import type { MapDataRow, MapsDataContract } from '@/data-gateway/schema';
 
-// Sequential blue palette from ColorBrewer Blues-7 (IMAGE:NYC blue7 scale)
-const COLORS = [
-  '#c6dbef',
-  '#9ecae1',
-  '#6baed6',
-  '#4292c6',
-  '#2171b5',
-  '#08519c',
-  '#08306b',
-];
+// Sequential blue palette from ColorBrewer Blues-7 — imported from mapConfig
+// LEGEND_COLORS is the canonical reference used by all choropleth UI.
 
 const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
 const SOURCE_ID = 'sp-districts';
 const LAYER_ID = 'sp-districts-fill';
+
+/**
+ * Generates dynamic tooltip text based on selected category and group.
+ *
+ * @param category - The demographic category.
+ * @param group - The age group.
+ * @returns Descriptive text for the tooltip value line.
+ */
+const getTooltipText = (category: Category, group: Group): string => {
+  const ageLabels: Record<Group, string> = {
+    '65': '65+',
+    '70': '70+',
+    '75': '75+',
+    '65-69': '65 a 69 anos',
+    '70-74': '70 a 74 anos',
+  };
+
+  const contextLabels: Record<Category, string> = {
+    'cumulative-total': 'do total',
+    'cumulative-65plus': 'da pop 65+',
+    '5year-65plus': 'da pop 65+',
+  };
+
+  return `População com idade ${ageLabels[group]} ${contextLabels[category]}`;
+};
 
 /**
  * Builds a GeoVis VisualizationSpec for rendering a choropleth map.
@@ -90,7 +115,7 @@ const buildSpec = (
               property: 'value',
               scale: 'threshold',
               thresholds,
-              colors: COLORS,
+              colors: LEGEND_COLORS,
             },
           },
         ],
@@ -108,6 +133,62 @@ const buildSpec = (
 
 export type MapsViewProps = {
   mapsData: MapsDataContract;
+};
+
+/**
+ * Renders the tooltip content for a district feature.
+ *
+ * @param featureId - The feature ID from the hover event.
+ * @param rowLookup - Map of geometryId to MapDataRow.
+ * @param category - Current selected category.
+ * @param group - Current selected group.
+ * @returns Tooltip JSX content.
+ */
+const renderTooltipContent = (
+  featureId: string | number,
+  rowLookup: Map<number, MapDataRow>,
+  category: Category,
+  group: Group
+) => {
+  const row = rowLookup.get(Number(featureId));
+  const bandIndex = row != null ? getBandIndex(row.value) : null;
+  const swatchColor =
+    bandIndex != null
+      ? LEGEND_COLORS[bandIndex]
+      : 'var(--chakra-colors-border-subtle)';
+
+  return (
+    <Box display="flex" flexDirection="column" gap="2" minWidth="200px">
+      {/* District name */}
+      <Text fontWeight="bold" fontSize="md" lineHeight="tight">
+        {row?.name ?? String(featureId)}
+      </Text>
+
+      {/* Value with color swatch */}
+      {row && (
+        <Box display="flex" flexDirection="column" gap="1">
+          <Box display="flex" alignItems="center" gap="2">
+            <Box
+              width="14px"
+              height="14px"
+              borderRadius="2px"
+              flexShrink={0}
+              bg={swatchColor}
+            />
+            <Text fontSize="xs" color="text.muted" lineHeight="tight">
+              {(row.value * 100).toFixed(1)}% {getTooltipText(category, group)}
+            </Text>
+          </Box>
+          {row.count != null && row.totalCount != null && (
+            <Text fontSize="xs" color="text.muted" lineHeight="tight" pl="22px">
+              ({row.count.toLocaleString('pt-BR')} de{' '}
+              {row.totalCount.toLocaleString('pt-BR')} pessoas)
+            </Text>
+          )}
+        </Box>
+      )}
+    </Box>
+  );
 };
 
 /**
@@ -130,6 +211,15 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
   const spec = React.useMemo(() => {
     return buildSpec(mapsData, selection.category, selection.group);
   }, [mapsData, selection]);
+
+  const rowLookup = React.useMemo(() => {
+    const rows = mapsData.mapData[selection.category]?.[selection.group] ?? [];
+    return new Map(
+      rows.map((r) => {
+        return [r.geometryId, r] as const;
+      })
+    );
+  }, [mapsData, selection.category, selection.group]);
 
   return (
     <GeoVisProvider spec={spec}>
@@ -163,18 +253,38 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
           }}
         />
 
+        <GeoVisHoverTooltip
+          render={(info) => {
+            return renderTooltipContent(
+              info.featureId,
+              rowLookup,
+              selection.category,
+              selection.group
+            );
+          }}
+          style={{
+            background: 'var(--chakra-colors-surface-raised)',
+            color: 'var(--chakra-colors-text-primary)',
+            border: '1px solid var(--chakra-colors-border-subtle)',
+            borderRadius: 'var(--chakra-radii-md)',
+            boxShadow: 'var(--chakra-shadows-md)',
+            padding: 'var(--chakra-spacing-2) var(--chakra-spacing-3)',
+            zIndex: 50,
+          }}
+        />
+
         <Button
           position="absolute"
-          top="-4px"
+          top="-8px"
           left="50%"
           transform="translateX(-50%)"
           zIndex={25}
-          bg="white"
-          color="blue.800"
+          bg="surface.raised"
+          color="brand.fg"
           borderWidth="2px"
           borderStyle="solid"
-          borderColor="blue.800"
-          boxShadow="0 0 0 1px #e3dede"
+          borderColor="brand.fg"
+          boxShadow="hairline"
           borderRadius="md"
           fontWeight="bold"
           fontSize="lg"
@@ -187,10 +297,10 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
               return !prev;
             });
           }}
-          _hover={{ bg: 'blue.50' }}
+          _hover={{ bg: 'brand.subtle' }}
           _focusVisible={{
             outline: '2px solid',
-            outlineColor: 'blue.800',
+            outlineColor: 'focus.ring',
             outlineOffset: '2px',
           }}
         >

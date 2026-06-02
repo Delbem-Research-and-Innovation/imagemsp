@@ -39,6 +39,44 @@ interface CategoryMenuProps {
   isOpen: boolean;
 }
 
+type ButtonProps = {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+};
+
+const MenuButton = ({ label, active, onClick }: ButtonProps) => {
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      width="100%"
+      justifyContent="flex-start"
+      fontWeight={active ? 'semibold' : 'normal'}
+      color={active ? 'brand.fg' : 'text.primary'}
+      bg={active ? 'brand.subtle' : undefined}
+      data-active={active ? '' : undefined}
+      aria-pressed={active}
+      onClick={onClick}
+      _hover={{ bg: 'surface.inset', color: 'brand.fg' }}
+      _focusVisible={{
+        outline: '2px solid',
+        outlineColor: 'focus.ring',
+        outlineOffset: '1px',
+      }}
+      minH="44px"
+      px={3}
+      mb="2px"
+      whiteSpace="normal"
+      textAlign="left"
+      height="auto"
+      py={2}
+    >
+      {label}
+    </Button>
+  );
+};
+
 export const CategoryMenu = ({
   category,
   group,
@@ -81,13 +119,17 @@ export const CategoryMenu = ({
     >
       <Box
         overflow="hidden"
-        width={isOpen ? '300px' : '0'}
+        width={isOpen ? '18.75rem' : '0'}
+        minWidth={isOpen ? '18rem' : '0'}
+        maxWidth={isOpen ? 'min(23rem, 90vw)' : '0'}
         style={{ transition: 'width 0.3s ease' }}
       >
         <Box
-          width="300px"
-          bg="white"
-          color="gray.900"
+          width="18.75rem"
+          minWidth="18rem"
+          maxWidth="min(23rem, 90vw)"
+          bg="surface.raised"
+          color="text.primary"
           p={4}
           display="flex"
           flexDirection="column"
@@ -95,7 +137,8 @@ export const CategoryMenu = ({
           maxHeight="80vh"
           overflowY="auto"
           opacity={fading || !isOpen ? 0 : 1}
-          border="1px solid #e3dede"
+          border="1px solid"
+          borderColor="border.subtle"
           pointerEvents={isOpen ? undefined : 'none'}
           aria-hidden={!isOpen}
           style={{ transition: 'opacity 0.2s ease' }}
@@ -104,7 +147,7 @@ export const CategoryMenu = ({
             <Text
               fontSize="xs"
               fontWeight="semibold"
-              color="gray.700"
+              color="text.secondary"
               textTransform="uppercase"
               letterSpacing="wider"
               mb={2}
@@ -112,34 +155,15 @@ export const CategoryMenu = ({
               Variáveis
             </Text>
             {CATEGORY_OPTIONS.map((opt) => {
-              const active = category === opt.value;
               return (
-                <Button
+                <MenuButton
                   key={opt.value}
-                  variant="ghost"
-                  size="sm"
-                  width="100%"
-                  justifyContent="flex-start"
-                  fontWeight={active ? 'semibold' : 'normal'}
-                  color={active ? 'blue.800' : 'gray.800'}
-                  bg={active ? 'blue.50' : undefined}
-                  data-active={active ? '' : undefined}
-                  aria-pressed={active}
+                  label={opt.label}
+                  active={category === opt.value}
                   onClick={() => {
                     return handleCategoryChange(opt.value);
                   }}
-                  _hover={{ bg: '#f5f1f1', color: 'blue.800' }}
-                  _focusVisible={{
-                    outline: '2px solid',
-                    outlineColor: 'blue.800',
-                    outlineOffset: '1px',
-                  }}
-                  minH="44px"
-                  px={3}
-                  mb="2px"
-                >
-                  {opt.label}
-                </Button>
+                />
               );
             })}
           </Box>
@@ -148,7 +172,7 @@ export const CategoryMenu = ({
             <Text
               fontSize="xs"
               fontWeight="semibold"
-              color="gray.700"
+              color="text.secondary"
               textTransform="uppercase"
               letterSpacing="wider"
               mb={2}
@@ -156,34 +180,15 @@ export const CategoryMenu = ({
               Faixa etária
             </Text>
             {GROUP_OPTIONS[category].map((opt) => {
-              const active = group === opt.value;
               return (
-                <Button
+                <MenuButton
                   key={opt.value}
-                  variant="ghost"
-                  size="sm"
-                  width="100%"
-                  justifyContent="flex-start"
-                  fontWeight={active ? 'semibold' : 'normal'}
-                  color={active ? 'blue.800' : 'gray.800'}
-                  bg={active ? 'blue.50' : undefined}
-                  data-active={active ? '' : undefined}
-                  aria-pressed={active}
+                  label={opt.label}
+                  active={group === opt.value}
                   onClick={() => {
                     return handleGroupChange(opt.value);
                   }}
-                  _hover={{ bg: '#f5f1f1', color: 'blue.800' }}
-                  _focusVisible={{
-                    outline: '2px solid',
-                    outlineColor: 'blue.800',
-                    outlineOffset: '1px',
-                  }}
-                  minH="44px"
-                  px={3}
-                  mb="2px"
-                >
-                  {opt.label}
-                </Button>
+                />
               );
             })}
           </Box>

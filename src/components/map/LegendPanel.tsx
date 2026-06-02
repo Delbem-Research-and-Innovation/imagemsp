@@ -4,18 +4,7 @@ import { Box, IconButton, Link, Text } from '@chakra-ui/react';
 
 import { Icon, ICONS } from '@/components/map/lib/icons';
 import type { Category, Group } from '@/components/map/lib/indicators';
-import { NYC_THRESHOLDS } from '@/components/map/lib/mapConfig';
-
-/** ColorBrewer blue7 sequential palette used in all choropleth layers. */
-const LEGEND_COLORS = [
-  '#c6dbef',
-  '#9ecae1',
-  '#6baed6',
-  '#4292c6',
-  '#2171b5',
-  '#08519c',
-  '#08306b',
-];
+import { LEGEND_COLORS, NYC_THRESHOLDS } from '@/components/map/lib/mapConfig';
 
 export const MAP_TITLES: Record<Category, Partial<Record<Group, string>>> = {
   'cumulative-total': {
@@ -81,7 +70,7 @@ const ThresholdLegend = () => {
               flexShrink={0}
               style={{ backgroundColor: color }}
             />
-            <Text fontSize="xs" color="gray.700">
+            <Text fontSize="xs" color="text.secondary">
               {label}
             </Text>
           </Box>
@@ -135,9 +124,10 @@ export const LegendPanel = ({
       >
         <Box
           width="360px"
-          bg="white"
-          color="gray.900"
-          border="1px solid #e3dede"
+          bg="surface.raised"
+          color="text.primary"
+          border="1px solid"
+          borderColor="border.subtle"
           borderRadius="0 20px 0 20px"
           boxShadow="lg"
           p={6}
@@ -151,7 +141,7 @@ export const LegendPanel = ({
             <Text
               fontSize="md"
               fontWeight="bold"
-              color="blue.800"
+              color="brand.fg"
               letterSpacing="0.03em"
               textTransform="uppercase"
               lineHeight="tight"
@@ -161,7 +151,7 @@ export const LegendPanel = ({
             <Text
               fontSize="sm"
               fontWeight="bold"
-              color="gray.700"
+              color="text.secondary"
               mt={2}
               lineHeight="short"
             >
@@ -169,12 +159,12 @@ export const LegendPanel = ({
             </Text>
           </Box>
 
-          <Box color="gray.900">
+          <Box color="text.primary">
             <ThresholdLegend />
           </Box>
 
           <Box>
-            <Text fontSize="sm" fontWeight="bold" color="gray.700">
+            <Text fontSize="sm" fontWeight="bold" color="text.secondary">
               Fonte dos dados:
             </Text>
             <Box
@@ -185,20 +175,20 @@ export const LegendPanel = ({
               flexDirection="column"
               gap={1}
             >
-              <Box as="li" fontSize="xs" color="gray.600" lineHeight="base">
+              <Box as="li" fontSize="xs" color="text.muted" lineHeight="base">
                 Dados agregados por distrito municipal a partir das{' '}
                 <Link
                   href="https://repositorio.seade.gov.br/dataset/populacao-residente-municipio-de-sao-paulo-evolucao"
                   target="_blank"
                   rel="noopener noreferrer"
-                  color="blue.700"
+                  color="link.default"
                   textDecoration="underline"
                 >
                   projeções populacionais por sexo e idade do SEADE
                 </Link>{' '}
                 para o ano de 2025.
               </Box>
-              <Box as="li" fontSize="xs" color="gray.600" lineHeight="base">
+              <Box as="li" fontSize="xs" color="text.muted" lineHeight="base">
                 Geometria: Distritos Municipais de São Paulo.
               </Box>
             </Box>
@@ -217,18 +207,22 @@ export const LegendPanel = ({
         right={isOpen ? '360px' : `calc(-1 * ${rightOffset})`}
         style={{ transition: 'right 0.3s ease' }}
         zIndex={40}
-        bg="white"
-        color="gray.700"
-        borderColor="#e3dede"
+        bg="surface.raised"
+        color="text.secondary"
+        borderColor="border.subtle"
         borderRight="none"
         borderRadius="4px 0 0 4px"
         minW="44px"
         minH="44px"
         onClick={onToggle}
-        _hover={{ bg: 'blue.50', color: 'blue.800', borderColor: 'blue.800' }}
+        _hover={{
+          bg: 'brand.subtle',
+          color: 'brand.fg',
+          borderColor: 'brand.fg',
+        }}
         _focusVisible={{
           outline: '2px solid',
-          outlineColor: 'blue.700',
+          outlineColor: 'focus.ring',
           outlineOffset: '1px',
         }}
       >

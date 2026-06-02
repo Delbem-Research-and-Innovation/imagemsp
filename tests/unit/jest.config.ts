@@ -1,6 +1,6 @@
 import { jestUnitConfig } from '@ttoss/config';
 
-export default jestUnitConfig({
+const config = jestUnitConfig({
   coverageThreshold: {
     global: {
       branches: 10,
@@ -10,3 +10,11 @@ export default jestUnitConfig({
     },
   },
 });
+
+export default {
+  ...config,
+  moduleNameMapper: {
+    ...config.moduleNameMapper,
+    '^@/(.*)$': '<rootDir>/../../src/$1',
+  },
+};
