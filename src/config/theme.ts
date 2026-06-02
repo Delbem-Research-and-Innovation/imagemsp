@@ -32,12 +32,12 @@ const config = defineConfig({
     body: {
       bg: '{colors.paper.300}',
       color: '{colors.ink.950}',
-      fontFamily: 'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+      fontFamily: 'var(--font-gotham), system-ui, -apple-system, sans-serif',
       textRendering: 'optimizeLegibility',
     },
-    /* Newsreader for h1 — editorial authority. h2–h6 inherit body sans-serif. */
+    /* Source Serif 4 for h1 — editorial authority. h2–h6 inherit body sans-serif. */
     h1: {
-      fontFamily: 'var(--font-newsreader), Georgia, "Times New Roman", serif',
+      fontFamily: 'var(--font-source-serif), Georgia, "Times New Roman", serif',
     },
     /* Branded text selection */
     '::selection': {
@@ -71,14 +71,14 @@ const config = defineConfig({
   theme: {
     tokens: {
       fonts: {
-        /** IBM Plex Sans — primary UI/body. Load via next/font as --font-plex-sans. */
+        /** Gotham — primary UI/body. Self-hosted via next/font/local as --font-gotham. */
         body: {
           value:
-            'var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+            'var(--font-gotham), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         },
-        /** Newsreader (serif) — display and h1. Load via next/font as --font-newsreader. */
+        /** Source Serif 4 — display and h1. Load via next/font as --font-source-serif. */
         heading: {
-          value: 'var(--font-newsreader), Georgia, "Times New Roman", serif',
+          value: 'var(--font-source-serif), Georgia, "Times New Roman", serif',
         },
         /** Atkinson Hyperlegible — accessibility mode. Load via next/font as --font-atkinson. */
         accessible: {
@@ -104,46 +104,46 @@ const config = defineConfig({
       },
       colors: {
         /**
-         * Paper — warm linen surface scale. Anchors: page bg #E8E4DB (300), raised #F8F6F2 (100).
+         * Paper — beige surface scale. Anchors: page bg #F6F1ED (300), raised #FDFAF7 (100).
          */
         paper: {
-          50: { value: '#FDFDF9' },
-          100: { value: '#F8F6F2' },
-          200: { value: '#F1EEE7' },
-          300: { value: '#E8E4DB' },
-          400: { value: '#DAD5CB' },
-          500: { value: '#C5C0B5' },
+          50: { value: '#FEFDFB' },
+          100: { value: '#FDFAF7' },
+          200: { value: '#FAF6F1' },
+          300: { value: '#F6F1ED' },
+          400: { value: '#EDE5DC' },
+          500: { value: '#DDD3C7' },
         },
-        /** Ink — text scale, never pure black. Anchor: primary #1A1A16 (950). */
+        /** Ink — text scale, never pure black. Anchor: primary #2F2D3A (950). */
         ink: {
-          600: { value: '#6A6862' },
-          700: { value: '#4E4E48' },
-          800: { value: '#353530' },
-          950: { value: '#1A1A16' },
+          600: { value: '#79778A' },
+          700: { value: '#5C5A6E' },
+          800: { value: '#454358' },
+          950: { value: '#2F2D3A' },
         },
-        /** Forest — primary brand. Anchors: brand #1B412B (700), muted #35754F (500). */
+        /** Brand Blue — primary brand. Anchors: brand #17629F (600), light #C6E2FF (100). */
         olive: {
-          50: { value: '#EEF5F0' },
-          100: { value: '#D2E9DA' },
-          200: { value: '#A5CDB3' },
-          300: { value: '#72AF8B' },
-          400: { value: '#499167' },
-          500: { value: '#35754F' },
-          600: { value: '#275B3C' },
-          700: { value: '#1B412B' },
-          800: { value: '#13301F' },
-          900: { value: '#0B1F14' },
+          50: { value: '#EBF5FF' },
+          100: { value: '#C6E2FF' },
+          200: { value: '#93C5ED' },
+          300: { value: '#5EACDD' },
+          400: { value: '#348DC5' },
+          500: { value: '#226FAD' },
+          600: { value: '#17629F' },
+          700: { value: '#124F82' },
+          800: { value: '#0D3B63' },
+          900: { value: '#082645' },
         },
-        /** Clay — accent; secondary CTAs, highlights, alerts. Anchor: #AD501B (500). */
+        /** Orange — accent; secondary CTAs, highlights, alerts. Anchor: #D65A2C (500). */
         clay: {
-          50: { value: '#FDF2EC' },
-          100: { value: '#F6D5BF' },
-          200: { value: '#EBA880' },
-          300: { value: '#DB7A45' },
-          400: { value: '#C45E22' },
-          500: { value: '#AD501B' },
-          600: { value: '#8C3F14' },
-          700: { value: '#6D300E' },
+          50: { value: '#FDF0EB' },
+          100: { value: '#F8D0BE' },
+          200: { value: '#F0A07A' },
+          300: { value: '#E77D52' },
+          400: { value: '#DC6939' },
+          500: { value: '#D65A2C' },
+          600: { value: '#B04820' },
+          700: { value: '#8B3717' },
         },
         /** Amber — warm editorial accent; callouts, warnings. Anchor: #8A6512 (400). */
         amber: {
@@ -220,23 +220,23 @@ const config = defineConfig({
       },
       shadows: {
         /** Zero-elevation outline — card borders, panel hairlines. */
-        hairline: { value: '0 0 0 1px rgba(26, 26, 22, 0.10)' },
+        hairline: { value: '0 0 0 1px rgba(47, 45, 58, 0.10)' },
         /** Standard card elevation. */
         raised: {
           value:
-            '0 1px 2px rgba(26, 26, 22, 0.08), 0 8px 24px rgba(26, 26, 22, 0.06)',
+            '0 1px 2px rgba(47, 45, 58, 0.08), 0 8px 24px rgba(47, 45, 58, 0.06)',
         },
         /** Floating panel elevation — drawers, dropdowns, modals. */
         floating: {
           value:
-            '0 4px 12px rgba(26, 26, 22, 0.10), 0 20px 48px rgba(26, 26, 22, 0.08)',
+            '0 4px 12px rgba(47, 45, 58, 0.10), 0 20px 48px rgba(47, 45, 58, 0.08)',
         },
         /** Focus ring glow — complements :focus-visible outline. */
         focus: { value: '0 0 0 3px rgba(47, 95, 115, 0.35)' },
         /** card — alias for raised; used in content cards. */
         card: {
           value:
-            '0 1px 2px rgba(26, 26, 22, 0.08), 0 8px 24px rgba(26, 26, 22, 0.06)',
+            '0 1px 2px rgba(47, 45, 58, 0.08), 0 8px 24px rgba(47, 45, 58, 0.06)',
         },
       },
     },
@@ -253,20 +253,20 @@ const config = defineConfig({
       },
     },
     textStyles: {
-      /** Hero-level display — Newsreader serif, homepage headline. */
+      /** Hero-level display — Source Serif 4, homepage headline. */
       display: {
         value: {
-          fontFamily: 'var(--font-newsreader), Georgia, serif',
+          fontFamily: 'var(--font-source-serif), Georgia, serif',
           fontSize: 'clamp(3rem, 7vw, 6.5rem)',
           lineHeight: '0.95',
           letterSpacing: '-0.04em',
           fontWeight: '600',
         },
       },
-      /** Page and section title — Newsreader, editorial authority. */
+      /** Page and section title — Source Serif 4, editorial authority. */
       h1: {
         value: {
-          fontFamily: 'var(--font-newsreader), Georgia, serif',
+          fontFamily: 'var(--font-source-serif), Georgia, serif',
           fontSize: 'clamp(2.5rem, 5vw, 4.75rem)',
           lineHeight: '1.12',
           letterSpacing: '-0.035em',
@@ -277,7 +277,7 @@ const config = defineConfig({
       h2: {
         value: {
           fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+            'var(--font-gotham), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(2rem, 3.6vw, 3.25rem)',
           lineHeight: '1.08',
           letterSpacing: '-0.03em',
@@ -288,7 +288,7 @@ const config = defineConfig({
       h3: {
         value: {
           fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+            'var(--font-gotham), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
           lineHeight: '1.18',
           letterSpacing: '-0.02em',
@@ -299,7 +299,7 @@ const config = defineConfig({
       h4: {
         value: {
           fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+            'var(--font-gotham), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(1.25rem, 1.5vw, 1.5rem)',
           lineHeight: '1.25',
           letterSpacing: '-0.015em',
@@ -410,7 +410,7 @@ const config = defineConfig({
       'title-2': {
         value: {
           fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+            'var(--font-gotham), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(2rem, 3.6vw, 3.25rem)',
           lineHeight: '1.08',
           letterSpacing: '-0.03em',
@@ -424,7 +424,7 @@ const config = defineConfig({
       'title-4': {
         value: {
           fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+            'var(--font-gotham), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(1.25rem, 1.5vw, 1.5rem)',
           lineHeight: '1.25',
           letterSpacing: '-0.015em',

@@ -46,7 +46,7 @@ const Footer = () => {
             >
               <NextLink href="/">
                 <Text
-                  fontFamily="var(--font-newsreader), var(--font-plex-sans), ui-sans-serif, sans-serif"
+                  fontFamily="var(--font-source-serif), var(--font-gotham), ui-sans-serif, sans-serif"
                   fontWeight="800"
                   fontSize="1.5rem"
                   letterSpacing="-0.03em"

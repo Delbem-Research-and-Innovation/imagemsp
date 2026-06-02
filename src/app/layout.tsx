@@ -2,33 +2,73 @@ import type { Metadata } from 'next';
 import {
   Atkinson_Hyperlegible,
   IBM_Plex_Mono,
-  IBM_Plex_Sans,
-  Newsreader,
+  Source_Serif_4,
 } from 'next/font/google';
+import localFont from 'next/font/local';
 
 import { Providers } from './providers';
 
 /**
- * Primary UI/body face — IBM Plex Sans.
- * Registered as CSS variable --font-plex-sans consumed by the Chakra theme.
+ * Primary UI/body face — Gotham.
+ * Self-hosted via next/font/local. Registered as --font-gotham.
  */
-const plexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-plex-sans',
+const gotham = localFont({
+  src: [
+    {
+      path: '../fonts/gotham/Gotham-Light.otf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/gotham/Gotham-LightItalic.otf',
+      weight: '300',
+      style: 'italic',
+    },
+    {
+      path: '../fonts/gotham/Gotham-Book.otf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/gotham/Gotham-BookItalic.otf',
+      weight: '400',
+      style: 'italic',
+    },
+    {
+      path: '../fonts/gotham/Gotham-Medium.otf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/gotham/Gotham-MediumItalic.otf',
+      weight: '500',
+      style: 'italic',
+    },
+    {
+      path: '../fonts/gotham/Gotham-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../fonts/gotham/Gotham-BoldItalic.ttf',
+      weight: '700',
+      style: 'italic',
+    },
+  ],
+  variable: '--font-gotham',
   display: 'swap',
 });
 
 /**
- * Editorial display face — Newsreader serif.
+ * Editorial display face — Source Serif 4.
  * Used for h1 and display-level headings.
- * Registered as --font-newsreader.
+ * Registered as --font-source-serif.
  */
-const newsreader = Newsreader({
+const sourceSerif4 = Source_Serif_4({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '600'],
   style: ['normal', 'italic'],
-  variable: '--font-newsreader',
+  variable: '--font-source-serif',
   display: 'swap',
 });
 
@@ -71,7 +111,7 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${plexSans.variable} ${newsreader.variable} ${atkinson.variable} ${plexMono.variable}`}
+      className={`${gotham.variable} ${sourceSerif4.variable} ${atkinson.variable} ${plexMono.variable}`}
     >
       <head>
         {/*

@@ -107,7 +107,7 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
               display="block"
               color="paper.300"
               fontSize="clamp(2rem, calc(1.5rem + 2vw), 3.5rem)"
-              fontFamily="var(--font-newsreader), var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif"
+              fontFamily="var(--font-source-serif), var(--font-gotham), ui-sans-serif, system-ui, sans-serif"
               fontWeight="700"
               letterSpacing="-0.04em"
               lineHeight="1.05"
