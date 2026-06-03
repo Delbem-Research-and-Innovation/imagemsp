@@ -11,7 +11,6 @@ Apply to all UI, UX, copy, layout, component, token, and visual work.
 ## Principles
 
 **Atlas, not dashboard.** The product reveals territorial relationships between aging, services, mobility, housing, health, and public space. Composition is editorial and cartographic — not a generic card grid or feature list.
-
 **Calm technology.** Sophistication lives in clarity, rhythm, microinteractions, typography, hierarchy, and well-composed maps. Not in neon, glassmorphism, dark futurism, or AI aesthetics.
 
 **Material as interaction grammar, not Google UI.** Use Material philosophy for surfaces, elevation, states, affordance, and feedback. Buttons look clickable; cards read as surfaces; panels feel layered; active state is unambiguous; keyboard focus is always visible. Every interactive component must implement all applicable states: default, hover, focus, active, selected, disabled, loading, and error. Tooltips are auxiliary — essential information must exist without them.
