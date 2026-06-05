@@ -1,34 +1,47 @@
 import type { Metadata } from 'next';
 import {
   Atkinson_Hyperlegible,
-  IBM_Plex_Mono,
-  IBM_Plex_Sans,
-  Newsreader,
+  Montserrat,
+  Source_Code_Pro,
+  Source_Sans_3,
+  Source_Serif_4,
 } from 'next/font/google';
 
 import { Providers } from './providers';
 
 /**
- * Primary UI/body face — IBM Plex Sans.
- * Registered as CSS variable --font-plex-sans consumed by the Chakra theme.
+ * Primary UI/body face — Source Sans 3.
+ * Registered as CSS variable --font-sans consumed by the Chakra theme.
  */
-const plexSans = IBM_Plex_Sans({
+const sourceSans = Source_Sans_3({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-plex-sans',
+  variable: '--font-sans',
   display: 'swap',
 });
 
 /**
- * Editorial display face — Newsreader serif.
- * Used for h1 and display-level headings.
- * Registered as --font-newsreader.
+ * Brand heading face — Montserrat.
+ * Used for display, h1, h2 and all large brand-level titles.
+ * Registered as --font-heading.
  */
-const newsreader = Newsreader({
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-heading',
+  display: 'swap',
+});
+
+/**
+ * Editorial body face — Source Serif 4.
+ * Used for institutional long-form text (About pages, editorial passages).
+ * Registered as --font-editorial.
+ */
+const sourceSerif = Source_Serif_4({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   style: ['normal', 'italic'],
-  variable: '--font-newsreader',
+  variable: '--font-editorial',
   display: 'swap',
 });
 
@@ -45,14 +58,14 @@ const atkinson = Atkinson_Hyperlegible({
 });
 
 /**
- * Monospace face — IBM Plex Mono.
- * Used for code blocks and tabular data.
- * Registered as --font-plex-mono.
+ * Monospace / data face — Source Code Pro.
+ * Used for code blocks, tabular data, metadata values, and IDs.
+ * Registered as --font-mono.
  */
-const plexMono = IBM_Plex_Mono({
+const sourceCodePro = Source_Code_Pro({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
-  variable: '--font-plex-mono',
+  variable: '--font-mono',
   display: 'swap',
 });
 
@@ -71,7 +84,7 @@ export default function RootLayout({
     <html
       lang="pt-BR"
       suppressHydrationWarning
-      className={`${plexSans.variable} ${newsreader.variable} ${atkinson.variable} ${plexMono.variable}`}
+      className={`${sourceSans.variable} ${montserrat.variable} ${sourceSerif.variable} ${atkinson.variable} ${sourceCodePro.variable}`}
     >
       <head>
         {/*

@@ -1,6 +1,8 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
 import Container from '../../../../components/ui/Container';
+import Section from '../../../../components/ui/Section';
+import SectionHeader from '../../../../components/ui/SectionHeader';
 
 const FACTS = [
   {
@@ -36,13 +38,7 @@ const FACTS = [
  */
 const OriginSection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="origin-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
-    >
+    <Section labelledBy="origin-heading">
       <Container>
         <Grid
           templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
@@ -51,19 +47,11 @@ const OriginSection = () => {
         >
           {/* Narrative */}
           <Stack gap={6}>
-            <Stack gap={3}>
-              <Text textStyle="eyebrow" color="olive.600">
-                Origem e contexto
-              </Text>
-              <Text
-                as="h2"
-                id="origin-heading"
-                textStyle="h2"
-                color="text.primary"
-              >
-                Pesquisa pública, referência internacional.
-              </Text>
-            </Stack>
+            <SectionHeader
+              eyebrow="Origem e contexto"
+              heading="Pesquisa pública, referência internacional."
+              headingId="origin-heading"
+            />
 
             <Text textStyle="body" color="text.secondary" maxW="48ch">
               O IMAGEM:SP nasce no contexto do projeto Desenvolvimento de Mapa
@@ -81,7 +69,7 @@ const OriginSection = () => {
 
           {/* Institutional facts */}
           <Box
-            bg="surface.trust"
+            bg="surface.raised"
             border="1px solid"
             borderColor="border.subtle"
             borderRadius="card"
@@ -104,7 +92,7 @@ const OriginSection = () => {
           </Box>
         </Grid>
       </Container>
-    </Box>
+    </Section>
   );
 };
 

@@ -6,9 +6,8 @@ import CtaLink from '../../../components/ui/CtaLink';
 /**
  * Homepage closing — Act 3 routing.
  *
- * Rendered on `surface.contrast` (olive.700) to signal institutional authority
- * and mark the deliberate end of the editorial sequence. Its role is routing,
- * not navigation — it converts comprehension and trust into action.
+ * Rendered on the inverse (dark) surface to close the editorial sequence with
+ * authority. The orange accent bar marks the decisive routing moment.
  *
  * Follows `DataTrustSection` (fontes, metodologia) and precedes the Footer.
  *
@@ -21,23 +20,27 @@ const ClosingCtaSection = () => {
       as="section"
       aria-labelledby="closing-heading"
       py="clamp(5rem, calc(4rem + 4vw), 9rem)"
-      bg="surface.contrast"
+      bg="background.inverse"
     >
       <Container>
         <Stack gap={10} maxW={{ base: '100%', lg: '64ch' }}>
-          <Stack gap={5}>
-            <Text textStyle="eyebrow" color="olive.200">
-              Atlas público de inteligência territorial
-            </Text>
+          <Stack gap={6}>
+            <Box
+              w="40px"
+              h="4px"
+              borderRadius="pill"
+              bg="accent.solid"
+              aria-hidden="true"
+            />
             <Text
               as="h2"
               id="closing-heading"
               textStyle="h2"
-              color="text.onContrast"
+              color="text.onDark"
             >
               Explore o atlas.
             </Text>
-            <Text textStyle="lead" color="text.onFooterMuted" maxW="52ch">
+            <Text textStyle="lead" color="text.onDarkBody" maxW="52ch">
               Dados territoriais sobre envelhecimento em São Paulo, organizados
               para facilitar compreensão, pesquisa e políticas públicas.
               Construído com fontes abertas e documentado para uso em análise,
@@ -50,9 +53,7 @@ const ClosingCtaSection = () => {
             gap={3}
             align={{ base: 'flex-start', sm: 'center' }}
           >
-            <CtaLink href="/mapas" variant="solid-amber">
-              Explorar o mapa
-            </CtaLink>
+            <CtaLink href="/mapas">Explorar o mapa</CtaLink>
           </Flex>
         </Stack>
       </Container>

@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../../components/ui/Container';
+import SectionLayout from '../../../../components/ui/SectionLayout';
 
 type Step = {
   id: string;
@@ -58,85 +58,65 @@ const STEPS: Step[] = [
  */
 const HowSelectionWorks = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="selection-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="selection-heading"
+      eyebrow="Como funciona a seleção"
+      heading="Um processo transparente e acessível."
     >
-      <Container>
-        <Stack gap={12}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              Como funciona a seleção
-            </Text>
-            <Text
-              as="h2"
-              id="selection-heading"
-              textStyle="h2"
-              color="text.primary"
+      <Grid
+        templateColumns={{
+          base: '1fr',
+          md: 'repeat(2, 1fr)',
+          lg: 'repeat(3, 1fr)',
+        }}
+        gap={4}
+      >
+        {STEPS.map((step) => {
+          return (
+            <Box
+              key={step.id}
+              p={{ base: 6, md: 7 }}
+              bg="surface.raised"
+              border="1px solid"
+              borderColor="border.subtle"
+              borderRadius="card"
             >
-              Um processo transparente e acessível.
-            </Text>
-          </Stack>
-
-          <Grid
-            templateColumns={{
-              base: '1fr',
-              md: 'repeat(2, 1fr)',
-              lg: 'repeat(3, 1fr)',
-            }}
-            gap={4}
-          >
-            {STEPS.map((step) => {
-              return (
-                <Box
-                  key={step.id}
-                  p={{ base: 6, md: 7 }}
-                  bg="surface.base"
-                  border="1px solid"
-                  borderColor="border.subtle"
-                  borderRadius="card"
+              <Stack gap={3}>
+                <Text
+                  textStyle="data"
+                  color="text.muted"
+                  aria-hidden="true"
+                  userSelect="none"
                 >
-                  <Stack gap={3}>
-                    <Text
-                      textStyle="data"
-                      color="olive.400"
-                      aria-hidden="true"
-                      userSelect="none"
-                    >
-                      {step.number}
-                    </Text>
-                    <Text as="h3" textStyle="h4" color="text.primary">
-                      {step.title}
-                    </Text>
-                    <Text textStyle="body-sm" color="text.secondary">
-                      {step.description}
-                    </Text>
-                  </Stack>
-                </Box>
-              );
-            })}
-          </Grid>
+                  {step.number}
+                </Text>
+                <Text as="h3" textStyle="h4" color="text.primary">
+                  {step.title}
+                </Text>
+                <Text textStyle="body-sm" color="text.secondary">
+                  {step.description}
+                </Text>
+              </Stack>
+            </Box>
+          );
+        })}
+      </Grid>
 
-          <Box
-            bg="surface.trust"
-            border="1px solid"
-            borderColor="border.subtle"
-            borderRadius="card"
-            p={{ base: 5, md: 6 }}
-            maxW="64ch"
-          >
-            <Text textStyle="body-sm" color="text.secondary">
-              Este processo é genérico e se aplica tanto a bolsas quanto a
-              cargos. Quando houver conflito entre o que está descrito aqui e o
-              edital oficial de uma oportunidade, o edital prevalece.
-            </Text>
-          </Box>
-        </Stack>
-      </Container>
-    </Box>
+      <Box
+        bg="surface.trust"
+        border="1px solid"
+        borderColor="border.subtle"
+        borderRadius="card"
+        p={{ base: 5, md: 6 }}
+        maxW="64ch"
+      >
+        <Text textStyle="body-sm" color="text.secondary">
+          Este processo é genérico e se aplica tanto a bolsas quanto a cargos.
+          Quando houver conflito entre o que está descrito aqui e o edital
+          oficial de uma oportunidade, o edital prevalece.
+        </Text>
+      </Box>
+    </SectionLayout>
   );
 };
 

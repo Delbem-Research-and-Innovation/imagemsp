@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 export default function CookiesPage() {
   return (
     <Container>
-      <Box maxW="3xl" mx="auto" py={{ base: 10, md: 16 }}>
+      <Box maxW="65ch" mx="auto" py={{ base: 10, md: 16 }}>
         <Stack gap={10}>
           <Stack gap={2}>
-            <Text as="h1" textStyle="h2" color="text.primary">
+            <Text as="h1" textStyle="h1" color="text.primary">
               Política de Cookies
             </Text>
             <Text textStyle="metadata" color="text.muted">

@@ -1,6 +1,8 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
 import Container from '../../../../components/ui/Container';
+import Section from '../../../../components/ui/Section';
+import SectionHeader from '../../../../components/ui/SectionHeader';
 
 type PrincipleCard = {
   id: string;
@@ -40,13 +42,7 @@ const PRINCIPLES: PrincipleCard[] = [
  */
 const WhySection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="why-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
-    >
+    <Section labelledBy="why-heading">
       <Container>
         <Grid
           templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
@@ -55,20 +51,11 @@ const WhySection = () => {
         >
           {/* Narrative */}
           <Stack gap={6}>
-            <Stack gap={3}>
-              <Text textStyle="eyebrow" color="olive.600">
-                Por que existe
-              </Text>
-              <Text
-                as="h2"
-                id="why-heading"
-                textStyle="h2"
-                color="text.primary"
-              >
-                São Paulo está envelhecendo em territórios muito diferentes
-                entre si.
-              </Text>
-            </Stack>
+            <SectionHeader
+              eyebrow="Por que existe"
+              heading="São Paulo está envelhecendo em territórios muito diferentes entre si."
+              headingId="why-heading"
+            />
 
             <Text textStyle="body" color="text.secondary" maxW="48ch">
               A idade da população não é o único dado que importa. O
@@ -86,11 +73,11 @@ const WhySection = () => {
                 <Box
                   key={card.id}
                   p={5}
-                  bg="surface.base"
+                  bg="surface.raised"
                   border="1px solid"
                   borderColor="border.subtle"
                   borderRadius="card"
-                  boxShadow="card"
+                  shadow="card"
                 >
                   <Stack gap={1}>
                     <Text
@@ -110,7 +97,7 @@ const WhySection = () => {
           </Stack>
         </Grid>
       </Container>
-    </Box>
+    </Section>
   );
 };
 

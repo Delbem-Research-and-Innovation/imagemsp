@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../components/ui/Container';
+import SectionLayout from '../../../components/ui/SectionLayout';
 
 type QuestionCard = {
   question: string;
@@ -56,7 +56,7 @@ const CartographicMicro = ({ accent }: { accent: number }) => {
       aria-hidden="true"
     >
       {opacities.map((op, i) => {
-        return <Box key={i} bg="olive.600" opacity={op} borderRadius="2px" />;
+        return <Box key={i} bg="brand.fg" opacity={op} borderRadius="2px" />;
       })}
     </Grid>
   );
@@ -73,72 +73,52 @@ const CartographicMicro = ({ accent }: { accent: number }) => {
  */
 const RevealQuestionCards = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="reveal-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      bg="background.soft"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="reveal-heading"
+      eyebrow="O que o IMAGEM:SP revela"
+      heading="Perguntas territoriais, respostas em dados."
+      gap={10}
     >
-      <Container>
-        <Stack gap={10}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              O que o IMAGEM:SP revela
-            </Text>
-            <Text
-              as="h2"
-              id="reveal-heading"
-              textStyle="h2"
-              color="text.primary"
+      <Grid
+        templateColumns={{
+          base: '1fr',
+          sm: 'repeat(2, 1fr)',
+          lg: 'repeat(4, 1fr)',
+        }}
+        gap={4}
+      >
+        {CARDS.map((card) => {
+          return (
+            <Stack
+              key={card.question}
+              gap={4}
+              p={6}
+              borderRadius="card"
+              border="1px solid"
+              borderColor="border.default"
+              bg="surface.raised"
+              shadow="raised"
+              justify="space-between"
             >
-              Perguntas territoriais, respostas em dados.
-            </Text>
-          </Stack>
-
-          <Grid
-            templateColumns={{
-              base: '1fr',
-              sm: 'repeat(2, 1fr)',
-              lg: 'repeat(4, 1fr)',
-            }}
-            gap={4}
-          >
-            {CARDS.map((card) => {
-              return (
-                <Stack
-                  key={card.question}
-                  gap={4}
-                  p={6}
-                  borderRadius="card"
-                  border="1px solid"
-                  borderColor="border.default"
-                  bg="surface.base"
-                  shadow="raised"
-                  justify="space-between"
+              <Stack gap={3}>
+                <Text
+                  as="h3"
+                  textStyle="h4"
+                  color="text.primary"
+                  fontWeight="600"
                 >
-                  <Stack gap={3}>
-                    <Text
-                      as="h3"
-                      textStyle="h4"
-                      color="text.primary"
-                      fontWeight="600"
-                    >
-                      {card.question}
-                    </Text>
-                    <Text textStyle="body-sm" color="text.secondary">
-                      {card.description}
-                    </Text>
-                  </Stack>
-                  <CartographicMicro accent={card.accent} />
-                </Stack>
-              );
-            })}
-          </Grid>
-        </Stack>
-      </Container>
-    </Box>
+                  {card.question}
+                </Text>
+                <Text textStyle="body-sm" color="text.secondary">
+                  {card.description}
+                </Text>
+              </Stack>
+              <CartographicMicro accent={card.accent} />
+            </Stack>
+          );
+        })}
+      </Grid>
+    </SectionLayout>
   );
 };
 

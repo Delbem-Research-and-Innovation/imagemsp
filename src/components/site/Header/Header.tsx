@@ -75,8 +75,8 @@ const Header = () => {
               px={5}
               py="11px"
               borderRadius="pill"
-              bg="olive.700"
-              color="paper.50"
+              bg="brand.solid"
+              color="brand.contrast"
               fontSize="0.8125rem"
               fontWeight="600"
               letterSpacing="0.04em"
@@ -84,7 +84,7 @@ const Header = () => {
               textDecoration="none"
               transition={`all 0.3s ${EXPO_OUT}`}
               _hover={{
-                bg: 'olive.800',
+                bg: 'brand.hover',
                 transform: 'translateY(-1px)',
               }}
             >

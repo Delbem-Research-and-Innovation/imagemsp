@@ -48,7 +48,7 @@ const OportunidadesHero = () => {
           {/* Editorial text */}
           <Stack gap={8}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="olive.600">
+              <Text textStyle="eyebrow" color="brand.fg">
                 Vagas e oportunidades
               </Text>
               <Text
@@ -91,7 +91,7 @@ const OportunidadesHero = () => {
 
           {/* Status panel */}
           <Box
-            bg="surface.base"
+            bg="surface.raised"
             border="1px solid"
             borderColor="border.subtle"
             borderRadius="card"
@@ -100,7 +100,7 @@ const OportunidadesHero = () => {
           >
             <Stack gap={6}>
               <Stack gap={2}>
-                <Text textStyle="eyebrow" color="olive.600">
+                <Text textStyle="eyebrow" color="brand.fg">
                   Status atual
                 </Text>
                 <Flex align="center" gap={2}>
@@ -108,7 +108,7 @@ const OportunidadesHero = () => {
                     w="10px"
                     h="10px"
                     borderRadius="full"
-                    bg={hasActive ? 'olive.500' : 'ink.600'}
+                    bg={hasActive ? 'brand.fg' : 'text.muted'}
                     flexShrink={0}
                     aria-hidden="true"
                   />
@@ -135,7 +135,6 @@ const OportunidadesHero = () => {
                         key={chip}
                         px={3}
                         py={1}
-                        bg="surface.action"
                         borderRadius="pill"
                         border="1px solid"
                         borderColor="border.subtle"

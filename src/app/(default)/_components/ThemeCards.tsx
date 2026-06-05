@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../components/ui/Container';
+import SectionLayout from '../../../components/ui/SectionLayout';
 
 type Theme = {
   title: string;
@@ -57,88 +57,67 @@ const THEMES: Theme[] = [
  */
 const ThemeCards = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="themes-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="themes-heading"
+      eyebrow="Temas"
+      heading="Oito dimensões do envelhecimento urbano."
+      body="Organizados pelos domínios das cidades amigas das pessoas idosas, não pela estrutura técnica dos dados."
+      bodyMaxW="50ch"
+      gap={10}
     >
-      <Container>
-        <Stack gap={10}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              Temas
-            </Text>
-            <Text
-              as="h2"
-              id="themes-heading"
-              textStyle="h2"
-              color="text.primary"
+      <Grid
+        templateColumns={{
+          base: '1fr',
+          sm: 'repeat(2, 1fr)',
+          lg: 'repeat(4, 1fr)',
+        }}
+        gap={4}
+      >
+        {THEMES.map((theme) => {
+          return (
+            <Stack
+              key={theme.title}
+              gap={3}
+              p={5}
+              borderRadius="card"
+              border="1px solid"
+              borderColor="border.default"
+              bg="surface.raised"
+              shadow="raised"
+              transition="border-color 0.2s ease, transform 0.2s ease"
+              _hover={{
+                borderColor: 'brand.subtle',
+                transform: 'translateY(-2px)',
+              }}
             >
-              Oito dimensões do envelhecimento urbano.
-            </Text>
-            <Text textStyle="body" color="text.secondary" maxW="50ch">
-              Organizados pelos domínios das cidades amigas das pessoas idosas,
-              não pela estrutura técnica dos dados.
-            </Text>
-          </Stack>
+              {/* Color accent strip */}
+              <Box
+                w="32px"
+                h="4px"
+                borderRadius="pill"
+                bg="brand.solid"
+                flexShrink={0}
+                aria-hidden="true"
+              />
 
-          <Grid
-            templateColumns={{
-              base: '1fr',
-              sm: 'repeat(2, 1fr)',
-              lg: 'repeat(4, 1fr)',
-            }}
-            gap={4}
-          >
-            {THEMES.map((theme) => {
-              return (
-                <Stack
-                  key={theme.title}
-                  gap={3}
-                  p={5}
-                  borderRadius="card"
-                  border="1px solid"
-                  borderColor="border.default"
-                  bg="surface.base"
-                  shadow="raised"
-                  transition="border-color 0.2s ease, transform 0.2s ease"
-                  _hover={{
-                    borderColor: 'olive.300',
-                    transform: 'translateY(-2px)',
-                  }}
+              <Stack gap={2}>
+                <Text
+                  as="h3"
+                  textStyle="body"
+                  color="text.primary"
+                  fontWeight="600"
                 >
-                  {/* Color accent strip */}
-                  <Box
-                    w="32px"
-                    h="4px"
-                    borderRadius="pill"
-                    bg="olive.700"
-                    flexShrink={0}
-                    aria-hidden="true"
-                  />
-
-                  <Stack gap={2}>
-                    <Text
-                      as="h3"
-                      textStyle="body"
-                      color="text.primary"
-                      fontWeight="600"
-                    >
-                      {theme.title}
-                    </Text>
-                    <Text textStyle="body-sm" color="text.muted">
-                      {theme.description}
-                    </Text>
-                  </Stack>
-                </Stack>
-              );
-            })}
-          </Grid>
-        </Stack>
-      </Container>
-    </Box>
+                  {theme.title}
+                </Text>
+                <Text textStyle="body-sm" color="text.muted">
+                  {theme.description}
+                </Text>
+              </Stack>
+            </Stack>
+          );
+        })}
+      </Grid>
+    </SectionLayout>
   );
 };
 

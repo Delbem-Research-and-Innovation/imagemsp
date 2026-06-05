@@ -50,7 +50,11 @@ Good: _"Entenda o envelhecimento em São Paulo pelo território."_ — Bad: _"A 
 
 ## Color
 
-80% warm neutrals (warm linen, stone, paper), 15% deep forest green (institutional authority), 5% warm accent (amber, clay, terracotta — rare and memorable). Cartographic accessible scales for data layers. Never color areas by raw counts; use rates and proportions. Color values are defined in `src/app/theme.ts` — never hardcoded in components.
+These are just guidelines; minor variations are accepted by default, and larger variations may occur with well-justified need and intention:
+
+- per page - 75% neutrals, 15% brand, max of 10% accent ( rare and memorable).
+  For example, there may be pages that have no accents at all, because they don't need them, or pages where the use of the main brand color is reduced because it's not necessary. And the brand color isn't just one color; it has palettes, so learn how to use and explore them according to the needs, intention, form, and function of the UI.
+  Color values are defined in `src/config/theme.ts` — never hardcoded in components.
 
 ## Surfaces
 

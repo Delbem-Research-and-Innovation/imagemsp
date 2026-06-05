@@ -11,7 +11,7 @@ type Props = Pick<NavEntry, 'href' | 'label'>;
 
 /**
  * Navigation link for the site header strip.
- * Active state: olive.700 bottom border — editorial underline indicator.
+ * Active state: thin bottom border underline — editorial indicator.
  * No pill backgrounds on hover to preserve the warm paper strip aesthetic.
  *
  * @example
@@ -47,14 +47,14 @@ const NavLink = ({ href, label }: Props) => {
       >
         <NextLink href={href}>{label}</NextLink>
       </Link>
-      {/* Active indicator: thin olive underline */}
+      {/* Active indicator: thin brand underline */}
       <Box
         position="absolute"
         bottom={0}
         left={4}
         right={4}
         h="2px"
-        bg="olive.700"
+        bg="brand.solid"
         borderRadius="1px"
         transition={`opacity 0.3s ${EXPO_OUT}, transform 0.3s ${EXPO_OUT}`}
         opacity={isCurrent ? 1 : 0}

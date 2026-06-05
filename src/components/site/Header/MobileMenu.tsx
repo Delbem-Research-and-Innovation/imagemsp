@@ -72,7 +72,7 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
       position="fixed"
       inset={0}
       zIndex={49}
-      bg="olive.900"
+      bg="brand.pressed"
       display="flex"
       flexDirection="column"
       justifyContent="center"
@@ -86,13 +86,13 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
       <IconButton
         aria-label="Fechar menu"
         variant="ghost"
-        color="paper.300"
+        color="text.onDark"
         minH="44px"
         minW="44px"
         position="absolute"
         top={3}
         right={4}
-        _hover={{ bg: 'olive.800' }}
+        _hover={{ bg: 'brand.hover' }}
         onClick={onClose}
       >
         <CloseLines />
@@ -105,9 +105,9 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
               key={entry.id}
               asChild
               display="block"
-              color="paper.300"
+              color="text.onDark"
               fontSize="clamp(2rem, calc(1.5rem + 2vw), 3.5rem)"
-              fontFamily="var(--font-newsreader), var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif"
+              fontFamily="var(--font-heading), system-ui, sans-serif"
               fontWeight="700"
               letterSpacing="-0.04em"
               lineHeight="1.05"
@@ -115,7 +115,7 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
               transition={`opacity 0.4s ${EXPO_OUT} ${i * 0.06}s, transform 0.4s ${EXPO_OUT} ${i * 0.06}s, color 0.3s ${EXPO_OUT}`}
               opacity={open ? 1 : 0}
               transform={open ? 'none' : 'translateY(10px)'}
-              _hover={{ color: 'amber.300' }}
+              _hover={{ color: 'brand.subtle' }}
               onClick={onClose}
             >
               <NextLink href={entry.href}>{entry.label}</NextLink>
@@ -136,8 +136,8 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
             px={6}
             py="13px"
             borderRadius="pill"
-            bg="amber.100"
-            color="ink.950"
+            bg="brand.subtle"
+            color="brand.pressed"
             fontSize="0.8125rem"
             fontWeight="600"
             letterSpacing="0.04em"
@@ -145,7 +145,7 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
             textDecoration="none"
             minH="52px"
             transition={`all 0.3s ${EXPO_OUT}`}
-            _hover={{ bg: 'amber.200', transform: 'translateY(-1px)' }}
+            _hover={{ bg: 'surface.raised', transform: 'translateY(-1px)' }}
             onClick={onClose}
           >
             <NextLink href="/mapas">Explorar o mapa</NextLink>
@@ -157,7 +157,7 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
         position="absolute"
         bottom={8}
         left={8}
-        color="paper.400"
+        color="text.onDarkMuted"
         fontSize="0.75rem"
         letterSpacing="0.08em"
         textTransform="uppercase"
@@ -175,7 +175,7 @@ const NavOverlay = ({ open, onClose }: OverlayProps) => {
 
 /**
  * Full-screen mobile navigation overlay triggered by a hamburger icon.
- * olive.900 background with large parchment links for maximum legibility.
+ * Full-screen deep-brand backdrop with large inverse-text links for maximum legibility.
  * Includes a primary CTA at the bottom of the nav list.
  *
  * @example
@@ -202,7 +202,7 @@ const MobileMenu = () => {
         aria-expanded={open}
         aria-controls="mobile-nav-overlay"
         variant="ghost"
-        color="ink.950"
+        color="text.primary"
         minH="44px"
         minW="44px"
         onClick={() => {

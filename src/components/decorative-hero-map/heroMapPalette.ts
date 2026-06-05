@@ -24,8 +24,7 @@ const HERO_MAP_BLUE = d.sequential.blue;
 const HERO_MAP_GREEN = [...d.sequential.green].reverse();
 
 /**
- * Diverging olive → clay palette. Cycle position 3.
- * Warm brand diverging: positive/growth (olive) ↔ negative/decline (clay).
+ * Diverging warm palette. Cycle position 3.
  * Source: `geovisTokens.core.dataviz.color.data.diverging.oliveClay`.
  */
 const HERO_MAP_OLIVE_CLAY = d.diverging.oliveClay;
