@@ -2,6 +2,7 @@ import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
 import Container from '../../../components/ui/Container';
 import CtaLink from '../../../components/ui/CtaLink';
+import Section from '../../../components/ui/Section';
 
 const TRUST_POINTS = [
   {
@@ -41,13 +42,7 @@ const TRUST_POINTS = [
  */
 const DataTrustSection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="data-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
-    >
+    <Section labelledBy="data-heading">
       <Container>
         <Grid
           templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
@@ -57,7 +52,7 @@ const DataTrustSection = () => {
           {/* Left: heading + description */}
           <Stack gap={6}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="olive.600">
+              <Text textStyle="eyebrow" color="brand.fg">
                 Dados com responsabilidade
               </Text>
               <Text
@@ -89,7 +84,7 @@ const DataTrustSection = () => {
                   borderRadius="card"
                   border="1px solid"
                   borderColor="border.subtle"
-                  bg="olive.50"
+                  bg="surface.raised"
                 >
                   <Stack gap={1}>
                     <Text
@@ -109,7 +104,7 @@ const DataTrustSection = () => {
           </Stack>
         </Grid>
       </Container>
-    </Box>
+    </Section>
   );
 };
 

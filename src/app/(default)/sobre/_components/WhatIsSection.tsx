@@ -1,6 +1,6 @@
-import { Box, Grid, Stack, Text } from '@chakra-ui/react';
+import { Box, Flex, Grid, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../../components/ui/Container';
+import SectionLayout from '../../../../components/ui/SectionLayout';
 
 type ComparisonRow = {
   id: string;
@@ -37,74 +37,84 @@ const COMPARISONS: ComparisonRow[] = [
  */
 const WhatIsSection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="what-is-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      bg="surface.trust"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="what-is-heading"
+      eyebrow="O que é"
+      heading="Uma plataforma pública, georreferenciada e interativa."
+      body="O IMAGEM:SP combina dados sobre população, saúde, mobilidade, moradia, espaços públicos, segurança, apoio social e inclusão digital para apoiar decisões mais informadas."
+      bodyMaxW="52ch"
     >
-      <Container>
-        <Stack gap={12}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              O que é
-            </Text>
-            <Text
-              as="h2"
-              id="what-is-heading"
-              textStyle="h2"
-              color="text.primary"
-            >
-              Uma plataforma pública, georreferenciada e interativa.
-            </Text>
-            <Text textStyle="body" color="text.secondary" maxW="52ch">
-              O IMAGEM:SP combina dados sobre população, saúde, mobilidade,
-              moradia, espaços públicos, segurança, apoio social e inclusão
-              digital para apoiar decisões mais informadas.
-            </Text>
-          </Stack>
+      <Stack gap={3}>
+        {/* Column headers — two-column layout only */}
+        <Grid
+          display={{ base: 'none', md: 'grid' }}
+          templateColumns="1fr 1fr"
+          gap={4}
+        >
+          <Text textStyle="eyebrow" color="text.muted" ps={6}>
+            Não é
+          </Text>
+          <Text textStyle="eyebrow" color="brand.fg" ps={6}>
+            É
+          </Text>
+        </Grid>
 
-          <Stack gap={4}>
-            {COMPARISONS.map((row) => {
-              return (
-                <Grid
-                  key={row.id}
-                  templateColumns={{ base: '1fr', sm: '1fr 1fr' }}
-                  gap={0}
-                  border="1px solid"
-                  borderColor="border.subtle"
-                  borderRadius="card"
-                  overflow="hidden"
+        {COMPARISONS.map((row) => {
+          return (
+            <Grid
+              key={row.id}
+              templateColumns={{ base: '1fr', md: '1fr 1fr' }}
+              gap={{ base: 2, md: 4 }}
+            >
+              {/*
+               * Negation — dashed border signals an excluded or
+               * deprecated concept; no background avoids the
+               * surface.muted contrast trap.
+               */}
+              <Flex
+                align="flex-start"
+                gap={3}
+                px={6}
+                py={5}
+                border="1px dashed"
+                borderColor="border.subtle"
+                borderRadius="card"
+              >
+                <Text
+                  color="text.muted"
+                  lineHeight="1.6"
+                  flexShrink={0}
+                  aria-hidden="true"
+                  userSelect="none"
                 >
-                  <Box
-                    p={5}
-                    bg="surface.muted"
-                    borderRight={{ base: 'none', sm: '1px solid' }}
-                    borderBottom={{ base: '1px solid', sm: 'none' }}
-                    borderColor="border.subtle"
-                  >
-                    <Text textStyle="body-sm" color="text.muted">
-                      {row.negation}
-                    </Text>
-                  </Box>
-                  <Box p={5} bg="surface.base">
-                    <Text
-                      textStyle="body-sm"
-                      color="text.primary"
-                      fontWeight="600"
-                    >
-                      {row.affirmation}
-                    </Text>
-                  </Box>
-                </Grid>
-              );
-            })}
-          </Stack>
-        </Stack>
-      </Container>
-    </Box>
+                  ✕
+                </Text>
+                <Text textStyle="body-sm" color="text.secondary">
+                  {row.negation}
+                </Text>
+              </Flex>
+
+              {/* Affirmation — solid white card with brand azure left accent */}
+              <Box
+                px={6}
+                py={5}
+                bg="surface.raised"
+                border="1px solid"
+                borderColor="border.subtle"
+                borderLeftWidth="3px"
+                borderLeftColor="brand.fg"
+                borderRadius="card"
+                shadow="card"
+              >
+                <Text textStyle="body" color="text.primary" fontWeight="600">
+                  {row.affirmation}
+                </Text>
+              </Box>
+            </Grid>
+          );
+        })}
+      </Stack>
+    </SectionLayout>
   );
 };
 

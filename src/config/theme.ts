@@ -30,18 +30,18 @@ const config = defineConfig({
       fontSize: '125%',
     },
     body: {
-      bg: '{colors.paper.300}',
+      bg: '{colors.paper.200}',
       color: '{colors.ink.950}',
-      fontFamily: 'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
+      fontFamily: 'var(--font-sans), system-ui, -apple-system, sans-serif',
       textRendering: 'optimizeLegibility',
     },
-    /* Newsreader for h1 — editorial authority. h2–h6 inherit body sans-serif. */
-    h1: {
-      fontFamily: 'var(--font-newsreader), Georgia, "Times New Roman", serif',
+    /* Montserrat for h1-h2 — brand authority. h3–h6 inherit body sans-serif. */
+    'h1, h2': {
+      fontFamily: 'var(--font-heading), system-ui, sans-serif',
     },
     /* Branded text selection */
     '::selection': {
-      bg: '{colors.olive.100}',
+      bg: '{colors.azure.50}',
       color: '{colors.ink.950}',
     },
     /* Branded focus ring — visible keyboard navigation */
@@ -55,10 +55,10 @@ const config = defineConfig({
       width: '6px',
     },
     '::-webkit-scrollbar-track': {
-      bg: '{colors.paper.400}',
+      bg: '{colors.paper.300}',
     },
     '::-webkit-scrollbar-thumb': {
-      bg: '{colors.paper.500}',
+      bg: '{colors.paper.400}',
       borderRadius: '3px',
     },
     '::-webkit-scrollbar-thumb:hover': {
@@ -71,23 +71,27 @@ const config = defineConfig({
   theme: {
     tokens: {
       fonts: {
-        /** IBM Plex Sans — primary UI/body. Load via next/font as --font-plex-sans. */
+        /** Source Sans 3 — primary UI/body. Load via next/font as --font-sans. */
         body: {
           value:
-            'var(--font-plex-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+            'var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         },
-        /** Newsreader (serif) — display and h1. Load via next/font as --font-newsreader. */
+        /** Montserrat — brand headings (display, h1, h2). Load via next/font as --font-heading. */
         heading: {
-          value: 'var(--font-newsreader), Georgia, "Times New Roman", serif',
+          value: 'var(--font-heading), system-ui, sans-serif',
+        },
+        /** Source Serif 4 — editorial long-form (About, institutional). Load as --font-editorial. */
+        editorial: {
+          value: 'var(--font-editorial), Georgia, serif',
         },
         /** Atkinson Hyperlegible — accessibility mode. Load via next/font as --font-atkinson. */
         accessible: {
           value:
             'var(--font-atkinson), "Atkinson Hyperlegible", system-ui, sans-serif',
         },
-        /** IBM Plex Mono — code and data. Load via next/font as --font-plex-mono. */
+        /** Source Code Pro — data, metadata, units, IDs. Load via next/font as --font-mono. */
         mono: {
-          value: 'var(--font-plex-mono), "SFMono-Regular", Consolas, monospace',
+          value: 'var(--font-mono), "SFMono-Regular", Consolas, monospace',
         },
       },
       radii: {
@@ -99,30 +103,32 @@ const config = defineConfig({
         xl: { value: '1.75rem' },
         '2xl': { value: '2.25rem' },
         pill: { value: '999px' },
-        /** card — alias for xl; used in content cards and panels. */
-        card: { value: '1.75rem' },
+        /** card — editorial panel radius; restrained, not consumer-app. */
+        card: { value: '1rem' },
       },
       colors: {
         /**
-         * Paper — warm linen surface scale. Anchors: page bg #E8E4DB (300), raised #F8F6F2 (100).
+         * Paper — warm linen surface scale.
+         * 50: inverse text. 100: elevated warm card bg (#FAF7F2). 200: section surface (#F1ECE4).
+         * 300: border subtle (#DED6CE). 400: border strong (#CFC5BA). 500: scrollbar thumb.
          */
         paper: {
           50: { value: '#FDFDF9' },
-          100: { value: '#F8F6F2' },
-          200: { value: '#F1EEE7' },
-          300: { value: '#E8E4DB' },
-          400: { value: '#DAD5CB' },
+          100: { value: '#FAF7F2' },
+          200: { value: '#F1ECE4' },
+          300: { value: '#DED6CE' },
+          400: { value: '#CFC5BA' },
           500: { value: '#C5C0B5' },
         },
-        /** Ink — text scale, never pure black. Anchor: primary #1A1A16 (950). */
+        /** Ink — text scale, never pure black. Anchor: primary #2F2D3A (950). */
         ink: {
-          600: { value: '#6A6862' },
-          700: { value: '#4E4E48' },
-          800: { value: '#353530' },
-          950: { value: '#1A1A16' },
+          600: { value: '#7A7480' },
+          700: { value: '#625D68' },
+          800: { value: '#3C3843' },
+          950: { value: '#2F2D3A' },
         },
-        /** Forest — primary brand. Anchors: brand #1B412B (700), muted #35754F (500). */
-        olive: {
+        /** Green — success state only. Anchors: success #275B3C (600), subtle #EEF5F0 (50). */
+        green: {
           50: { value: '#EEF5F0' },
           100: { value: '#D2E9DA' },
           200: { value: '#A5CDB3' },
@@ -134,16 +140,12 @@ const config = defineConfig({
           800: { value: '#13301F' },
           900: { value: '#0B1F14' },
         },
-        /** Clay — accent; secondary CTAs, highlights, alerts. Anchor: #AD501B (500). */
-        clay: {
-          50: { value: '#FDF2EC' },
-          100: { value: '#F6D5BF' },
-          200: { value: '#EBA880' },
-          300: { value: '#DB7A45' },
-          400: { value: '#C45E22' },
-          500: { value: '#AD501B' },
-          600: { value: '#8C3F14' },
-          700: { value: '#6D300E' },
+        /** Orange — accent; controlled accent CTAs and highlights. Anchor: #D65A2C (500). */
+        orange: {
+          50: { value: '#FDEADE' },
+          500: { value: '#D65A2C' },
+          600: { value: '#B9451E' },
+          700: { value: '#983514' },
         },
         /** Amber — warm editorial accent; callouts, warnings. Anchor: #8A6512 (400). */
         amber: {
@@ -154,13 +156,12 @@ const config = defineConfig({
           400: { value: '#8A6512' },
           500: { value: '#6D4F0C' },
         },
-        /** Blue — focus ring, info states, auxiliary links. Anchor: #2F5F73 (500). */
-        blue: {
-          50: { value: '#E5F0F3' },
-          100: { value: '#BED9E2' },
-          300: { value: '#6A9AAF' },
-          500: { value: '#2F5F73' },
-          700: { value: '#214555' },
+        /** Azure — primary brand; CTAs, links, selection, interactive states. Anchor: #17629F (600). */
+        azure: {
+          50: { value: '#C6E2FF' },
+          600: { value: '#17629F' },
+          700: { value: '#0F4777' },
+          800: { value: '#092F52' },
         },
         /** Red — error, destructive actions, risk. Anchor: #8B2E24 (500). */
         red: {
@@ -220,23 +221,23 @@ const config = defineConfig({
       },
       shadows: {
         /** Zero-elevation outline — card borders, panel hairlines. */
-        hairline: { value: '0 0 0 1px rgba(26, 26, 22, 0.10)' },
-        /** Standard card elevation. */
+        hairline: { value: '0 0 0 1px rgba(90, 60, 35, 0.12)' },
+        /** Standard card elevation — warm-tinted for linen canvas. */
         raised: {
           value:
-            '0 1px 2px rgba(26, 26, 22, 0.08), 0 8px 24px rgba(26, 26, 22, 0.06)',
+            '0 1px 2px rgba(90, 60, 35, 0.07), 0 8px 24px rgba(90, 60, 35, 0.08)',
         },
         /** Floating panel elevation — drawers, dropdowns, modals. */
         floating: {
           value:
-            '0 4px 12px rgba(26, 26, 22, 0.10), 0 20px 48px rgba(26, 26, 22, 0.08)',
+            '0 4px 12px rgba(90, 60, 35, 0.09), 0 20px 48px rgba(90, 60, 35, 0.10)',
         },
         /** Focus ring glow — complements :focus-visible outline. */
-        focus: { value: '0 0 0 3px rgba(47, 95, 115, 0.35)' },
+        focus: { value: '0 0 0 3px rgba(23, 98, 159, 0.35)' },
         /** card — alias for raised; used in content cards. */
         card: {
           value:
-            '0 1px 2px rgba(26, 26, 22, 0.08), 0 8px 24px rgba(26, 26, 22, 0.06)',
+            '0 1px 2px rgba(90, 60, 35, 0.07), 0 8px 24px rgba(90, 60, 35, 0.08)',
         },
       },
     },
@@ -253,56 +254,51 @@ const config = defineConfig({
       },
     },
     textStyles: {
-      /** Hero-level display — Newsreader serif, homepage headline. */
+      /** Hero-level display — Montserrat, maximum brand weight. */
       display: {
         value: {
-          fontFamily: 'var(--font-newsreader), Georgia, serif',
+          fontFamily: 'var(--font-heading), system-ui, sans-serif',
           fontSize: 'clamp(3rem, 7vw, 6.5rem)',
           lineHeight: '0.95',
           letterSpacing: '-0.04em',
-          fontWeight: '600',
+          fontWeight: '800',
         },
       },
-      /** Page and section title — Newsreader, editorial authority. */
+      /** Page and section title — Montserrat, brand authority. */
       h1: {
         value: {
-          fontFamily: 'var(--font-newsreader), Georgia, serif',
-          fontSize: 'clamp(2.5rem, 5vw, 4.75rem)',
-          lineHeight: '1.12',
-          letterSpacing: '-0.035em',
-          fontWeight: '600',
-        },
-      },
-      /** Sub-section heading — sans-serif, structural clarity. */
-      h2: {
-        value: {
-          fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
-          fontSize: 'clamp(2rem, 3.6vw, 3.25rem)',
+          fontFamily: 'var(--font-heading), system-ui, sans-serif',
+          fontSize: 'clamp(2.75rem, 5vw, 5rem)',
           lineHeight: '1.08',
           letterSpacing: '-0.03em',
-          fontWeight: '600',
+          fontWeight: '700',
         },
       },
-      /** Card and panel heading. */
+      /** Sub-section heading — Montserrat, section-level title. */
+      h2: {
+        value: {
+          fontFamily: 'var(--font-heading), system-ui, sans-serif',
+          fontSize: 'clamp(2rem, 3.5vw, 3.5rem)',
+          lineHeight: '1.1',
+          letterSpacing: '-0.025em',
+          fontWeight: '700',
+        },
+      },
+      /** Card and panel heading — inherits body (Source Sans 3). */
       h3: {
         value: {
-          fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
-          fontSize: 'clamp(1.5rem, 2.2vw, 2rem)',
-          lineHeight: '1.18',
-          letterSpacing: '-0.02em',
+          fontSize: 'clamp(1.5rem, 2vw, 2rem)',
+          lineHeight: '1.2',
+          letterSpacing: '-0.015em',
           fontWeight: '600',
         },
       },
-      /** Component-level heading. */
+      /** Component-level heading — inherits body (Source Sans 3). */
       h4: {
         value: {
-          fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(1.25rem, 1.5vw, 1.5rem)',
           lineHeight: '1.25',
-          letterSpacing: '-0.015em',
+          letterSpacing: '-0.01em',
           fontWeight: '600',
         },
       },
@@ -386,9 +382,10 @@ const config = defineConfig({
       /** Large numeric indicator — big stat cards, hero metrics. Tabular numerals. */
       'data-lg': {
         value: {
+          fontFamily: 'var(--font-mono), "SFMono-Regular", Consolas, monospace',
           fontSize: 'clamp(2rem, 4vw, 4rem)',
           lineHeight: '1',
-          letterSpacing: '-0.04em',
+          letterSpacing: '-0.03em',
           fontWeight: '600',
           fontVariantNumeric: 'tabular-nums',
         },
@@ -396,10 +393,11 @@ const config = defineConfig({
       /** Standard numeric indicator — panels, tables, inline stats. Tabular numerals. */
       data: {
         value: {
+          fontFamily: 'var(--font-mono), "SFMono-Regular", Consolas, monospace',
           fontSize: '1.25rem',
           lineHeight: '1.25',
-          letterSpacing: '-0.015em',
-          fontWeight: '600',
+          letterSpacing: '-0.01em',
+          fontWeight: '500',
           fontVariantNumeric: 'tabular-nums',
         },
       },
@@ -409,12 +407,11 @@ const config = defineConfig({
        */
       'title-2': {
         value: {
-          fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
-          fontSize: 'clamp(2rem, 3.6vw, 3.25rem)',
-          lineHeight: '1.08',
-          letterSpacing: '-0.03em',
-          fontWeight: '600',
+          fontFamily: 'var(--font-heading), system-ui, sans-serif',
+          fontSize: 'clamp(2rem, 3.5vw, 3.5rem)',
+          lineHeight: '1.1',
+          letterSpacing: '-0.025em',
+          fontWeight: '700',
         },
       },
       /**
@@ -423,11 +420,9 @@ const config = defineConfig({
        */
       'title-4': {
         value: {
-          fontFamily:
-            'var(--font-plex-sans), system-ui, -apple-system, sans-serif',
           fontSize: 'clamp(1.25rem, 1.5vw, 1.5rem)',
           lineHeight: '1.25',
-          letterSpacing: '-0.015em',
+          letterSpacing: '-0.01em',
           fontWeight: '600',
         },
       },
@@ -436,104 +431,112 @@ const config = defineConfig({
       colors: {
         /** Page-level backgrounds — outer container and inverse sections. */
         background: {
-          /** Main page background — warm paper. */
-          page: { value: '{colors.paper.300}' },
-          /** Soft variant — slightly lighter reading surface. */
-          soft: { value: '{colors.paper.200}' },
+          /** Main page background — warm linen canvas; the atlas material. */
+          page: { value: '{colors.paper.200}' },
+          /** Soft variant — subtle warm tint for nested insets. */
+          soft: { value: '{colors.paper.100}' },
           /** Inverse section background — deep ink. */
           inverse: { value: '{colors.ink.950}' },
         },
         /** Content surfaces — cards, panels, insets, map canvas. */
         surface: {
-          /** Base reading container — clean, light. */
-          base: { value: '{colors.paper.100}' },
-          /** Raised card surface — default container elevation. */
+          /** Base section surface — warm sand. */
+          base: { value: '{colors.paper.200}' },
+          /** Raised card surface — white, elevated over surface.base. */
           raised: { value: '#FFFFFF' },
           /** Muted zone — depressed areas, sidebars. */
           muted: { value: '{colors.paper.400}' },
           /** Inset surface — input backgrounds, nested containers. */
-          inset: { value: '{colors.paper.200}' },
+          inset: { value: '{colors.paper.100}' },
           /** Data surface — indicator panels, precise and technical. */
           data: { value: '{colors.paper.100}' },
           /** Map canvas — cartographic, clean warm-neutral. */
           map: { value: '#EDEDEA' },
-          /** Action surface — CTAs, filters, interactive zones. */
-          action: { value: '{colors.olive.50}' },
-          /** Trust surface — sources, methodology, institutional strips. */
-          trust: { value: '{colors.paper.200}' },
-          /** High-contrast section — olive.700; pair with text.onContrast. Distinct from footer (olive.900). */
-          contrast: { value: '{colors.olive.700}' },
-          /** Site footer — olive.900; text.onFooter gives 11:1 contrast. */
-          footer: { value: '{colors.olive.900}' },
-          /** Site header — matches page background. */
-          header: { value: '{colors.paper.300}' },
+          /** Action surface — brand soft tint; CTAs, filters, interactive zones. */
+          action: { value: '{colors.azure.50}' },
+          /** Trust surface — sources, methodology, institutional strips.
+           * paper.100: slightly lighter than the canvas (paper.200) for a subtle lift.
+           */
+          trust: { value: '{colors.paper.100}' },
+          /** Semi-transparent card lift on background.inverse dark sections. */
+          inverseCard: { value: 'rgba(255, 255, 255, 0.06)' },
+          /** Site footer — warm sand, matches surface.base. */
+          footer: { value: '{colors.paper.200}' },
+          /** Site header — warm linen; matches page canvas on scroll. */
+          header: { value: '{colors.paper.200}' },
         },
         text: {
           primary: { value: '{colors.ink.950}' },
           secondary: { value: '{colors.ink.700}' },
           muted: { value: '{colors.ink.600}' },
-          /** Text on inverse/contrast dark sections. */
-          inverse: { value: '{colors.paper.100}' },
-          /** Text on primary olive CTAs. */
-          onPrimary: { value: '{colors.paper.100}' },
-          /** Text on accent clay CTAs. */
-          onAccent: { value: '{colors.paper.100}' },
-          /** Paper on olive.900 high-contrast sections. */
-          onContrast: { value: '{colors.paper.300}' },
-          /** Paper on olive.900 footer — 11:1 contrast. */
-          onFooter: { value: '{colors.paper.300}' },
-          /** Muted warm text on olive.900 footer — body and mission copy. */
-          onFooterMuted: { value: '{colors.paper.400}' },
+          /** Text on dark inverted sections. */
+          inverse: { value: '{colors.paper.50}' },
+          /** Text on primary brand CTAs. */
+          onPrimary: { value: '{colors.paper.50}' },
+          /** Text on accent orange CTAs. */
+          onAccent: { value: '{colors.paper.50}' },
+          /** Primary text on the warm sand footer. */
+          onFooter: { value: '{colors.ink.950}' },
+          /** Muted text on the warm sand footer. */
+          onFooterMuted: { value: '{colors.ink.700}' },
+          /** Primary text on deep dark surfaces (e.g. mobile nav overlay). */
+          onDark: { value: '{colors.paper.50}' },
+          /** Muted text on deep dark surfaces — azure soft tint for brand context. */
+          onDarkMuted: { value: '{colors.azure.50}' },
+          /** Body copy on dark inverse sections — warm light gray, high contrast. */
+          onDarkBody: { value: '{colors.paper.300}' },
         },
         /** Borders — structural dividers and component outlines. */
         border: {
-          /** Subtle divider — card edges, section separators on paper. */
-          subtle: { value: '#D2CFC6' },
+          /** Subtle divider — card edges, section separators. */
+          subtle: { value: '{colors.paper.300}' },
           /** Default border — form inputs, panel outlines. */
-          default: { value: '#B8B3A8' },
-          /** Strong border — active selection, focused input outline. */
-          strong: { value: '{colors.olive.700}' },
+          default: { value: '{colors.paper.300}' },
+          /** Strong border — prominent panel outlines, emphasis dividers. */
+          strong: { value: '{colors.paper.400}' },
+          /** Subtle border on semi-transparent cards inside background.inverse dark sections. */
+          inverseSubtle: { value: 'rgba(255, 255, 255, 0.10)' },
         },
         /**
-         * Focus ring — blue for clear distinction from olive brand color.
-         * Distinct hue improves visibility for keyboard users.
+         * Focus ring — brand azure applied consistently for interactive elements.
+         * Pairs with a glow shadow (shadows.focus) for double-layer visibility.
          */
         focus: {
-          ring: { value: '{colors.blue.500}' },
-          ringOffset: { value: '{colors.paper.100}' },
+          ring: { value: '{colors.azure.600}' },
+          ringOffset: { value: '{colors.paper.50}' },
         },
-        /** Primary brand: olive — navigation, primary CTAs, structural elements. */
+        /** Primary brand: azure — CTAs, links, selection, interactive states. */
         brand: {
-          solid: { value: '{colors.olive.700}' },
-          hover: { value: '{colors.olive.800}' },
-          pressed: { value: '{colors.olive.900}' },
-          subtle: { value: '{colors.olive.50}' },
-          contrast: { value: '{colors.paper.100}' },
-          fg: { value: '{colors.olive.700}' },
+          solid: { value: '{colors.azure.600}' },
+          hover: { value: '{colors.azure.700}' },
+          pressed: { value: '{colors.azure.800}' },
+          subtle: { value: '{colors.azure.50}' },
+          contrast: { value: '{colors.paper.50}' },
+          fg: { value: '{colors.azure.600}' },
         },
-        /** Accent: clay — secondary CTAs, editorial highlights, alerts. */
+        /** Accent: orange — controlled accent; use sparingly for emphasis. */
         accent: {
-          solid: { value: '{colors.clay.500}' },
-          hover: { value: '{colors.clay.600}' },
-          pressed: { value: '{colors.clay.700}' },
-          subtle: { value: '{colors.clay.50}' },
-          contrast: { value: '{colors.paper.100}' },
-          fg: { value: '{colors.clay.500}' },
+          solid: { value: '{colors.orange.500}' },
+          hover: { value: '{colors.orange.600}' },
+          pressed: { value: '{colors.orange.700}' },
+          subtle: { value: '{colors.orange.50}' },
+          contrast: { value: '{colors.paper.50}' },
+          fg: { value: '{colors.orange.500}' },
         },
         /** Links — navigational, in-content, visited states. */
         link: {
-          default: { value: '{colors.olive.700}' },
-          hover: { value: '{colors.olive.900}' },
-          visited: { value: '{colors.clay.600}' },
+          default: { value: '{colors.azure.600}' },
+          hover: { value: '{colors.azure.800}' },
+          visited: { value: '{colors.orange.600}' },
         },
         /** Semantic state colors — feedback, validation, and data quality signals. */
         state: {
           /** Positive outcome, verified data, completed action. */
           success: {
-            solid: { value: '{colors.olive.600}' },
-            subtle: { value: '{colors.olive.50}' },
-            fg: { value: '{colors.olive.600}' },
-            contrast: { value: '{colors.paper.200}' },
+            solid: { value: '{colors.green.600}' },
+            subtle: { value: '{colors.green.50}' },
+            fg: { value: '{colors.green.600}' },
+            contrast: { value: '{colors.paper.100}' },
           },
           /** Caution, data limitation notice, attention required. */
           warning: {
@@ -547,14 +550,14 @@ const config = defineConfig({
             solid: { value: '{colors.red.500}' },
             subtle: { value: '{colors.red.50}' },
             fg: { value: '{colors.red.500}' },
-            contrast: { value: '{colors.paper.200}' },
+            contrast: { value: '{colors.paper.100}' },
           },
           /** Neutral information, hints, methodology notes. */
           info: {
-            solid: { value: '{colors.blue.500}' },
-            subtle: { value: '{colors.blue.50}' },
-            fg: { value: '{colors.blue.500}' },
-            contrast: { value: '{colors.paper.200}' },
+            solid: { value: '{colors.azure.600}' },
+            subtle: { value: '{colors.azure.50}' },
+            fg: { value: '{colors.azure.600}' },
+            contrast: { value: '{colors.paper.100}' },
           },
         },
       },

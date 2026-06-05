@@ -1,6 +1,6 @@
-import { Box, Flex, Stack, Text } from '@chakra-ui/react';
+import { Flex, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../../components/ui/Container';
+import SectionLayout from '../../../../components/ui/SectionLayout';
 
 type Principle = {
   id: string;
@@ -57,71 +57,46 @@ const PRINCIPLES: Principle[] = [
  */
 const PrinciplesSection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="principles-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      bg="surface.trust"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="principles-heading"
+      eyebrow="Princípios"
+      heading="Como o projeto deve ser entendido e confiado."
     >
-      <Container>
-        <Stack gap={12}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              Princípios
-            </Text>
-            <Text
-              as="h2"
-              id="principles-heading"
-              textStyle="h2"
-              color="text.primary"
+      <Stack gap={3}>
+        {PRINCIPLES.map((principle) => {
+          return (
+            <Flex
+              key={principle.id}
+              gap={6}
+              p={5}
+              bg="surface.raised"
+              border="1px solid"
+              borderColor="border.subtle"
+              borderRadius="card"
+              shadow="card"
+              align="baseline"
             >
-              Como o projeto deve ser entendido e confiado.
-            </Text>
-          </Stack>
-
-          <Stack gap={3}>
-            {PRINCIPLES.map((principle) => {
-              return (
-                <Flex
-                  key={principle.id}
-                  gap={6}
-                  p={5}
-                  bg="surface.base"
-                  border="1px solid"
-                  borderColor="border.subtle"
-                  borderRadius="card"
-                  boxShadow="card"
-                  align="baseline"
-                >
-                  <Text
-                    textStyle="eyebrow"
-                    color="olive.400"
-                    flex="0 0 auto"
-                    aria-hidden="true"
-                  >
-                    {principle.number}
-                  </Text>
-                  <Stack gap={1}>
-                    <Text
-                      textStyle="body"
-                      color="text.primary"
-                      fontWeight="600"
-                    >
-                      {principle.title}
-                    </Text>
-                    <Text textStyle="body-sm" color="text.secondary">
-                      {principle.description}
-                    </Text>
-                  </Stack>
-                </Flex>
-              );
-            })}
-          </Stack>
-        </Stack>
-      </Container>
-    </Box>
+              <Text
+                textStyle="eyebrow"
+                color="text.muted"
+                flex="0 0 auto"
+                aria-hidden="true"
+              >
+                {principle.number}
+              </Text>
+              <Stack gap={1}>
+                <Text textStyle="body" color="text.primary" fontWeight="600">
+                  {principle.title}
+                </Text>
+                <Text textStyle="body-sm" color="text.secondary">
+                  {principle.description}
+                </Text>
+              </Stack>
+            </Flex>
+          );
+        })}
+      </Stack>
+    </SectionLayout>
   );
 };
 

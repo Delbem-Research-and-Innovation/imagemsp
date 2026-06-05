@@ -40,8 +40,8 @@ const SIZE_OPTIONS: SizeOption[] = [
 
 type Props = {
   /**
-   * Render on a dark (olive.900) background — switches colors to the footer
-   * text palette so the control remains legible in the mobile nav overlay.
+   * Render on a dark backdrop — switches colors to the dark-surface palette
+   * so the control remains legible in the mobile nav overlay.
    * @default false
    */
   onDark?: boolean;
@@ -73,7 +73,7 @@ const getInitialSize = (): TextSize => {
  * @example
  * <TextResizer />
  * @example
- * // Inside the mobile overlay (olive.900 background)
+ * // Inside the mobile overlay
  * <TextResizer onDark />
  */
 const TextResizer = ({ onDark = false }: Props) => {
@@ -99,12 +99,12 @@ const TextResizer = ({ onDark = false }: Props) => {
   };
 
   // Token sets for light (header) vs dark (mobile overlay) context
-  const containerBg = onDark ? 'olive.800' : 'surface.inset';
-  const activeColor = onDark ? 'text.onFooter' : 'text.primary';
-  const inactiveColor = onDark ? 'text.onFooterMuted' : 'text.muted';
-  const activeBg = onDark ? 'olive.700' : 'surface.base';
-  const hoverColor = onDark ? 'text.onFooter' : 'text.secondary';
-  const hoverBg = onDark ? 'olive.700' : 'surface.base';
+  const containerBg = onDark ? 'brand.hover' : 'surface.inset';
+  const activeColor = onDark ? 'text.onDark' : 'text.primary';
+  const inactiveColor = onDark ? 'text.onDarkMuted' : 'text.muted';
+  const activeBg = onDark ? 'brand.solid' : 'surface.base';
+  const hoverColor = onDark ? 'text.onDark' : 'text.secondary';
+  const hoverBg = onDark ? 'brand.solid' : 'surface.base';
 
   return (
     <HStack

@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../../components/ui/Container';
+import SectionLayout from '../../../../components/ui/SectionLayout';
 
 type DifferenceCard = {
   id: string;
@@ -50,65 +50,41 @@ const DIFFERENCES: DifferenceCard[] = [
  */
 const DifferenceSection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="difference-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="difference-heading"
+      eyebrow="O que diferencia"
+      heading="Mais do que visualização de dados."
     >
-      <Container>
-        <Stack gap={12}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              O que diferencia
-            </Text>
-            <Text
-              as="h2"
-              id="difference-heading"
-              textStyle="h2"
-              color="text.primary"
+      <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} gap={4}>
+        {DIFFERENCES.map((card) => {
+          return (
+            <Box
+              key={card.id}
+              p={6}
+              bg="surface.raised"
+              border="1px solid"
+              borderColor="border.subtle"
+              borderRadius="card"
+              shadow="card"
             >
-              Mais do que visualização de dados.
-            </Text>
-          </Stack>
-
-          <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} gap={4}>
-            {DIFFERENCES.map((card) => {
-              return (
-                <Box
-                  key={card.id}
-                  p={6}
-                  bg="surface.base"
-                  border="1px solid"
-                  borderColor="border.subtle"
-                  borderRadius="card"
-                  boxShadow="card"
-                >
-                  <Stack gap={4}>
-                    <Text
-                      textStyle="eyebrow"
-                      color="olive.400"
-                      aria-hidden="true"
-                    >
-                      {card.mark}
-                    </Text>
-                    <Stack gap={2}>
-                      <Text textStyle="h4" color="text.primary">
-                        {card.title}
-                      </Text>
-                      <Text textStyle="body-sm" color="text.secondary">
-                        {card.description}
-                      </Text>
-                    </Stack>
-                  </Stack>
-                </Box>
-              );
-            })}
-          </Grid>
-        </Stack>
-      </Container>
-    </Box>
+              <Stack gap={4}>
+                <Text textStyle="eyebrow" color="text.muted" aria-hidden="true">
+                  {card.mark}
+                </Text>
+                <Stack gap={2}>
+                  <Text textStyle="h4" color="text.primary">
+                    {card.title}
+                  </Text>
+                  <Text textStyle="body-sm" color="text.secondary">
+                    {card.description}
+                  </Text>
+                </Stack>
+              </Stack>
+            </Box>
+          );
+        })}
+      </Grid>
+    </SectionLayout>
   );
 };
 

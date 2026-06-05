@@ -1,4 +1,5 @@
 import { Link } from '@chakra-ui/react';
+import Image from 'next/image';
 import NextLink from 'next/link';
 
 import { EXPO_OUT } from '../../../config/site';
@@ -14,17 +15,21 @@ const BrandName = () => {
   return (
     <Link
       asChild
-      fontWeight="800"
-      fontSize="1.05rem"
-      letterSpacing="-0.025em"
-      lineHeight="1"
+      display="inline-flex"
       textDecoration="none"
-      color="text.primary"
-      _hover={{ color: 'olive.700' }}
-      transition={`color 0.3s ${EXPO_OUT}`}
-      whiteSpace="nowrap"
+      _hover={{ opacity: 0.8 }}
+      transition={`opacity 0.3s ${EXPO_OUT}`}
     >
-      <NextLink href="/">IMAGEM:SP</NextLink>
+      <NextLink href="/">
+        <Image
+          src="/logo-default.webp"
+          alt="IMAGEM:SP"
+          width={1097}
+          height={227}
+          style={{ height: '32px', width: 'auto' }}
+          priority
+        />
+      </NextLink>
     </Link>
   );
 };

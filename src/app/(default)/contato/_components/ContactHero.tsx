@@ -23,7 +23,7 @@ const ContactHero = () => {
     >
       <Container>
         <Stack gap={4} maxW="760px">
-          <Text textStyle="eyebrow" color="olive.600">
+          <Text textStyle="eyebrow" color="brand.fg">
             Fale com a equipe
           </Text>
           <Text

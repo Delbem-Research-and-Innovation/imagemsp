@@ -4,12 +4,7 @@ import NextLink from 'next/link';
 import { EXPO_OUT } from '../../config/site';
 
 /** Visual variant of the call-to-action link. */
-export type CtaVariant =
-  | 'solid'
-  | 'outline'
-  | 'outline-dark'
-  | 'solid-amber'
-  | 'ghost';
+export type CtaVariant = 'solid' | 'outline' | 'ghost' | 'outline-inverse';
 
 type Props = {
   /** Destination passed directly to `next/link`. */
@@ -18,11 +13,10 @@ type Props = {
   /**
    * Visual variant.
    *
-   * - `solid` — olive.700 fill; default; use on light backgrounds.
-   * - `outline` — parchment border; use on light backgrounds.
-   * - `outline-dark` — olive border + parchment text; use on dark (olive.900) backgrounds.
-   * - `solid-amber` — amber.600 fill + inkBrown text; use on dark backgrounds.
+   * - `solid` — filled brand button; default; use on light backgrounds.
+   * - `outline` — border only; use on light backgrounds.
    * - `ghost` — text-only link; tertiary action.
+   * - `outline-inverse` — border only; use on `background.inverse` (dark) surfaces.
    *
    * @default 'solid'
    */
@@ -30,42 +24,38 @@ type Props = {
 };
 
 const getBg = (v: CtaVariant) => {
-  if (v === 'solid') return 'olive.700';
-  if (v === 'solid-amber') return 'amber.100';
+  if (v === 'solid') return 'brand.solid';
   return undefined;
 };
 
 const getColor = (v: CtaVariant) => {
-  if (v === 'solid') return 'paper.50';
-  if (v === 'solid-amber') return 'ink.950';
-  if (v === 'outline-dark') return 'paper.300';
-  if (v === 'ghost') return 'olive.400';
-  return 'ink.950';
+  if (v === 'solid') return 'brand.contrast';
+  if (v === 'ghost') return 'brand.fg';
+  if (v === 'outline-inverse') return 'text.onDark';
+  return 'text.primary';
 };
 
 const getBorderColor = (v: CtaVariant) => {
   if (v === 'outline') return 'border.default';
-  if (v === 'outline-dark') return 'olive.700';
+  if (v === 'outline-inverse') return 'text.onDark';
   return undefined;
 };
 
 const getHover = (v: CtaVariant) => {
-  if (v === 'solid') return { bg: 'olive.800', transform: 'translateY(-1px)' };
+  if (v === 'solid')
+    return { bg: 'brand.hover', transform: 'translateY(-1px)' };
   if (v === 'outline')
     return {
-      bg: 'paper.400',
-      borderColor: 'ink.700',
+      bg: 'surface.muted',
+      borderColor: 'border.strong',
       transform: 'translateY(-1px)',
     };
-  if (v === 'outline-dark')
-    return {
-      borderColor: 'olive.400',
-      color: 'paper.50',
-      transform: 'translateY(-1px)',
-    };
-  if (v === 'solid-amber')
-    return { bg: 'amber.200', transform: 'translateY(-1px)' };
-  return { color: 'olive.300', textDecoration: 'underline' };
+  /*
+   * Raw rgba — no token maps to semi-transparent white; background.inverse context only.
+   */
+  if (v === 'outline-inverse')
+    return { bg: 'rgba(255, 255, 255, 0.08)', transform: 'translateY(-1px)' };
+  return { color: 'brand.solid', textDecoration: 'underline' };
 };
 
 /**
@@ -74,14 +64,17 @@ const getHover = (v: CtaVariant) => {
  *
  * @example
  * <CtaLink href="/mapas">Explorar mapa</CtaLink>
+ * @example
  * <CtaLink href="/sobre" variant="outline">Saiba mais</CtaLink>
- * <CtaLink href="/contato" variant="outline-dark">Entrar em contato</CtaLink>
- * <CtaLink href="/contato" variant="solid-amber">Colaborar</CtaLink>
+ * @example
  * <CtaLink href="/metodologia" variant="ghost">Ver metodologia</CtaLink>
+ * @example
+ * // Use on background.inverse dark sections
+ * <CtaLink href="/contato" variant="outline-inverse">Entre em contato</CtaLink>
  */
 const CtaLink = ({ href, children, variant = 'solid' }: Props) => {
   const isGhost = variant === 'ghost';
-  const hasBorder = variant === 'outline' || variant === 'outline-dark';
+  const hasBorder = variant === 'outline' || variant === 'outline-inverse';
 
   return (
     <Link

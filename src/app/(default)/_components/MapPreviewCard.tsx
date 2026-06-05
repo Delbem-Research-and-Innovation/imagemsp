@@ -10,7 +10,7 @@ const MapTile = ({ opacity }: MapTileProps) => {
   return (
     <Box
       rounded="sm"
-      bg="olive.600"
+      bg="brand.fg"
       opacity={opacity}
       h={{ base: '28px', md: '32px' }}
     />
@@ -43,7 +43,7 @@ const PreviewSearchBar = () => {
       py="12px"
       borderBottom="1px solid"
       borderColor="border.subtle"
-      bg="surface.base"
+      bg="surface.raised"
     >
       <Box
         flex={1}
@@ -52,7 +52,7 @@ const PreviewSearchBar = () => {
         borderRadius="md"
         border="1px solid"
         borderColor="border.default"
-        bg="surface.base"
+        bg="surface.raised"
       >
         <Text textStyle="body-sm" color="text.muted">
           Busca: Sé
@@ -63,10 +63,10 @@ const PreviewSearchBar = () => {
         py={2}
         borderRadius="md"
         border="1px solid"
-        borderColor="olive.200"
-        bg="olive.50"
+        borderColor="border.subtle"
+        bg="brand.subtle"
       >
-        <Text textStyle="body-sm" color="olive.700" fontWeight="500">
+        <Text textStyle="body-sm" color="brand.fg" fontWeight="500">
           Tema: População 65+
         </Text>
       </Box>
@@ -97,8 +97,8 @@ const PreviewMapArea = () => {
         h="44px"
         borderRadius="sm"
         border="2px solid"
-        borderColor="amber.600"
-        bg="amber.200"
+        borderColor="brand.fg"
+        bg="brand.subtle"
         opacity={0.8}
       />
 
@@ -115,15 +115,15 @@ const PreviewMapArea = () => {
           0%
         </Text>
         {/*
-         * Custom choropleth ramp — warm olive light-to-deep scale for the legend strip.
-         * Values (#DDE5D5, #5F6B4A, #2D3921) are perceptually tuned for this scale and
-         * do not match any palette token exactly; no token path applies.
+         * Choropleth ramp — azure light-to-deep scale matching the tile opacity range above.
+         * Values (azure.50 → azure.600 → azure.800) represent the data density gradient;
+         * raw hex used because CSS gradient has no token path.
          */}
         <Box
           flex={1}
           h="6px"
           borderRadius="pill"
-          backgroundImage="linear-gradient(to right, #DDE5D5, #5F6B4A, #2D3921)"
+          backgroundImage="linear-gradient(to right, #C6E2FF, #17629F, #092F52)"
         />
         <Text textStyle="caption" color="text.muted" flexShrink={0}>
           25%+
@@ -141,10 +141,10 @@ const PreviewIndicatorPanel = () => {
       p={4}
       w={{ base: '100%', sm: '220px' }}
       flexShrink={0}
-      bg="surface.base"
+      bg="surface.raised"
     >
       <Stack gap={1}>
-        <Text textStyle="eyebrow" color="olive.600">
+        <Text textStyle="eyebrow" color="brand.fg">
           Território selecionado
         </Text>
         <Text textStyle="h4" color="text.primary" fontWeight="700">

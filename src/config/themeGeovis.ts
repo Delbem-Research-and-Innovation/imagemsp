@@ -118,8 +118,8 @@ export const geovisTokens = {
             ],
           },
           diverging: {
-            // olive.700 → olive.100 → paper.300 (neutral) → clay.100 → clay.700
-            // Warm brand diverging: positive/growth (olive) ↔ negative/decline (clay).
+            // green.700 → green.100 → paper.300 (neutral) → orange.50 → orange.700
+            // Warm diverging: positive/growth (green) ↔ negative/decline (orange).
             oliveClay: [
               '#1B412B',
               '#275B3C',
@@ -137,7 +137,7 @@ export const geovisTokens = {
               '#6D300E',
             ],
 
-            // blue.700 → blue.50 → paper.300 (neutral) → amber.100 → amber.500
+            // azure.700 → azure.50 → paper.300 (neutral) → amber.100 → amber.500
             // Color-blind-safe diverging: blue is distinguishable across all deficiency types.
             blueAmber: [
               '#214555',
@@ -162,11 +162,11 @@ export const geovisTokens = {
             // teal-green, brick-red, warm-gray, steel-blue, sage, dusty-rose, warm-brown,
             // cyan-teal, muted-indigo.
             // First 6 are maximally distinct; positions 7–14 fill secondary gaps.
-            // All values pass WCAG AA contrast against the paper.300 (#E8E4DB) map background.
+            // All values pass WCAG AA contrast against the paper.200 (#F1ECE4) map background.
             default: [
-              '#4D7D91', // teal-blue (blue.300 family)
-              '#B5693E', // sienna / clay (clay.300–400)
-              '#4A7A5C', // forest / olive (olive.400–500)
+              '#4D7D91', // teal-blue (azure.600 family)
+              '#B5693E', // sienna / orange (orange.500–600)
+              '#4A7A5C', // forest / green (green.400–500)
               '#8E6EA0', // dusty purple
               '#A07828', // amber / ochre (amber.300–400)
               '#5A8F88', // teal-green

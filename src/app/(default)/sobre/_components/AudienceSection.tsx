@@ -1,6 +1,6 @@
 import { Box, Grid, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../../components/ui/Container';
+import SectionLayout from '../../../../components/ui/SectionLayout';
 
 type AudienceCard = {
   id: string;
@@ -46,57 +46,37 @@ const AUDIENCES: AudienceCard[] = [
  */
 const AudienceSection = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="audience-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      bg="surface.action"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="audience-heading"
+      eyebrow="Para quem é"
+      heading="Uma plataforma com camadas para públicos diferentes."
+      bg="background.inverse"
+      variant="inverse"
     >
-      <Container>
-        <Stack gap={12}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              Para quem é
-            </Text>
-            <Text
-              as="h2"
-              id="audience-heading"
-              textStyle="h2"
-              color="text.primary"
+      <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} gap={4}>
+        {AUDIENCES.map((card) => {
+          return (
+            <Box
+              key={card.id}
+              p={6}
+              bg="surface.inverseCard"
+              border="1px solid"
+              borderColor="border.inverseSubtle"
+              borderRadius="card"
             >
-              Uma plataforma com camadas para públicos diferentes.
-            </Text>
-          </Stack>
-
-          <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} gap={4}>
-            {AUDIENCES.map((card) => {
-              return (
-                <Box
-                  key={card.id}
-                  p={6}
-                  bg="surface.base"
-                  border="1px solid"
-                  borderColor="border.subtle"
-                  borderRadius="card"
-                  boxShadow="card"
-                >
-                  <Stack gap={2}>
-                    <Text textStyle="h4" color="text.primary">
-                      {card.title}
-                    </Text>
-                    <Text textStyle="body-sm" color="text.secondary">
-                      {card.description}
-                    </Text>
-                  </Stack>
-                </Box>
-              );
-            })}
-          </Grid>
-        </Stack>
-      </Container>
-    </Box>
+              <Stack gap={2}>
+                <Text textStyle="h4" color="text.onDark">
+                  {card.title}
+                </Text>
+                <Text textStyle="body-sm" color="text.onDarkBody">
+                  {card.description}
+                </Text>
+              </Stack>
+            </Box>
+          );
+        })}
+      </Grid>
+    </SectionLayout>
   );
 };
 

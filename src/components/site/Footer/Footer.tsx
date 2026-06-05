@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, HStack, Link, Stack, Text } from '@chakra-ui/react';
+import Image from 'next/image';
 import NextLink from 'next/link';
 
 import { footerNavGroups, legalNav } from '../../../config/navigation';
@@ -6,13 +7,12 @@ import { EXPO_OUT } from '../../../config/site';
 import Container from '../../ui/Container';
 
 /**
- * SiteFooter — olive.900 (deep atlas green) backdrop.
+ * SiteFooter
  * Signals institutional depth: brand + mission statement, three grouped nav columns,
- * and a legal baseline. Parchment text on dark green gives 11:1 contrast (WCAG AAA).
+ * and a legal baseline. Dark ink text on light sand gives clear readability.
  *
  * Layout:
  * - Top strip: brand wordmark + mission statement + primary CTA
- * - Body: three nav columns (Explorar · Dados · Projeto)
  * - Baseline: legal links + copyright
  *
  * @example
@@ -22,7 +22,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <Box as="footer" bg="olive.900">
+    <Box as="footer" bg="surface.footer">
       <Container>
         {/* Top: brand + mission + CTA */}
         <Flex
@@ -33,28 +33,25 @@ const Footer = () => {
           pt="clamp(3rem, calc(2.25rem + 3vw), 6rem)"
           pb={8}
           borderBottom="1px solid"
-          borderColor="olive.800"
+          borderColor="border.subtle"
         >
           <Stack gap={4} maxW={{ base: '100%', md: '52ch' }}>
             {/* Brand wordmark */}
             <Link
               asChild
+              display="inline-flex"
               textDecoration="none"
-              display="inline-block"
               _hover={{ opacity: 0.75 }}
               transition={`opacity 0.3s ${EXPO_OUT}`}
             >
               <NextLink href="/">
-                <Text
-                  fontFamily="var(--font-newsreader), var(--font-plex-sans), ui-sans-serif, sans-serif"
-                  fontWeight="800"
-                  fontSize="1.5rem"
-                  letterSpacing="-0.03em"
-                  color="text.onFooter"
-                  lineHeight="1"
-                >
-                  IMAGEM:SP
-                </Text>
+                <Image
+                  src="/logo-default.webp"
+                  alt="IMAGEM:SP"
+                  width={1097}
+                  height={227}
+                  style={{ height: '36px', width: 'auto' }}
+                />
               </NextLink>
             </Link>
 
@@ -76,15 +73,15 @@ const Footer = () => {
             px={6}
             py="13px"
             borderRadius="pill"
-            bg="amber.100"
-            color="ink.950"
+            bg="brand.solid"
+            color="brand.contrast"
             fontSize="0.8125rem"
             fontWeight="600"
             letterSpacing="0.04em"
             textTransform="uppercase"
             textDecoration="none"
             transition={`all 0.3s ${EXPO_OUT}`}
-            _hover={{ bg: 'amber.200', transform: 'translateY(-1px)' }}
+            _hover={{ bg: 'brand.hover', transform: 'translateY(-1px)' }}
           >
             <NextLink href="/mapas">Explorar o mapa</NextLink>
           </Link>
@@ -96,12 +93,12 @@ const Footer = () => {
           gap="clamp(2rem, calc(1.5rem + 2vw), 4rem)"
           py="clamp(2.5rem, calc(2rem + 2vw), 5rem)"
           borderBottom="1px solid"
-          borderColor="olive.800"
+          borderColor="border.subtle"
         >
           {footerNavGroups.map((group) => {
             return (
               <Stack key={group.id} gap={4}>
-                <Text textStyle="eyebrow" color="amber.300">
+                <Text textStyle="eyebrow" color="text.secondary">
                   {group.label}
                 </Text>
                 {group.entries.map((entry) => {

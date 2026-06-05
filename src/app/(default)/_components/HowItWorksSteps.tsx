@@ -1,6 +1,6 @@
 import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 
-import Container from '../../../components/ui/Container';
+import SectionLayout from '../../../components/ui/SectionLayout';
 
 type Step = {
   number: number;
@@ -47,8 +47,8 @@ const StepCard = ({ step }: { step: Step }) => {
         w="40px"
         h="40px"
         borderRadius="full"
-        bg="olive.700"
-        color="paper.50"
+        bg="brand.solid"
+        color="brand.contrast"
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -85,58 +85,42 @@ const StepCard = ({ step }: { step: Step }) => {
  */
 const HowItWorksSteps = () => {
   return (
-    <Box
-      as="section"
-      aria-labelledby="how-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      bg="background.soft"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
+    <SectionLayout
+      headingId="how-heading"
+      eyebrow="Como funciona"
+      heading="Do território à interpretação."
     >
-      <Container>
-        <Stack gap={12}>
-          <Stack gap={3} maxW="52ch">
-            <Text textStyle="eyebrow" color="olive.600">
-              Como funciona
-            </Text>
-            <Text as="h2" id="how-heading" textStyle="h2" color="text.primary">
-              Do território à interpretação.
-            </Text>
-          </Stack>
-
-          <Flex
-            direction={{ base: 'column', md: 'row' }}
-            gap={{ base: 8, md: 0 }}
-            align="flex-start"
-            position="relative"
-            _before={{
-              content: '""',
-              display: { base: 'none', md: 'block' },
-              position: 'absolute',
-              top: '20px',
-              left: 0,
-              right: 0,
-              h: '1px',
-              bg: 'border.subtle',
-              zIndex: 0,
-            }}
-          >
-            {STEPS.map((step, i) => {
-              return (
-                <Box
-                  key={step.number}
-                  flex={1}
-                  px={{ base: 0, md: i === 0 ? 0 : 8 }}
-                  pr={{ base: 0, md: i === STEPS.length - 1 ? 0 : 8 }}
-                >
-                  <StepCard step={step} />
-                </Box>
-              );
-            })}
-          </Flex>
-        </Stack>
-      </Container>
-    </Box>
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        gap={{ base: 8, md: 0 }}
+        align="flex-start"
+        position="relative"
+        _before={{
+          content: '""',
+          display: { base: 'none', md: 'block' },
+          position: 'absolute',
+          top: '20px',
+          left: 0,
+          right: 0,
+          h: '1px',
+          bg: 'border.subtle',
+          zIndex: 0,
+        }}
+      >
+        {STEPS.map((step, i) => {
+          return (
+            <Box
+              key={step.number}
+              flex={1}
+              px={{ base: 0, md: i === 0 ? 0 : 8 }}
+              pr={{ base: 0, md: i === STEPS.length - 1 ? 0 : 8 }}
+            >
+              <StepCard step={step} />
+            </Box>
+          );
+        })}
+      </Flex>
+    </SectionLayout>
   );
 };
 

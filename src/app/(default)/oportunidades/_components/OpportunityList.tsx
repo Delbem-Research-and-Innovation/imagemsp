@@ -2,6 +2,7 @@ import { Box, Flex, Stack, Text } from '@chakra-ui/react';
 
 import Container from '../../../../components/ui/Container';
 import CtaLink from '../../../../components/ui/CtaLink';
+import Section from '../../../../components/ui/Section';
 import { OPPORTUNITIES, type Opportunity } from '../_data/opportunities';
 
 const CONTACT_EMAIL = 'contato-imagemsp@usp.br';
@@ -25,12 +26,12 @@ const STATUS_COLORS: Record<
   Opportunity['status'],
   { bg: string; color: string }
 > = {
-  open: { bg: 'olive.50', color: 'olive.700' },
-  upcoming: { bg: 'amber.50', color: 'amber.400' },
-  rolling: { bg: 'blue.50', color: 'blue.500' },
-  closed: { bg: 'paper.400', color: 'ink.700' },
-  filled: { bg: 'paper.400', color: 'ink.700' },
-  'expression-of-interest': { bg: 'paper.200', color: 'ink.700' },
+  open: { bg: 'brand.subtle', color: 'brand.fg' },
+  upcoming: { bg: 'state.warning.subtle', color: 'state.warning.fg' },
+  rolling: { bg: 'brand.subtle', color: 'brand.fg' },
+  closed: { bg: 'surface.muted', color: 'text.muted' },
+  filled: { bg: 'surface.muted', color: 'text.muted' },
+  'expression-of-interest': { bg: 'surface.base', color: 'text.secondary' },
 };
 
 /**
@@ -50,7 +51,7 @@ const OpportunityCard = ({
   const badge = STATUS_COLORS[opp.status];
   return (
     <Box
-      bg="surface.base"
+      bg="surface.raised"
       border="1px solid"
       borderColor="border.subtle"
       borderRadius="card"
@@ -149,18 +150,11 @@ const OpportunityList = () => {
   });
 
   return (
-    <Box
-      as="section"
-      id="oportunidades-atuais"
-      aria-labelledby="oportunidades-list-heading"
-      py="clamp(4rem, calc(3rem + 3vw), 7rem)"
-      borderBottom="1px solid"
-      borderColor="border.subtle"
-    >
+    <Section id="oportunidades-atuais" labelledBy="oportunidades-list-heading">
       <Container>
         <Stack gap={10}>
           <Stack gap={3}>
-            <Text textStyle="eyebrow" color="olive.600">
+            <Text textStyle="eyebrow" color="brand.fg">
               Oportunidades atuais
             </Text>
             <Text
@@ -216,7 +210,7 @@ const OpportunityList = () => {
           )}
         </Stack>
       </Container>
-    </Box>
+    </Section>
   );
 };
 

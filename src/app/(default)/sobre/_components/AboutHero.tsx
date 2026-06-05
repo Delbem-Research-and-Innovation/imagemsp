@@ -39,7 +39,7 @@ const AboutHero = () => {
           {/* Editorial text */}
           <Stack gap={8}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="olive.600">
+              <Text textStyle="eyebrow" color="brand.fg">
                 Sobre o projeto
               </Text>
               <Text
@@ -72,7 +72,7 @@ const AboutHero = () => {
 
           {/* Metadata panel */}
           <Box
-            bg="surface.base"
+            bg="surface.raised"
             border="1px solid"
             borderColor="border.subtle"
             borderRadius="card"
@@ -80,7 +80,7 @@ const AboutHero = () => {
             boxShadow="raised"
           >
             <Stack gap={1} mb={6}>
-              <Text textStyle="eyebrow" color="olive.600">
+              <Text textStyle="eyebrow" color="brand.fg">
                 IMAGEM:SP
               </Text>
               <Text textStyle="h4" color="text.primary">

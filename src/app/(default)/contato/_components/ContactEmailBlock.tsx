@@ -40,7 +40,7 @@ const ContactEmailBlock = () => {
 
           <Box
             bg="surface.raised"
-            boxShadow="card"
+            shadow="card"
             border="1px solid"
             borderColor="border.subtle"
             borderRadius="card"
@@ -58,9 +58,9 @@ const ContactEmailBlock = () => {
               </Text>
               <Link
                 href={`mailto:${EMAIL}`}
-                color="olive.700"
+                color="link.default"
                 textDecoration="underline"
-                _hover={{ color: 'olive.900' }}
+                _hover={{ color: 'link.hover' }}
                 fontWeight="medium"
               >
                 Enviar email para {EMAIL}

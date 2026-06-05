@@ -43,7 +43,7 @@ const HeroSection = () => {
           {/* Text column */}
           <Stack gap={8} flex={{ base: '1 1 auto', lg: '0 0 50%' }}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="olive.600">
+              <Text textStyle="eyebrow" color="brand.fg">
                 IMAGEM:SP — Atlas do Envelhecimento de São Paulo
               </Text>
 

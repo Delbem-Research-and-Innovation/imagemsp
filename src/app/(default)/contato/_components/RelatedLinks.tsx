@@ -51,9 +51,9 @@ const RelatedLinks = () => {
                 <Box as="li" key={link.id}>
                   <Link
                     asChild
-                    color="olive.700"
+                    color="link.default"
                     textDecoration="underline"
-                    _hover={{ color: 'olive.900' }}
+                    _hover={{ color: 'link.hover' }}
                     textStyle="body"
                     display="inline-block"
                     py={1}
