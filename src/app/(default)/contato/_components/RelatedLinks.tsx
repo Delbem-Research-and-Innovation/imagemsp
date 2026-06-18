@@ -54,7 +54,7 @@ const RelatedLinks = () => {
                     color="link.default"
                     textDecoration="underline"
                     _hover={{ color: 'link.hover' }}
-                    textStyle="body"
+                    textStyle="label"
                     display="inline-block"
                     py={1}
                   >

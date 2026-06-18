@@ -52,7 +52,7 @@ const DataTrustSection = () => {
           {/* Left: heading + description */}
           <Stack gap={6}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="brand.fg">
+              <Text textStyle="eyebrow" color="eyebrown.fg">
                 Dados com responsabilidade
               </Text>
               <Text
@@ -87,11 +87,7 @@ const DataTrustSection = () => {
                   bg="surface.raised"
                 >
                   <Stack gap={1}>
-                    <Text
-                      textStyle="body"
-                      color="text.primary"
-                      fontWeight="600"
-                    >
+                    <Text textStyle="label" color="text.primary">
                       {point.label}
                     </Text>
                     <Text textStyle="body-sm" color="text.secondary">

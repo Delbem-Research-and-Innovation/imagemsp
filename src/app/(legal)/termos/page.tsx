@@ -55,7 +55,7 @@ const TermosUsoSection = () => {
 const TermosPage = () => {
   return (
     <Container>
-      <Box maxW="65ch" mx="auto" py={{ base: 10, md: 16 }}>
+      <Box maxW="100ch" mx="auto" py={{ base: 10, md: 16 }}>
         <Stack gap={10}>
           <Stack gap={2}>
             <Text as="h1" textStyle="h1" color="text.primary">

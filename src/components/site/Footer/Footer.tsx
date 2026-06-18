@@ -46,11 +46,11 @@ const Footer = () => {
             >
               <NextLink href="/">
                 <Image
-                  src="/logo-default.webp"
+                  src="/imagem-logo-completo-rgb.svg"
                   alt="IMAGEM:SP"
-                  width={1097}
-                  height={227}
-                  style={{ height: '36px', width: 'auto' }}
+                  width={385}
+                  height={163}
+                  style={{ height: '96px', width: 'auto' }}
                 />
               </NextLink>
             </Link>

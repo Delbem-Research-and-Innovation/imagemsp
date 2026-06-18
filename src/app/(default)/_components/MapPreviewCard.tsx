@@ -144,7 +144,7 @@ const PreviewIndicatorPanel = () => {
       bg="surface.raised"
     >
       <Stack gap={1}>
-        <Text textStyle="eyebrow" color="brand.fg">
+        <Text textStyle="eyebrow" color="eyebrown.fg">
           Território selecionado
         </Text>
         <Text textStyle="h4" color="text.primary" fontWeight="700">

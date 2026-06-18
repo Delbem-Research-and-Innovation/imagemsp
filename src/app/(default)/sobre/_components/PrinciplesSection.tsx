@@ -85,7 +85,7 @@ const PrinciplesSection = () => {
                 {principle.number}
               </Text>
               <Stack gap={1}>
-                <Text textStyle="body" color="text.primary" fontWeight="600">
+                <Text textStyle="label" color="text.primary">
                   {principle.title}
                 </Text>
                 <Text textStyle="body-sm" color="text.secondary">
