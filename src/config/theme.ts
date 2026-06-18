@@ -305,14 +305,16 @@ const config = defineConfig({
       /** Prominent intro paragraph — section leads, hero sub-copy. */
       lead: {
         value: {
+          fontFamily: 'var(--font-editorial), Georgia, serif',
           fontSize: 'clamp(1.25rem, 1.7vw, 1.5rem)',
           lineHeight: '1.5',
-          letterSpacing: '-0.01em',
+          letterSpacing: '0',
         },
       },
       /** 19px — feature text, card descriptions. */
       'body-lg': {
         value: {
+          fontFamily: 'var(--font-editorial), Georgia, serif',
           fontSize: '1.1875rem',
           lineHeight: '1.65',
           letterSpacing: '0',
@@ -321,6 +323,7 @@ const config = defineConfig({
       /** 18px — default body copy. */
       body: {
         value: {
+          fontFamily: 'var(--font-editorial), Georgia, serif',
           fontSize: '1.125rem',
           lineHeight: '1.6',
           letterSpacing: '0',
@@ -363,11 +366,12 @@ const config = defineConfig({
       /** Uppercase — section eyebrows, category markers. */
       eyebrow: {
         value: {
-          fontSize: '0.75rem',
+          fontSize: '1.25rem',
           letterSpacing: '0.08em',
           lineHeight: '1.4em',
           textTransform: 'uppercase',
           fontWeight: '500',
+          color: 'eyebrown.fg',
         },
       },
       /** 17px semibold — button text. */
@@ -513,6 +517,15 @@ const config = defineConfig({
           subtle: { value: '{colors.azure.50}' },
           contrast: { value: '{colors.paper.50}' },
           fg: { value: '{colors.azure.600}' },
+        },
+        /** Eyebrow: orange — section eyebrows, category markers; secondary brand color. */
+        eyebrown: {
+          solid: { value: '{colors.orange.500}' },
+          hover: { value: '{colors.orange.700}' },
+          pressed: { value: '{colors.orange.800}' },
+          subtle: { value: '{colors.orange.50}' },
+          contrast: { value: '{colors.paper.50}' },
+          fg: { value: '{colors.orange.500}' },
         },
         /** Accent: orange — controlled accent; use sparingly for emphasis. */
         accent: {

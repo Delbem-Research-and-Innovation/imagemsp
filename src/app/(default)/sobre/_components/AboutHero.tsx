@@ -39,7 +39,7 @@ const AboutHero = () => {
           {/* Editorial text */}
           <Stack gap={8}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="brand.fg">
+              <Text textStyle="eyebrow" color="eyebrown.fg">
                 Sobre o projeto
               </Text>
               <Text
@@ -48,7 +48,7 @@ const AboutHero = () => {
                 textStyle="h1"
                 color="text.primary"
               >
-                Um atlas digital do envelhecimento de São Paulo.
+                Atlas digital do envelhecimento de São Paulo.
               </Text>
             </Stack>
 
@@ -80,7 +80,7 @@ const AboutHero = () => {
             boxShadow="raised"
           >
             <Stack gap={1} mb={6}>
-              <Text textStyle="eyebrow" color="brand.fg">
+              <Text textStyle="eyebrow" color="eyebrown.fg">
                 IMAGEM:SP
               </Text>
               <Text textStyle="h4" color="text.primary">

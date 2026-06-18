@@ -84,7 +84,7 @@ const SectionHeader = ({
   variant = 'default',
 }: Props) => {
   const isInverse = variant === 'inverse';
-  const eyebrowColor = isInverse ? 'text.onDarkMuted' : 'brand.fg';
+  const eyebrowColor = isInverse ? 'text.onDarkMuted' : 'eyebrown.fg';
   const headingColor = isInverse ? 'text.onDark' : 'text.primary';
   const bodyColor = isInverse ? 'text.onDarkBody' : 'text.secondary';
 

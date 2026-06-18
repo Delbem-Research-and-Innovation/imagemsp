@@ -70,7 +70,7 @@ const sourceCodePro = Source_Code_Pro({
 });
 
 export const metadata: Metadata = {
-  title: 'IMAGEM:SP — Mapa Inteligente do Envelhecimento de São Paulo',
+  title: 'IMAGEM:SP — Mapa Interativo do Envelhecimento',
   description:
     'Atlas digital de inteligência territorial sobre o envelhecimento em São Paulo. Dados públicos para apoiar compreensão, pesquisa, planejamento e políticas baseadas em evidências.',
 };

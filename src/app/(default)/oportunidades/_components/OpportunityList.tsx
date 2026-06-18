@@ -154,7 +154,7 @@ const OpportunityList = () => {
       <Container>
         <Stack gap={10}>
           <Stack gap={3}>
-            <Text textStyle="eyebrow" color="brand.fg">
+            <Text textStyle="eyebrow" color="eyebrown.fg">
               Oportunidades atuais
             </Text>
             <Text

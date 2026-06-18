@@ -28,7 +28,7 @@ const AboutCtaSection = () => {
               w="40px"
               h="4px"
               borderRadius="pill"
-              bg="accent.solid"
+              bg="text.onDarkMuted"
               aria-hidden="true"
             />
             <Text

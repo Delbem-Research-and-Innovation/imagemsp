@@ -22,11 +22,11 @@ const BrandName = () => {
     >
       <NextLink href="/">
         <Image
-          src="/logo-default.webp"
+          src="/imagem-logo-completo-rgb.svg"
           alt="IMAGEM:SP"
-          width={1097}
-          height={227}
-          style={{ height: '32px', width: 'auto' }}
+          width={385}
+          height={163}
+          style={{ height: '48px', width: 'auto' }}
           priority
         />
       </NextLink>

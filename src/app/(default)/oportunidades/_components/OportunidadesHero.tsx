@@ -48,7 +48,7 @@ const OportunidadesHero = () => {
           {/* Editorial text */}
           <Stack gap={8}>
             <Stack gap={3}>
-              <Text textStyle="eyebrow" color="brand.fg">
+              <Text textStyle="eyebrow" color="eyebrown.fg">
                 Vagas e oportunidades
               </Text>
               <Text
@@ -100,7 +100,7 @@ const OportunidadesHero = () => {
           >
             <Stack gap={6}>
               <Stack gap={2}>
-                <Text textStyle="eyebrow" color="brand.fg">
+                <Text textStyle="eyebrow" color="eyebrown.fg">
                   Status atual
                 </Text>
                 <Flex align="center" gap={2}>
@@ -125,7 +125,7 @@ const OportunidadesHero = () => {
               </Stack>
 
               <Stack gap={2}>
-                <Text textStyle="eyebrow" color="text.muted">
+                <Text textStyle="eyebrow" color="eyebrown.fg">
                   Áreas do projeto
                 </Text>
                 <Flex gap={2} flexWrap="wrap">
