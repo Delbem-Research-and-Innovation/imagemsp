@@ -2,27 +2,27 @@
 
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { Box, Button, Text } from '@chakra-ui/react';
-import type { VisualizationSpec } from '@ttoss/geovis';
-import {
-  GeoVisCanvas,
-  GeoVisHoverTooltip,
-  GeoVisProvider,
-} from '@ttoss/geovis';
+import { Box, Text } from '@chakra-ui/react';
+import type { MapHoverInfo, VisualizationSpec } from '@ttoss/geovis';
+import { GeovisWorkspace } from '@ttoss/geovis-workspace';
+import { I18nProvider } from '@ttoss/react-i18n';
+import { ThemeProvider } from '@ttoss/ui';
 import * as React from 'react';
 
-import { CategoryMenu, GROUP_OPTIONS } from '@/components/map/CategoryMenu';
-import { LegendPanel, MAP_TITLES } from '@/components/map/LegendPanel';
 import type { Category, Group } from '@/components/map/lib/indicators';
 import {
   getBandIndex,
   LEGEND_COLORS,
   NYC_THRESHOLDS,
 } from '@/components/map/lib/mapConfig';
+import {
+  buildWorkspaceConfig,
+  CATEGORY_MENU_ID,
+  getDefaultGroup,
+  GROUP_MENU_ID,
+  MAP_TITLES,
+} from '@/components/map/lib/workspaceConfig';
 import type { MapDataRow, MapsDataContract } from '@/data-gateway/schema';
-
-// Sequential blue palette from ColorBrewer Blues-7 — imported from mapConfig
-// LEGEND_COLORS is the canonical reference used by all choropleth UI.
 
 const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
@@ -52,87 +52,6 @@ const getTooltipText = (category: Category, group: Group): string => {
   };
 
   return `População com idade ${ageLabels[group]} ${contextLabels[category]}`;
-};
-
-/**
- * Builds a GeoVis VisualizationSpec for rendering a choropleth map.
- *
- * @param data - Canonical maps data from the gateway.
- * @param category - The demographic category to visualize.
- * @param group - The age group to visualize.
- * @returns A complete VisualizationSpec for GeoVis rendering.
- */
-const buildSpec = (
-  data: MapsDataContract,
-  category: Category,
-  group: Group
-): VisualizationSpec => {
-  const mapDataRows =
-    (
-      data.mapData[category] as
-        | Partial<Record<Group, { geometryId: number; value: number }[]>>
-        | undefined
-    )?.[group] ?? [];
-
-  const thresholds =
-    (
-      data.thresholds[category] as Partial<Record<string, number[]>> | undefined
-    )?.[group] ?? NYC_THRESHOLDS;
-
-  const title =
-    (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';
-
-  return {
-    id: `sp-${category}-${group}`,
-    engine: 'maplibre',
-    basemap: {
-      styleUrl: 'https://tiles.openfreemap.org/styles/positron',
-    },
-    view: {
-      center: [-46.6333, -23.5505],
-      zoom: 10,
-    },
-    sources: [
-      {
-        id: SOURCE_ID,
-        type: 'geojson',
-        data: '/distrito-municipal-v2.geojson',
-      },
-    ],
-    layers: [
-      {
-        id: LAYER_ID,
-        sourceId: SOURCE_ID,
-        geometry: 'polygon',
-        mapDataId: MAP_DATA_ID,
-        activeLegendId: LEGEND_ID,
-        legends: [
-          {
-            id: LEGEND_ID,
-            label: title,
-            colorBy: {
-              type: 'quantitative',
-              property: 'value',
-              scale: 'threshold',
-              thresholds,
-              colors: LEGEND_COLORS,
-            },
-          },
-        ],
-      },
-    ],
-    mapData: [
-      {
-        mapDataId: MAP_DATA_ID,
-        mapId: SOURCE_ID,
-        data: mapDataRows,
-      },
-    ],
-  };
-};
-
-export type MapsViewProps = {
-  mapsData: MapsDataContract;
 };
 
 /**
@@ -192,11 +111,120 @@ const renderTooltipContent = (
 };
 
 /**
+ * Builds a GeoVis VisualizationSpec for rendering a choropleth map, including a
+ * spec-driven hover tooltip on the district layer.
+ *
+ * @param data - Canonical maps data from the gateway.
+ * @param category - The demographic category to visualize.
+ * @param group - The age group to visualize.
+ * @returns A complete VisualizationSpec for GeoVis rendering.
+ */
+const buildSpec = (
+  data: MapsDataContract,
+  category: Category,
+  group: Group
+): VisualizationSpec => {
+  const mapDataRows =
+    (
+      data.mapData[category] as
+        | Partial<Record<Group, { geometryId: number; value: number }[]>>
+        | undefined
+    )?.[group] ?? [];
+
+  const thresholds =
+    (
+      data.thresholds[category] as Partial<Record<string, number[]>> | undefined
+    )?.[group] ?? NYC_THRESHOLDS;
+
+  const title =
+    (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';
+
+  // Lookup used by the spec-driven hover tooltip to resolve a feature's row.
+  const rowLookup = new Map(
+    (data.mapData[category]?.[group] ?? []).map((r) => {
+      return [r.geometryId, r] as const;
+    })
+  );
+
+  return {
+    id: `sp-${category}-${group}`,
+    engine: 'maplibre',
+    basemap: {
+      styleUrl: 'https://tiles.openfreemap.org/styles/positron',
+    },
+    view: {
+      center: [-46.6333, -23.5505],
+      zoom: 10,
+    },
+    sources: [
+      {
+        id: SOURCE_ID,
+        type: 'geojson',
+        data: '/distrito-municipal-v2.geojson',
+      },
+    ],
+    layers: [
+      {
+        id: LAYER_ID,
+        sourceId: SOURCE_ID,
+        geometry: 'polygon',
+        mapDataId: MAP_DATA_ID,
+        activeLegendId: LEGEND_ID,
+        legends: [
+          {
+            id: LEGEND_ID,
+            title,
+            colorBy: {
+              type: 'quantitative',
+              property: 'value',
+              scale: 'threshold',
+              thresholds,
+              colors: LEGEND_COLORS,
+            },
+          },
+        ],
+        hoverTooltip: {
+          render: (info: MapHoverInfo) => {
+            return renderTooltipContent(
+              info.featureId,
+              rowLookup,
+              category,
+              group
+            );
+          },
+          style: {
+            background: 'var(--chakra-colors-surface-raised)',
+            color: 'var(--chakra-colors-text-primary)',
+            border: '1px solid var(--chakra-colors-border-subtle)',
+            borderRadius: 'var(--chakra-radii-md)',
+            boxShadow: 'var(--chakra-shadows-md)',
+            padding: 'var(--chakra-spacing-2) var(--chakra-spacing-3)',
+            zIndex: 50,
+          },
+        },
+      },
+    ],
+    mapData: [
+      {
+        mapDataId: MAP_DATA_ID,
+        mapId: SOURCE_ID,
+        data: mapDataRows,
+      },
+    ],
+  };
+};
+
+export type MapsViewProps = {
+  mapsData: MapsDataContract;
+};
+
+/**
  * Interactive client component for the demographic maps visualization.
  *
- * Receives pre-fetched canonical maps data from the server component parent
- * and owns all client-side state: category/group selection and panel
- * visibility. Builds the GeoVis spec on each selection change via useMemo.
+ * Receives pre-fetched canonical maps data from the server component parent and
+ * owns the client-side category/group selection. The GeovisWorkspace renders
+ * the map canvas and both sidebars (category/group menus and the legend panel),
+ * driven by the spec and config rebuilt on each selection change.
  *
  * @param props.mapsData - Canonical maps data from the gateway.
  */
@@ -205,119 +233,67 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
     category: Category;
     group: Group;
   }>({ category: 'cumulative-total', group: '65' });
-  const [leftOpen, setLeftOpen] = React.useState(true);
-  const [rightOpen, setRightOpen] = React.useState(true);
 
   const spec = React.useMemo(() => {
     return buildSpec(mapsData, selection.category, selection.group);
   }, [mapsData, selection]);
 
-  const rowLookup = React.useMemo(() => {
-    const rows = mapsData.mapData[selection.category]?.[selection.group] ?? [];
-    return new Map(
-      rows.map((r) => {
-        return [r.geometryId, r] as const;
-      })
-    );
-  }, [mapsData, selection.category, selection.group]);
+  const config = React.useMemo(() => {
+    return buildWorkspaceConfig(selection.category, selection.group);
+  }, [selection]);
+
+  const variables = React.useMemo(() => {
+    return {
+      [CATEGORY_MENU_ID]: selection.category,
+      [GROUP_MENU_ID]: selection.group,
+    };
+  }, [selection]);
+
+  const handleVariableChange = (next: Record<string, string | undefined>) => {
+    setSelection((prev) => {
+      const nextCategory = (next[CATEGORY_MENU_ID] ??
+        prev.category) as Category;
+      // When the category changes, the available groups change too — reset the
+      // group to the new category's first option (cascading behaviour).
+      if (nextCategory !== prev.category) {
+        return { category: nextCategory, group: getDefaultGroup(nextCategory) };
+      }
+      const nextGroup = (next[GROUP_MENU_ID] ?? prev.group) as Group;
+      return { category: nextCategory, group: nextGroup };
+    });
+  };
 
   return (
-    <GeoVisProvider spec={spec}>
-      <Box position="relative" height="100vh" overflow="hidden">
-        <CategoryMenu
-          category={selection.category}
-          group={selection.group}
-          isOpen={leftOpen}
-          onCategoryChange={(c) => {
-            return setSelection((prev) => {
-              return {
-                ...prev,
-                category: c,
-                group: GROUP_OPTIONS[c][0].value,
-              };
-            });
-          }}
-          onGroupChange={(g) => {
-            return setSelection((prev) => {
-              return { ...prev, group: g };
-            });
-          }}
-        />
-
-        <GeoVisCanvas
-          style={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: '100%',
-          }}
-        />
-
-        <GeoVisHoverTooltip
-          render={(info) => {
-            return renderTooltipContent(
-              info.featureId,
-              rowLookup,
-              selection.category,
-              selection.group
-            );
-          }}
-          style={{
-            background: 'var(--chakra-colors-surface-raised)',
-            color: 'var(--chakra-colors-text-primary)',
-            border: '1px solid var(--chakra-colors-border-subtle)',
-            borderRadius: 'var(--chakra-radii-md)',
-            boxShadow: 'var(--chakra-shadows-md)',
-            padding: 'var(--chakra-spacing-2) var(--chakra-spacing-3)',
-            zIndex: 50,
-          }}
-        />
-
-        <Button
-          position="absolute"
-          top="-8px"
-          left="50%"
-          transform="translateX(-50%)"
-          zIndex={25}
-          bg="surface.raised"
-          color="brand.fg"
-          borderWidth="2px"
-          borderStyle="solid"
-          borderColor="brand.fg"
-          boxShadow="hairline"
-          borderRadius="md"
-          fontWeight="bold"
-          fontSize="lg"
-          textTransform="uppercase"
-          letterSpacing="0.03em"
-          px={6}
-          minH="44px"
-          onClick={() => {
-            return setLeftOpen((prev) => {
-              return !prev;
-            });
-          }}
-          _hover={{ bg: 'brand.subtle' }}
-          _focusVisible={{
-            outline: '2px solid',
-            outlineColor: 'focus.ring',
-            outlineOffset: '2px',
-          }}
-        >
-          DEMOGRAFIA
-        </Button>
-
-        <LegendPanel
-          category={selection.category}
-          group={selection.group}
-          isOpen={rightOpen}
-          onToggle={() => {
-            return setRightOpen((prev) => {
-              return !prev;
-            });
-          }}
-        />
-      </Box>
-    </GeoVisProvider>
+    <Box
+      // The page sits inside DefaultLayout, whose <main> has pt="4.5rem" to
+      // clear the fixed header. Subtract that offset so header + map fill
+      // exactly one viewport (no overflow/scroll).
+      height="calc(100vh - 4.5rem)"
+      width="100%"
+      overflow="hidden"
+      // GeovisWorkspace renders a bordered, 440px-min "card" root that doesn't
+      // stretch on its own — force its root container to fill the viewport and
+      // drop the card border/radius for a full-bleed map.
+      css={{
+        '& > *': {
+          height: '100%',
+          width: '100%',
+          minHeight: '100%',
+          border: 'none',
+          borderRadius: 0,
+        },
+      }}
+    >
+      <I18nProvider locale="pt-BR">
+        <ThemeProvider>
+          <GeovisWorkspace
+            config={config}
+            visualizationSpec={spec}
+            variables={variables}
+            onVariableChange={handleVariableChange}
+          />
+        </ThemeProvider>
+      </I18nProvider>
+    </Box>
   );
 };
