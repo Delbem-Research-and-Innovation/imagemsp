@@ -6,8 +6,9 @@ import { Box, Text } from '@chakra-ui/react';
 import type { MapHoverInfo, VisualizationSpec } from '@ttoss/geovis';
 import { GeovisWorkspace } from '@ttoss/geovis-workspace';
 import { I18nProvider } from '@ttoss/react-i18n';
-import { ThemeProvider } from '@ttoss/ui';
+import { BruttalTheme } from '@ttoss/theme/Bruttal';
 import * as React from 'react';
+import { ThemeUIProvider } from 'theme-ui';
 
 import type { Category, Group } from '@/components/map/lib/indicators';
 import {
@@ -23,6 +24,29 @@ import {
   MAP_TITLES,
 } from '@/components/map/lib/workspaceConfig';
 import type { MapDataRow, MapsDataContract } from '@/data-gateway/schema';
+
+/**
+ * Bruttal theme scoped for the GeovisWorkspace sidebars only.
+ *
+ * theme-ui's <ThemeUIProvider>, when top-level (our app root is Chakra, not
+ * theme-ui), renders <RootStyles> which injects the theme's `styles.root` onto
+ * the document GLOBALLY — `* { box-sizing }`, `html { ...styles.root }` and,
+ * crucially, `html a { font-family, color, text-decoration }`. That leaks into
+ * sibling components like the header's "explorar o mapa" button.
+ *
+ * `config.useRootStyles: false` makes theme-ui skip that global injection
+ * entirely (it returns null). The sidebars style themselves via `sx` against
+ * the theme context, so they keep their look; only the page-wide root styles
+ * are suppressed. Color custom properties (`--theme-ui-*`, namespaced) stay on
+ * so sidebar colors still resolve.
+ */
+const scopedSidebarTheme = {
+  ...BruttalTheme,
+  config: {
+    ...BruttalTheme.config,
+    useRootStyles: false,
+  },
+};
 
 const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
@@ -170,6 +194,12 @@ const buildSpec = (
         geometry: 'polygon',
         mapDataId: MAP_DATA_ID,
         activeLegendId: LEGEND_ID,
+        // Match the polygon opacity from `main` (geovis 0.1.10 defaulted
+        // fill-opacity to 0.6; geovis 0.5.0 defaults to 1), so set it
+        // explicitly to keep the choropheth semi-transparent.
+        paint: {
+          fillOpacity: 0.6,
+        },
         legends: [
           {
             id: LEGEND_ID,
@@ -285,14 +315,22 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
       }}
     >
       <I18nProvider locale="pt-BR">
-        <ThemeProvider>
+        {/*
+         * Scope the GeovisWorkspace sidebars to theme-ui's provider ONLY, with
+         * global root styles disabled (see scopedSidebarTheme). @ttoss/ui's own
+         * <ThemeProvider> is avoided because it also mounts a second Chakra v3
+         * system whose global `--chakra-*` variables clobber the app's tokens.
+         * The sidebars only use theme-ui primitives (Box/Flex/Heading/
+         * IconButton/Link/Text), so the theme-ui context is all they need.
+         */}
+        <ThemeUIProvider theme={scopedSidebarTheme}>
           <GeovisWorkspace
             config={config}
             visualizationSpec={spec}
             variables={variables}
             onVariableChange={handleVariableChange}
           />
-        </ThemeProvider>
+        </ThemeUIProvider>
       </I18nProvider>
     </Box>
   );
