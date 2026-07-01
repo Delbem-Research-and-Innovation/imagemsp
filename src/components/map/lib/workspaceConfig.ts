@@ -1,7 +1,6 @@
 import type { GeovisWorkspaceConfig } from '@ttoss/geovis-workspace';
 
 import type { Category, Group } from '@/components/map/lib/indicators';
-import { LEGEND_COLORS, NYC_THRESHOLDS } from '@/components/map/lib/mapConfig';
 
 /** Menu ids used by the GeovisWorkspace left sidebar and selection record. */
 export const CATEGORY_MENU_ID = 'category';
@@ -51,7 +50,10 @@ export const MAP_TITLES: Record<Category, Partial<Record<Group, string>>> = {
   },
 };
 
-const MAP_DESCRIPTIONS: Record<Category, Partial<Record<Group, string>>> = {
+export const MAP_DESCRIPTIONS: Record<
+  Category,
+  Partial<Record<Group, string>>
+> = {
   'cumulative-total': {
     '65': 'Proporção da população total do distrito com 65 anos ou mais.',
     '70': 'Proporção da população total do distrito com 70 anos ou mais.',
@@ -68,48 +70,29 @@ const MAP_DESCRIPTIONS: Record<Category, Partial<Record<Group, string>>> = {
   },
 };
 
-const formatPercent = (value: number) => {
-  const pct = value * 100;
-  return `${pct % 1 === 0 ? pct.toFixed(0) : pct.toFixed(1)}%`;
-};
-
-/** Builds one legend item (swatch color + range label) per choropleth class. */
-const buildLegendItems = () => {
-  const breaks = [0, ...NYC_THRESHOLDS, 1];
-  return breaks.slice(0, -1).map((lower, i) => {
-    return {
-      color: LEGEND_COLORS[i],
-      label: `${formatPercent(lower)} – ${formatPercent(breaks[i + 1])}`,
-    };
-  });
-};
-
 /** Resolves the default age-group for a category (its first option). */
 export const getDefaultGroup = (category: Category): Group => {
   return GROUP_OPTIONS[category][0].value;
 };
 
 /**
- * Builds the GeovisWorkspace config (left menus + right legend panel) for the
- * current selection. The `group` menu items depend on `category`, so the config
- * is rebuilt whenever the selection changes (cascading behaviour).
+ * Builds the GeovisWorkspace config (left menu sidebar) for the current
+ * selection. The `group` menu items depend on `category`, so the config is
+ * rebuilt whenever the selection changes (cascading behaviour). The legend and
+ * data sources now live on the map itself, configured via the geovis spec (see
+ * `buildSpec` in `MapsView.tsx`), so there is no right sidebar.
  *
  * @param category - The selected demographic category.
  * @param group - The selected age group.
- * @returns A complete GeovisWorkspaceConfig driving both sidebars.
+ * @returns A GeovisWorkspaceConfig driving the left sidebar.
  */
 export const buildWorkspaceConfig = (
   category: Category,
   group: Group
 ): GeovisWorkspaceConfig => {
-  const title =
-    (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';
-  const description =
-    (MAP_DESCRIPTIONS[category] as Partial<Record<string, string>>)[group] ??
-    '';
-
   return {
     leftSidebar: {
+      initialState: 'open',
       menus: [
         {
           id: CATEGORY_MENU_ID,
@@ -124,28 +107,6 @@ export const buildWorkspaceConfig = (
           defaultValue: group,
         },
       ],
-    },
-    rightSidebar: {
-      title,
-      legendWithColor: {
-        description,
-        legend: {
-          items: buildLegendItems(),
-        },
-        sources: {
-          title: 'Fonte dos dados:',
-          items: [
-            {
-              label:
-                'Dados agregados por distrito municipal a partir das projeções populacionais por sexo e idade do SEADE para o ano de 2025.',
-              href: 'https://repositorio.seade.gov.br/dataset/populacao-residente-municipio-de-sao-paulo-evolucao',
-            },
-            {
-              label: 'Geometria: Distritos Municipais de São Paulo.',
-            },
-          ],
-        },
-      },
     },
   };
 };

@@ -21,6 +21,7 @@ import {
   CATEGORY_MENU_ID,
   getDefaultGroup,
   GROUP_MENU_ID,
+  MAP_DESCRIPTIONS,
   MAP_TITLES,
 } from '@/components/map/lib/workspaceConfig';
 import type { MapDataRow, MapsDataContract } from '@/data-gateway/schema';
@@ -52,6 +53,14 @@ const LEGEND_ID = 'pop-legend';
 const MAP_DATA_ID = 'pop-data';
 const SOURCE_ID = 'sp-districts';
 const LAYER_ID = 'sp-districts-fill';
+
+/**
+ * Data-source attribution rendered under the legend swatches. `reference`
+ * supports an inline link with the `{link:text|url}` syntax, so the SEADE
+ * source keeps its hyperlink (the geometry source is plain text).
+ */
+const LEGEND_REFERENCE =
+  'Fonte dos dados: {link:Dados agregados por distrito municipal a partir das projeções populacionais por sexo e idade do SEADE para o ano de 2025.|https://repositorio.seade.gov.br/dataset/populacao-residente-municipio-de-sao-paulo-evolucao} Geometria: Distritos Municipais de São Paulo.';
 
 /**
  * Generates dynamic tooltip text based on selected category and group.
@@ -162,6 +171,9 @@ const buildSpec = (
 
   const title =
     (MAP_TITLES[category] as Partial<Record<string, string>>)[group] ?? '';
+  const description =
+    (MAP_DESCRIPTIONS[category] as Partial<Record<string, string>>)[group] ??
+    '';
 
   // Lookup used by the spec-driven hover tooltip to resolve a feature's row.
   const rowLookup = new Map(
@@ -171,14 +183,13 @@ const buildSpec = (
   );
 
   return {
-    id: `sp-${category}-${group}`,
     engine: 'maplibre',
     basemap: {
       styleUrl: 'https://tiles.openfreemap.org/styles/positron',
     },
     view: {
-      center: [-46.6333, -23.5505],
-      zoom: 10,
+      center: [-46.5958, -23.6825],
+      zoom: 9.6,
     },
     sources: [
       {
@@ -194,16 +205,15 @@ const buildSpec = (
         geometry: 'polygon',
         mapDataId: MAP_DATA_ID,
         activeLegendId: LEGEND_ID,
-        // Match the polygon opacity from `main` (geovis 0.1.10 defaulted
-        // fill-opacity to 0.6; geovis 0.5.0 defaults to 1), so set it
-        // explicitly to keep the choropheth semi-transparent.
-        paint: {
-          fillOpacity: 0.6,
-        },
         legends: [
           {
             id: LEGEND_ID,
             title,
+            subtitle: description,
+            // geovis' provider auto-renders any legend that carries a
+            // `position`, so this appears as an overlay in the map's bottom-right
+            // corner — replacing the old right sidebar with no extra wiring.
+            position: 'bottom-right',
             colorBy: {
               type: 'quantitative',
               property: 'value',
@@ -211,6 +221,10 @@ const buildSpec = (
               thresholds,
               colors: LEGEND_COLORS,
             },
+            // Values are proportions in [0, 1]; render each bin as a percent
+            // range (`< 10%`, `10% – 20%`, … `> 80%`) instead of raw breaks.
+            labelFormat: { type: 'percentage', decimals: 0 },
+            reference: LEGEND_REFERENCE,
           },
         ],
         hoverTooltip: {
@@ -311,6 +325,16 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
           minHeight: '100%',
           border: 'none',
           borderRadius: 0,
+        },
+        // geovis' provider auto-renders the positioned legend with a fixed 10px
+        // inset from the map corner (`GeoVisLegend`'s corner position isn't
+        // further configurable via the spec). Nudge it inward so it doesn't
+        // crowd the edges. The legend title is dynamic, but its swatch list is
+        // the only `ul[aria-label]` geovis renders, so target the div wrapping
+        // it (title-independent).
+        '& div:has(> ul[aria-label])': {
+          bottom: '44px !important',
+          right: '44px !important',
         },
       }}
     >
