@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0.0",
+  "catalog": {
+    "id": "imagem_sp_data_catalog",
+    "title": "Catálogo de Dados — IMAGEM:SP",
+    "description": "Catálogo único com os metadados de todos os datasets usados no projeto IMAGEM:SP (Mapa Inteligente do Envelhecimento em São Paulo). Estrutura: coleções (por fonte institucional) e datasets indexados por id.",
+    "language": "pt-BR",
+    "status": "draft",
+    "created_at": "2026-07-08",
+    "updated_at": "2026-07-08",
+    "typing_reference": "src/data-source-static/types.ts",
+    "quality_notes": [
+      {
+        "id": "distritos_contorno_source_url_pending",
+        "severity": "low",
+        "message": "A malha `distrito-municipal-v2.geojson` corresponde aos 96 distritos municipais de São Paulo, cuja origem canônica é o portal GeoSampa (Prefeitura de São Paulo). A URL/camada exata do download original precisa ser confirmada por quem baixou o arquivo."
+      },
+      {
+        "id": "maps_data_generation_script_external",
+        "severity": "medium",
+        "message": "`maps-data.json` é gerado offline por `generate_maps_data.py` (citado em `src/data-source-static/types.ts`), que não está versionado neste repositório. A microdata de origem (Censo IBGE + projeções SEADE), o ano-base e os parâmetros de contagem etária precisam ser documentados e o script versionado."
+      },
+      {
+        "id": "distritos_geojson_null_properties",
+        "severity": "low",
+        "message": "As feições de `distrito-municipal-v2.geojson` têm `properties: null`; o join com os dados é feito pela ordem da feição (índice) que corresponde ao campo `geometry_id` de `maps-data.json`. Não há chave explícita dentro do GeoJSON."
+      }
+    ]
+  },
+  "collections": {
+    "geosampa": {
+      "id": "geosampa",
+      "slug": "geosampa",
+      "title": "GeoSampa — Prefeitura de São Paulo",
+      "description": "Datasets geográficos do mapa digital da cidade de São Paulo (GeoSampa), mantido pela Prefeitura de São Paulo.",
+      "organization": "Prefeitura do Município de São Paulo — GeoSampa",
+      "source_url": "https://geosampa.prefeitura.sp.gov.br",
+      "public_reference_url": "https://geosampa.prefeitura.sp.gov.br/PaginasPublicas/_SBC.aspx",
+      "tags": [
+        "geosampa",
+        "prefeitura-sp",
+        "geografia",
+        "distritos",
+        "sao-paulo",
+        "dados-publicos"
+      ]
+    },
+    "dados_processados": {
+      "id": "dados_processados",
+      "slug": "dados-processados",
+      "title": "Dados Processados — IMAGEM:SP",
+      "description": "Datasets pré-computados offline pela equipe do projeto a partir de fontes públicas (microdados do Censo IBGE e projeções da Fundação SEADE), consolidados em snapshots servidos à aplicação.",
+      "organization": "Equipe do projeto IMAGEM:SP (FAPESP)",
+      "source_url": null,
+      "tags": [
+        "dados-processados",
+        "imagem-sp",
+        "envelhecimento",
+        "ibge",
+        "seade",
+        "sao-paulo"
+      ]
+    }
+  },
+  "datasets": {
+    "distritos_contorno": {
+      "id": "distritos_contorno",
+      "collection_id": "geosampa",
+      "slug": "distritos-contorno",
+      "title": "Contornos dos distritos municipais de São Paulo",
+      "description": "Malha (polígonos) dos 96 distritos municipais da cidade de São Paulo, usada como base do mapa coroplético. Join pela ordem da feição (índice), que corresponde ao campo `geometry_id` dos dados.",
+      "file": "public/distrito-municipal-v2.geojson",
+      "format": "GeoJSON",
+      "source": {
+        "url": null,
+        "notes": "Origem provável na camada de distritos municipais do GeoSampa; camada/parâmetros exatos do download a confirmar."
+      },
+      "temporal": {
+        "reference_period": null,
+        "retrieved_at": null
+      },
+      "spatial": {
+        "coverage": "Município de São Paulo",
+        "unit": "distrito municipal (polígono)",
+        "key": "geometry_id (via ordem da feição)"
+      },
+      "access": {
+        "level": "public",
+        "contains_personal_data": false
+      },
+      "stats": {
+        "features": 96,
+        "size_bytes": 187437,
+        "checkSum": "sha256:b8011000bb83d3124a462c7c23f83e7d16dbf6e94f9ee0612ea0656e054000ca"
+      },
+      "schema": {
+        "fields": [
+          {
+            "name": "properties",
+            "description": "Nulo em todas as feições; nenhum atributo embarcado no GeoJSON"
+          },
+          {
+            "name": "geometry",
+            "description": "Polígono do distrito municipal",
+            "role": "geometry"
+          }
+        ]
+      }
+    },
+    "distritos_populacao_idosa": {
+      "id": "distritos_populacao_idosa",
+      "collection_id": "dados_processados",
+      "slug": "distritos-populacao-idosa",
+      "title": "População idosa por distrito municipal de São Paulo",
+      "description": "Contagens absolutas de população total e por faixa etária idosa (65–69, 70–74, 75+) por distrito municipal, pré-computadas offline. Dado-núcleo dos indicadores coropléticos de envelhecimento.",
+      "file": "src/data-source-static/data/maps-data.json",
+      "format": "JSON",
+      "source": {
+        "url": null,
+        "notes": "Snapshot processado a partir de microdados demográficos públicos; taxas dos indicadores são calculadas no gateway (`toAppMapsData`), não no arquivo. Sem URL pública de download direto."
+      },
+      "generated_by": "generate_maps_data.py",
+      "temporal": {
+        "reference_period": "2025",
+        "retrieved_at": null
+      },
+      "spatial": {
+        "coverage": "Município de São Paulo",
+        "unit": "distrito municipal",
+        "key": "geometry_id"
+      },
+      "access": {
+        "level": "public",
+        "contains_personal_data": false
+      },
+      "stats": {
+        "rows": 96,
+        "size_bytes": 23792,
+        "checkSum": "sha256:c709b8fd6ac3afa1999e872c19d6c2cddfc70861c0dd7f175b9ac334e13e001a"
+      },
+      "schema": {
+        "fields": [
+          {
+            "name": "ano",
+            "description": "Ano de referência dos dados",
+            "unit": "ano"
+          },
+          {
+            "name": "cod_distr",
+            "description": "Código do distrito municipal",
+            "role": "identifier"
+          },
+          { "name": "nome", "description": "Nome do distrito municipal" },
+          {
+            "name": "municipio",
+            "description": "Município (constante: São Paulo)"
+          },
+          {
+            "name": "geometry_id",
+            "description": "Chave de join com a malha (ordem 1-based da feição no GeoJSON)",
+            "role": "identifier"
+          },
+          {
+            "name": "count_65_69",
+            "description": "População residente de 65 a 69 anos",
+            "unit": "pessoas"
+          },
+          {
+            "name": "count_70_74",
+            "description": "População residente de 70 a 74 anos",
+            "unit": "pessoas"
+          },
+          {
+            "name": "count_75plus",
+            "description": "População residente de 75 anos ou mais",
+            "unit": "pessoas"
+          },
+          {
+            "name": "total",
+            "description": "População residente total do distrito (denominador das taxas)",
+            "unit": "pessoas"
+          }
+        ]
+      }
+    }
+  }
+}
