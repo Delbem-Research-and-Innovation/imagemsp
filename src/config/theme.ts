@@ -252,6 +252,17 @@ const config = defineConfig({
         from: { opacity: '0' },
         to: { opacity: '1' },
       },
+      /**
+       * Breathing pulse (scale + opacity) — used by the loading indicator.
+       * Combines a gentle grow with a fade so the brand mark reads as
+       * "breathing" rather than zooming. Under `prefers-reduced-motion` the
+       * global reset in layout.tsx collapses it to a single 0.01ms iteration,
+       * leaving the mark at rest (scale 1, opacity 0.55).
+       */
+      pulseScale: {
+        '0%, 100%': { transform: 'scale(1)', opacity: '0.55' },
+        '50%': { transform: 'scale(1.07)', opacity: '1' },
+      },
     },
     textStyles: {
       /** Hero-level display — Montserrat, maximum brand weight. */

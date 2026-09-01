@@ -27,6 +27,7 @@ import {
   MAP_DESCRIPTIONS,
   MAP_TITLES,
 } from '@/components/map/lib/workspaceConfig';
+import LoadingIndicator from '@/components/ui/LoadingIndicator';
 import type { MapDataRow, MapsDataContract } from '@/data-gateway/schema';
 
 /**
@@ -275,6 +276,50 @@ const buildSpec = (
   };
 };
 
+/**
+ * Wrapper styles that make GeovisWorkspace fill its container.
+ *
+ * Since 0.10.0 GeovisWorkspace nests its flex root inside an extra
+ * `position: relative` Box, and that root only carries `min-height: 440px` — it
+ * never stretches. So the wrapper has to be filled and the root told to grow,
+ * or the map collapses to 440px tall.
+ *
+ * The wrapper is turned into a flex container instead of sizing the root
+ * directly: geovis renders the positioned legend as a SIBLING of that root, and
+ * absolutely-positioned elements are not flex items, so `flex: 1` stretches the
+ * map while leaving the legend untouched. The card border/radius is dropped via
+ * `appearance: "bare"` in the config (see buildWorkspaceConfig), not here.
+ *
+ * Applied only on the mounted branch — the loading state renders inside its own
+ * plain wrapper, since the `& > *` rule here would stretch it into a flex row.
+ */
+const GEOVIS_FILL_CSS = {
+  '& > *': {
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+  },
+  '& > * > *': {
+    flex: 1,
+    minWidth: 0,
+  },
+};
+
+/*
+ * Hydration probe for `useSyncExternalStore` below: a store that never changes,
+ * reads `false` on the server and `true` on the client. Module-level so the
+ * three callbacks keep stable identities across renders.
+ */
+const subscribeToNothing = () => {
+  return () => {};
+};
+const isClient = () => {
+  return true;
+};
+const isServer = () => {
+  return false;
+};
+
 export type MapsViewProps = {
   mapsData: MapsDataContract;
 };
@@ -294,6 +339,23 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
     category: Category;
     group: Group;
   }>({ category: 'cumulative-total', group: '65' });
+
+  /*
+   * GeovisWorkspace mounts maplibre-gl, which only runs in the browser. Gate it
+   * behind a hydration flag so the server render (and the matching first client
+   * render) paint the loading indicator instead, and the map is created exactly
+   * once, client-side.
+   *
+   * `useSyncExternalStore` rather than the `useState` + `useEffect` idiom: it
+   * expresses "which environment is rendering" as a snapshot, which is what the
+   * flag actually is, and it does not trip the compiler's
+   * `react-hooks/set-state-in-effect` rule.
+   */
+  const mounted = React.useSyncExternalStore(
+    subscribeToNothing,
+    isClient,
+    isServer
+  );
 
   const spec = React.useMemo(() => {
     return buildSpec(mapsData, selection.category, selection.group);
@@ -324,6 +386,14 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
     });
   };
 
+  if (!mounted) {
+    return (
+      <Box height="calc(100vh - 4.5rem)" width="100%" position="relative">
+        <LoadingIndicator label="Carregando mapa" />
+      </Box>
+    );
+  }
+
   return (
     <Box
       // The page sits inside DefaultLayout, whose <main> has pt="4.5rem" to
@@ -332,28 +402,7 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
       height="calc(100vh - 4.5rem)"
       width="100%"
       overflow="hidden"
-      // Since 0.10.0 GeovisWorkspace nests its flex root inside an extra
-      // `position: relative` Box, and that root only carries
-      // `min-height: 440px` — it never stretches. So the wrapper has to be
-      // filled and the root told to grow, or the map collapses to 440px tall.
-      //
-      // The wrapper is turned into a flex container instead of sizing the
-      // root directly: geovis renders the positioned legend as a SIBLING of
-      // that root, and absolutely-positioned elements are not flex items, so
-      // `flex: 1` stretches the map while leaving the legend untouched.
-      // The card border/radius is dropped via `appearance: "bare"` in the
-      // config (see buildWorkspaceConfig), not here.
-      css={{
-        '& > *': {
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-        },
-        '& > * > *': {
-          flex: 1,
-          minWidth: 0,
-        },
-      }}
+      css={GEOVIS_FILL_CSS}
     >
       <I18nProvider locale="pt-BR">
         {/*
