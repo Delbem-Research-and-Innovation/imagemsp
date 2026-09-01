@@ -6,11 +6,31 @@
  *   - Interactive controls   → Phosphor bold            e.g. "ph:caret-left-bold"
  *   - Active / highlight     → Phosphor fill            e.g. "ph:caret-left-fill"
  *   - Map pins / POI markers → Maki                     e.g. "maki:hospital"
+ *   - Vendored (geovis)      → Lucide                   e.g. "lucide:circle"
  *
  * Add icons here before use to avoid Iconify API calls in production.
  * Import path: @iconify/icons-<prefix>/<icon-name>
  */
+// Lucide — NOT used by our own components. @ttoss/geovis-workspace renders
+// these names directly and ships no addIcon of its own, so without registering
+// them here the workspace sidebar would fetch them from the Iconify API at
+// runtime. `lucide:circle` is the fallback for every sidebar variation AND
+// every section header, so it always renders; the rest cover the sidebar
+// toggle, carousel, collapse and the filter/timeline/locator controls.
+import lucideChevronDown from '@iconify/icons-lucide/chevron-down';
+import lucideChevronLeft from '@iconify/icons-lucide/chevron-left';
+import lucideChevronRight from '@iconify/icons-lucide/chevron-right';
+import lucideChevronsLeft from '@iconify/icons-lucide/chevrons-left';
+import lucideCircle from '@iconify/icons-lucide/circle';
+import lucidePause from '@iconify/icons-lucide/pause';
+import lucidePlay from '@iconify/icons-lucide/play';
+import lucideSearch from '@iconify/icons-lucide/search';
+import lucideSlidersHorizontal from '@iconify/icons-lucide/sliders-horizontal';
+import lucideX from '@iconify/icons-lucide/x';
+import lucideZoomIn from '@iconify/icons-lucide/zoom-in';
 // Phosphor — double caret (bold for toggle buttons)
+// Phosphor — variacoes de faixa etaria na sidebar do mapa
+import phArrowsInLineHorizontal from '@iconify/icons-ph/arrows-in-line-horizontal';
 import phCaretDoubleLeftBold from '@iconify/icons-ph/caret-double-left-bold';
 import phCaretDoubleRightBold from '@iconify/icons-ph/caret-double-right-bold';
 // Phosphor — line style (menus, labels, decorative)
@@ -19,6 +39,13 @@ import phCaretLeft from '@iconify/icons-ph/caret-left';
 import phCaretLeftBold from '@iconify/icons-ph/caret-left-bold';
 import phCaretRight from '@iconify/icons-ph/caret-right';
 import phCaretRightBold from '@iconify/icons-ph/caret-right-bold';
+// Phosphor — sidebar do mapa (cabecalhos de secao e variacoes de indicador)
+import phChartBar from '@iconify/icons-ph/chart-bar';
+import phChartDonut from '@iconify/icons-ph/chart-donut';
+import phChartPieSlice from '@iconify/icons-ph/chart-pie-slice';
+import phGauge from '@iconify/icons-ph/gauge';
+import phPlusCircle from '@iconify/icons-ph/plus-circle';
+import phUsersThree from '@iconify/icons-ph/users-three';
 import { addIcon, Icon } from '@ttoss/react-icons';
 
 // Register bundled icons (no API call in production)
@@ -28,6 +55,26 @@ addIcon('ph:caret-double-left-bold', phCaretDoubleLeftBold);
 addIcon('ph:caret-double-right-bold', phCaretDoubleRightBold);
 addIcon('ph:caret-left', phCaretLeft);
 addIcon('ph:caret-right', phCaretRight);
+addIcon('ph:gauge', phGauge);
+addIcon('ph:users-three', phUsersThree);
+addIcon('ph:chart-pie-slice', phChartPieSlice);
+addIcon('ph:chart-donut', phChartDonut);
+addIcon('ph:chart-bar', phChartBar);
+addIcon('ph:plus-circle', phPlusCircle);
+addIcon('ph:arrows-in-line-horizontal', phArrowsInLineHorizontal);
+
+// Register the Lucide icons @ttoss/geovis-workspace renders by name
+addIcon('lucide:circle', lucideCircle);
+addIcon('lucide:chevrons-left', lucideChevronsLeft);
+addIcon('lucide:chevron-left', lucideChevronLeft);
+addIcon('lucide:chevron-right', lucideChevronRight);
+addIcon('lucide:chevron-down', lucideChevronDown);
+addIcon('lucide:x', lucideX);
+addIcon('lucide:search', lucideSearch);
+addIcon('lucide:sliders-horizontal', lucideSlidersHorizontal);
+addIcon('lucide:zoom-in', lucideZoomIn);
+addIcon('lucide:play', lucidePlay);
+addIcon('lucide:pause', lucidePause);
 
 export { Icon };
 
@@ -44,6 +91,19 @@ export const ICONS = {
   // Navigation — regular (decorative / menu labels)
   caretLeft: 'ph:caret-left',
   caretRight: 'ph:caret-right',
+
+  // Map sidebar — section headers
+  gauge: 'ph:gauge',
+  usersThree: 'ph:users-three',
+
+  // Map sidebar — indicator variations
+  chartPieSlice: 'ph:chart-pie-slice',
+  chartDonut: 'ph:chart-donut',
+  chartBar: 'ph:chart-bar',
+
+  // Map sidebar — age-group variations
+  plusCircle: 'ph:plus-circle',
+  arrowsInLineHorizontal: 'ph:arrows-in-line-horizontal',
 } as const;
 
 export type IconName = (typeof ICONS)[keyof typeof ICONS];

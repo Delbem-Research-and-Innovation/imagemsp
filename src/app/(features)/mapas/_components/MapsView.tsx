@@ -1,6 +1,9 @@
 'use client';
 
 import 'maplibre-gl/dist/maplibre-gl.css';
+// Side-effect import: registers the Lucide icons GeovisWorkspace renders by
+// name, so they resolve from the bundle instead of the Iconify API at runtime.
+import '@/components/map/lib/icons';
 
 import { Box, Text } from '@chakra-ui/react';
 import type { MapHoverInfo, VisualizationSpec } from '@ttoss/geovis';
@@ -157,12 +160,16 @@ const buildSpec = (
   category: Category,
   group: Group
 ): VisualizationSpec => {
-  const mapDataRows =
-    (
-      data.mapData[category] as
-        | Partial<Record<Group, { geometryId: number; value: number }[]>>
-        | undefined
-    )?.[group] ?? [];
+  // geovis MapDataRow is strictly `{ geometryId, value }` and its runtime
+  // schema sets `additionalProperties: false`. The canonical row also carries
+  // `name`, `count` and `totalCount` for the tooltip, so those must be
+  // stripped here or the spec is rejected and the map never renders. The
+  // tooltip is unaffected: it reads the full rows from `rowLookup` below.
+  const mapDataRows = (data.mapData[category]?.[group] ?? []).map(
+    ({ geometryId, value }) => {
+      return { geometryId, value };
+    }
+  );
 
   const thresholds =
     (
@@ -214,6 +221,16 @@ const buildSpec = (
             // `position`, so this appears as an overlay in the map's bottom-right
             // corner — replacing the old right sidebar with no extra wiring.
             position: 'bottom-right',
+            // Inset from the anchored map edges, in pixels — a single value
+            // applies to both axes.
+            //
+            // 46 clears maplibre compact attribution toggle, which claims the
+            // same bottom-right corner (10px margin + 24px button = 34px),
+            // plus the 12px gap the left sidebar card uses (SidebarOverlay
+            // insets it with `padding: [0, "3"]`, and theme space `3` is
+            // 0.75rem). Kept equal on both axes so the legend sits on a
+            // consistent diagonal from the corner.
+            offset: 46,
             colorBy: {
               type: 'quantitative',
               property: 'value',
@@ -315,26 +332,26 @@ export const MapsView = ({ mapsData }: MapsViewProps) => {
       height="calc(100vh - 4.5rem)"
       width="100%"
       overflow="hidden"
-      // GeovisWorkspace renders a bordered, 440px-min "card" root that doesn't
-      // stretch on its own — force its root container to fill the viewport and
-      // drop the card border/radius for a full-bleed map.
+      // Since 0.10.0 GeovisWorkspace nests its flex root inside an extra
+      // `position: relative` Box, and that root only carries
+      // `min-height: 440px` — it never stretches. So the wrapper has to be
+      // filled and the root told to grow, or the map collapses to 440px tall.
+      //
+      // The wrapper is turned into a flex container instead of sizing the
+      // root directly: geovis renders the positioned legend as a SIBLING of
+      // that root, and absolutely-positioned elements are not flex items, so
+      // `flex: 1` stretches the map while leaving the legend untouched.
+      // The card border/radius is dropped via `appearance: "bare"` in the
+      // config (see buildWorkspaceConfig), not here.
       css={{
         '& > *': {
           height: '100%',
           width: '100%',
-          minHeight: '100%',
-          border: 'none',
-          borderRadius: 0,
+          display: 'flex',
         },
-        // geovis' provider auto-renders the positioned legend with a fixed 10px
-        // inset from the map corner (`GeoVisLegend`'s corner position isn't
-        // further configurable via the spec). Nudge it inward so it doesn't
-        // crowd the edges. The legend title is dynamic, but its swatch list is
-        // the only `ul[aria-label]` geovis renders, so target the div wrapping
-        // it (title-independent).
-        '& div:has(> ul[aria-label])': {
-          bottom: '44px !important',
-          right: '44px !important',
+        '& > * > *': {
+          flex: 1,
+          minWidth: 0,
         },
       }}
     >
