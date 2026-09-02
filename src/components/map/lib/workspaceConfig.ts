@@ -8,6 +8,13 @@ export const CATEGORY_MENU_ID = 'category';
 export const GROUP_MENU_ID = 'group';
 export const YEAR_MENU_ID = 'year';
 
+/**
+ * Id of the tab holding both variation menus. Its own id, not either menu's:
+ * the section is no longer one menu's surface, so borrowing `CATEGORY_MENU_ID`
+ * would read as if it were.
+ */
+const VARIATIONS_SECTION_ID = 'variations';
+
 const CATEGORY_OPTIONS: { value: Category; label: string; icon: string }[] = [
   {
     value: 'cumulative-total',
@@ -173,14 +180,13 @@ const buildYearSection = ({
  * data sources live on the map itself, configured via the geovis spec (see
  * `buildSpec` in `MapsView.tsx`), so there is no right sidebar.
  *
- * Each section wraps its options in a single variation group: the cascade is
- * driven by React state in `MapsView`, not by the sidebar own group
- * navigation, so one group per section preserves the previous flat-menu
- * behaviour.
- *
- * The third section is the projection-year timeline, in a tab of its own (a
- * `filters` body) as the workspace recommends: it is the only control with
- * playback, and it publishes `variables[YEAR_MENU_ID]` on every tick.
+ * Two tabs. The first holds both variation menus as blocks — indicator and age
+ * band are read together, and the cascade between them is driven by React state
+ * in `MapsView`, not by the sidebar's own navigation. The second is the
+ * projection-year timeline, which stays in a tab of its own as the workspace
+ * recommends: it is the only control with playback, and it publishes
+ * `variables[YEAR_MENU_ID]` on every tick, so it has nothing to gain from
+ * sitting beside menus that are picked once.
  *
  * @param params.category - The selected demographic category.
  * @param params.group - The selected age group.
@@ -242,39 +248,51 @@ export const buildWorkspaceConfig = ({
       initialState: sidebarInitiallyOpen ? 'open' : 'closed',
       sections: [
         {
-          id: CATEGORY_MENU_ID,
-          header: { title: 'Indicador', icon: ICONS.gauge },
+          id: VARIATIONS_SECTION_ID,
+          header: { title: 'Variações', icon: ICONS.layoutList },
+          /*
+           * Both menus in one tab, as `variations` controls inside a `filters`
+           * body (geovis-workspace 0.12). They are read together — the age band
+           * only means something against a chosen indicator — and as separate
+           * `variations` bodies each would claim a tab of its own, so crossing
+           * from one to the other cost a tab switch.
+           *
+           * Blocks are collapsible, which also keeps the age band in view
+           * beside the indicator list instead of below it.
+           */
           body: {
-            kind: 'variations',
-            // `menuId` is the key this section writes into `variables`, so it
-            // must stay in sync with the selection record in `MapsView`.
-            menuId: CATEGORY_MENU_ID,
-            groups: [
+            kind: 'filters',
+            blocks: [
               {
                 id: CATEGORY_MENU_ID,
-                label: 'Indicador',
-                variations: CATEGORY_OPTIONS,
+                title: 'Indicador',
+                icon: ICONS.gauge,
+                control: {
+                  kind: 'variations',
+                  // `menuId` is the key this control writes into `variables`, so
+                  // it must stay in sync with the selection record in `MapsView`.
+                  menuId: CATEGORY_MENU_ID,
+                  variations: CATEGORY_OPTIONS,
+                  defaultValue: category,
+                },
               },
-            ],
-            defaultValue: category,
-          },
-        },
-        {
-          id: GROUP_MENU_ID,
-          header: { title: 'Faixa etária', icon: ICONS.usersThree },
-          body: {
-            kind: 'variations',
-            menuId: GROUP_MENU_ID,
-            groups: [
               {
                 id: GROUP_MENU_ID,
-                label: 'Faixa etária',
-                variations: GROUP_OPTIONS[category].map((option) => {
-                  return { ...option, icon: GROUP_ICONS[option.value] };
-                }),
+                title: 'Faixa etária',
+                icon: ICONS.usersThree,
+                control: {
+                  kind: 'variations',
+                  menuId: GROUP_MENU_ID,
+                  // Cascading: the options depend on the active category, so
+                  // this list is rebuilt whenever it changes (see the note on
+                  // this builder).
+                  variations: GROUP_OPTIONS[category].map((option) => {
+                    return { ...option, icon: GROUP_ICONS[option.value] };
+                  }),
+                  defaultValue: group,
+                },
               },
             ],
-            defaultValue: group,
           },
         },
         buildYearSection({ years, defaultYear, elderlyHistogram }),

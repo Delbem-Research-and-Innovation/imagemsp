@@ -22,6 +22,7 @@ import lucideChevronLeft from '@iconify/icons-lucide/chevron-left';
 import lucideChevronRight from '@iconify/icons-lucide/chevron-right';
 import lucideChevronsLeft from '@iconify/icons-lucide/chevrons-left';
 import lucideCircle from '@iconify/icons-lucide/circle';
+import lucideLayoutList from '@iconify/icons-lucide/layout-list';
 import lucidePause from '@iconify/icons-lucide/pause';
 import lucidePlay from '@iconify/icons-lucide/play';
 import lucideSearch from '@iconify/icons-lucide/search';
@@ -79,6 +80,9 @@ addIcon('lucide:sliders-horizontal', lucideSlidersHorizontal);
 addIcon('lucide:zoom-in', lucideZoomIn);
 addIcon('lucide:play', lucidePlay);
 addIcon('lucide:pause', lucidePause);
+// Not rendered by the workspace: this one is ours, on the variations tab, and
+// matches the icon cozsolidarias uses for the same tab.
+addIcon('lucide:layout-list', lucideLayoutList);
 
 export { Icon };
 
@@ -101,6 +105,9 @@ export const ICONS = {
   usersThree: 'ph:users-three',
   calendarBlank: 'ph:calendar-blank',
   clock: 'ph:clock',
+  // Lucide by exception (the convention above reserves it for geovis): the
+  // variations tab shares its icon with the same tab in cozsolidarias.
+  layoutList: 'lucide:layout-list',
 
   // Map sidebar — indicator variations
   chartPieSlice: 'ph:chart-pie-slice',
