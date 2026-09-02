@@ -1,54 +1,100 @@
-import { NYC_THRESHOLDS } from '@/config/thresholds';
+import { SERIES_THRESHOLDS } from '@/config/thresholds';
 
 import type { StaticMapsDataSource } from '../../data-source-static/types';
-import type { MapDataRow, MapsDataContract } from '../schema';
+import type { DistrictCounts, MapsDataContract } from '../schema';
 
-/** Pre-built thresholds injected into every {@link MapsDataContract}. */
-const ALL_THRESHOLDS: MapsDataContract['thresholds'] = {
-  'cumulative-total': {
-    '65': NYC_THRESHOLDS,
-    '70': NYC_THRESHOLDS,
-    '75': NYC_THRESHOLDS,
-  },
-  'cumulative-65plus': { '70': NYC_THRESHOLDS, '75': NYC_THRESHOLDS },
-  '5year-65plus': {
-    '65-69': NYC_THRESHOLDS,
-    '70-74': NYC_THRESHOLDS,
-    '75': NYC_THRESHOLDS,
-  },
+/**
+ * Ascending unique years in `counts`.
+ *
+ * @param counts - District counts, in any order.
+ * @returns The projection years, ascending.
+ *
+ * @example
+ * yearsOf(counts); // [2000, 2005, 2010]
+ */
+const yearsOf = (counts: DistrictCounts[]): number[] => {
+  return [
+    ...new Set(
+      counts.map((entry) => {
+        return entry.year;
+      })
+    ),
+  ].sort((a, b) => {
+    return a - b;
+  });
 };
 
-const safeRate = (numerator: number, denominator: number): number => {
-  return denominator > 0
-    ? Math.round((numerator / denominator) * 10000) / 10000
-    : 0;
-};
+/**
+ * Asserts the years form the evenly spaced series the timeline needs, and that
+ * every year carries the same districts.
+ *
+ * Both are invariants of the generated snapshot (`scripts/generateMapsData.ts`
+ * enforces them at build time), re-checked here because this is the boundary a
+ * hand-edited or swapped JSON crosses. A year short of districts would paint
+ * the missing ones with MapLibre's fallback colour — visually identical to a
+ * genuinely low rate.
+ *
+ * @param counts - District counts for every year.
+ * @returns The validated years, ascending.
+ * @throws If the years are unevenly spaced or a year is missing districts.
+ *
+ * @example
+ * validateYears(counts); // [2000, 2005, ..., 2050]
+ */
+const validateYears = (counts: DistrictCounts[]): number[] => {
+  const years = yearsOf(counts);
 
-const makeRow = (
-  gid: number,
-  value: number,
-  name: string,
-  count: number,
-  totalCount: number
-): MapDataRow => {
-  return { geometryId: gid, value, name, count, totalCount };
+  if (years.length === 0) {
+    throw new Error('[data-gateway] toAppMapsData found no projection years');
+  }
+
+  const steps = new Set(
+    years.slice(1).map((year, index) => {
+      return year - (years[index] ?? 0);
+    })
+  );
+
+  if (steps.size > 1) {
+    throw new Error(
+      `[data-gateway] projection years are unevenly spaced (${years.join(', ')}); the timeline walks a constant step`
+    );
+  }
+
+  const districtsPerYear = new Set(
+    years.map((year) => {
+      return counts.filter((entry) => {
+        return entry.year === year;
+      }).length;
+    })
+  );
+
+  if (districtsPerYear.size > 1) {
+    throw new Error(
+      `[data-gateway] projection years carry different district counts (${[...districtsPerYear].join(', ')}); some year would paint incompletely`
+    );
+  }
+
+  return years;
 };
 
 /**
  * Transforms a source-native maps data record into the canonical app contract.
  *
  * @remarks
- * Computes all eight category/group rate series from the absolute population
- * counts in `source.districts`. NYC fixed thresholds are injected from the
- * application constant {@link NYC_THRESHOLDS} rather than read from JSON,
- * keeping classification decisions in the app layer.
+ * Renames the source's snake_case fields to the app's shape and keeps the
+ * absolute counts as they are — the eight indicator series are derived from
+ * them per selection by `components/map/lib/mapRows`, not precomputed here.
+ * Thresholds are injected from {@link SERIES_THRESHOLDS} rather than read from
+ * JSON, keeping classification decisions in the application layer.
  *
  * @param source - Raw record from data-source-static.
  * @returns Canonical {@link MapsDataContract}.
+ * @throws If the snapshot's years are unusable by the timeline (see
+ * {@link validateYears}).
  *
  * @example
  * const contract = toAppMapsData(source);
- * // { year: 2025, thresholds: { ... }, mapData: { ... } }
+ * // { years: [2000, ..., 2050], thresholds: { ... }, counts: [ ... ] }
  */
 export const toAppMapsData = (
   source: StaticMapsDataSource
@@ -59,48 +105,21 @@ export const toAppMapsData = (
     );
   }
 
-  const ct65: MapDataRow[] = [];
-  const ct70: MapDataRow[] = [];
-  const ct75: MapDataRow[] = [];
-  const cp70: MapDataRow[] = [];
-  const cp75: MapDataRow[] = [];
-  const sy69: MapDataRow[] = [];
-  const sy74: MapDataRow[] = [];
-  const sy75: MapDataRow[] = [];
-
-  for (const d of source.districts) {
-    const n65plus = d.count_65_69 + d.count_70_74 + d.count_75plus;
-    const n70plus = d.count_70_74 + d.count_75plus;
-    const { geometry_id: gid, nome: name } = d;
-    const { count_65_69, count_70_74, count_75plus, total } = d;
-
-    ct65.push(makeRow(gid, safeRate(n65plus, total), name, n65plus, total));
-    ct70.push(makeRow(gid, safeRate(n70plus, total), name, n70plus, total));
-    ct75.push(
-      makeRow(gid, safeRate(count_75plus, total), name, count_75plus, total)
-    );
-    cp70.push(makeRow(gid, safeRate(n70plus, n65plus), name, n70plus, n65plus));
-    cp75.push(
-      makeRow(gid, safeRate(count_75plus, n65plus), name, count_75plus, n65plus)
-    );
-    sy69.push(
-      makeRow(gid, safeRate(count_65_69, n65plus), name, count_65_69, n65plus)
-    );
-    sy74.push(
-      makeRow(gid, safeRate(count_70_74, n65plus), name, count_70_74, n65plus)
-    );
-    sy75.push(
-      makeRow(gid, safeRate(count_75plus, n65plus), name, count_75plus, n65plus)
-    );
-  }
+  const counts: DistrictCounts[] = source.districts.map((district) => {
+    return {
+      geometryId: district.geometry_id,
+      name: district.nome,
+      year: district.ano,
+      count65to69: district.count_65_69,
+      count70to74: district.count_70_74,
+      count75plus: district.count_75plus,
+      total: district.total,
+    };
+  });
 
   return {
-    year: source.districts[0]?.ano ?? 0,
-    thresholds: ALL_THRESHOLDS,
-    mapData: {
-      'cumulative-total': { '65': ct65, '70': ct70, '75': ct75 },
-      'cumulative-65plus': { '70': cp70, '75': cp75 },
-      '5year-65plus': { '65-69': sy69, '70-74': sy74, '75': sy75 },
-    },
+    years: validateYears(counts),
+    thresholds: SERIES_THRESHOLDS,
+    counts,
   };
 };

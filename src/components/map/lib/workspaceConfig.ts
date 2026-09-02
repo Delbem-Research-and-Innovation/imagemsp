@@ -6,6 +6,7 @@ import type { Category, Group } from '@/components/map/lib/indicators';
 /** Menu ids used by the GeovisWorkspace left sidebar and selection record. */
 export const CATEGORY_MENU_ID = 'category';
 export const GROUP_MENU_ID = 'group';
+export const YEAR_MENU_ID = 'year';
 
 const CATEGORY_OPTIONS: { value: Category; label: string; icon: string }[] = [
   {
@@ -105,6 +106,67 @@ export const getDefaultGroup = (category: Category): Group => {
 };
 
 /**
+ * The projection-year timeline, as its own sidebar section.
+ *
+ * A tab of its own (a `filters` body) as the workspace recommends: it is the
+ * only control with playback, and it publishes `variables[YEAR_MENU_ID]` on
+ * every auto-advance tick as well as on the steppers.
+ *
+ * @param params.years - Projection years available, ascending and evenly
+ * spaced; drives the timeline's `min`, `max` and `step`.
+ * @param params.defaultYear - Year the timeline starts on.
+ * @param params.elderlyHistogram - Total 65+ population per year, drawn as the
+ * timeline's mini bars.
+ * @returns The `Timeline` section for `leftSidebar.sections`.
+ *
+ * @example
+ * buildYearSection({ years: [2000, 2005], defaultYear: 2000, elderlyHistogram: [] });
+ */
+const buildYearSection = ({
+  years,
+  defaultYear,
+  elderlyHistogram,
+}: {
+  years: number[];
+  defaultYear: number;
+  elderlyHistogram: { key: number; count: number }[];
+}) => {
+  return {
+    id: YEAR_MENU_ID,
+    header: { title: 'Timeline', icon: ICONS.clock },
+    body: {
+      kind: 'filters' as const,
+      blocks: [
+        {
+          id: YEAR_MENU_ID,
+          title: 'Ano da projeção',
+          icon: ICONS.calendarBlank,
+          control: {
+            kind: 'timeline' as const,
+            // Same channel as the variation menus: the value arrives in
+            // `variables[YEAR_MENU_ID]` as a stringified number.
+            menuId: YEAR_MENU_ID,
+            min: years[0] ?? defaultYear,
+            max: years[years.length - 1] ?? defaultYear,
+            // The series is evenly spaced (the gateway rejects it otherwise),
+            // so the gap between the first two years is the gap between all.
+            step: (years[1] ?? defaultYear) - (years[0] ?? defaultYear),
+            defaultValue: defaultYear,
+            histogram: elderlyHistogram,
+            unitLabel: 'pessoas 65+',
+            // Left false deliberately. The workspace's compact playback HUD
+            // only exists below 640px, so closing the sidebar on play would
+            // carry the pause button off a desktop screen with nothing to
+            // replace it, leaving the animation unstoppable.
+            closeOnPlay: false,
+          },
+        },
+      ],
+    },
+  };
+};
+
+/**
  * Builds the GeovisWorkspace config (left sidebar sections) for the current
  * selection. The `group` variations depend on `category`, so the config is
  * rebuilt whenever the selection changes (cascading behaviour). The legend and
@@ -116,14 +178,40 @@ export const getDefaultGroup = (category: Category): Group => {
  * navigation, so one group per section preserves the previous flat-menu
  * behaviour.
  *
- * @param category - The selected demographic category.
- * @param group - The selected age group.
+ * The third section is the projection-year timeline, in a tab of its own (a
+ * `filters` body) as the workspace recommends: it is the only control with
+ * playback, and it publishes `variables[YEAR_MENU_ID]` on every tick.
+ *
+ * @param params.category - The selected demographic category.
+ * @param params.group - The selected age group.
+ * @param params.years - Projection years available, ascending and evenly
+ * spaced; drives the timeline's `min`, `max` and `step`.
+ * @param params.defaultYear - Year the timeline starts on. Only the first value
+ * — the workspace seeds its timeline state from this once, and the live year
+ * travels through `variables` afterwards, so passing the *current* year here
+ * would rebuild this whole config on every playback tick for no effect.
+ * @param params.elderlyHistogram - Total 65+ population per year, drawn as the
+ * timeline's mini bars.
+ * @param params.sidebarInitiallyOpen - Whether the left sidebar starts open.
+ * `GeovisWorkspace` reads this only once, when it seeds its own state, so later
+ * changes cannot reopen a sidebar the user has closed.
  * @returns A GeovisWorkspaceConfig driving the left sidebar.
  */
-export const buildWorkspaceConfig = (
-  category: Category,
-  group: Group
-): GeovisWorkspaceConfig => {
+export const buildWorkspaceConfig = ({
+  category,
+  group,
+  years,
+  defaultYear,
+  elderlyHistogram,
+  sidebarInitiallyOpen,
+}: {
+  category: Category;
+  group: Group;
+  years: number[];
+  defaultYear: number;
+  elderlyHistogram: { key: number; count: number }[];
+  sidebarInitiallyOpen: boolean;
+}): GeovisWorkspaceConfig => {
   return {
     // The page owns the framing (full-bleed map filling the viewport), so drop
     // the workspace own card border and radius.
@@ -141,7 +229,17 @@ export const buildWorkspaceConfig = (
       metadata: { hidden: true },
     },
     leftSidebar: {
-      initialState: 'open',
+      /*
+       * This is the ONLY way to decide whether the sidebar starts open:
+       * `GeovisWorkspace` owns that state itself (`useState` seeded from this
+       * field) and takes no prop for it — `isLeftSidebarOpen` belongs to
+       * `GeovisWorkspaceProvider`, which is a different, lower-level export.
+       *
+       * Being read once, at seed time, is what makes it safe to derive from the
+       * viewport: the value stops mattering after the first mount, so widening
+       * the window never reopens a sidebar the user has closed.
+       */
+      initialState: sidebarInitiallyOpen ? 'open' : 'closed',
       sections: [
         {
           id: CATEGORY_MENU_ID,
@@ -179,6 +277,7 @@ export const buildWorkspaceConfig = (
             defaultValue: group,
           },
         },
+        buildYearSection({ years, defaultYear, elderlyHistogram }),
       ],
     },
   };

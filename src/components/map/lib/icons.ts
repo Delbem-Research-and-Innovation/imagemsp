@@ -31,6 +31,7 @@ import lucideZoomIn from '@iconify/icons-lucide/zoom-in';
 // Phosphor — double caret (bold for toggle buttons)
 // Phosphor — variacoes de faixa etaria na sidebar do mapa
 import phArrowsInLineHorizontal from '@iconify/icons-ph/arrows-in-line-horizontal';
+import phCalendarBlank from '@iconify/icons-ph/calendar-blank';
 import phCaretDoubleLeftBold from '@iconify/icons-ph/caret-double-left-bold';
 import phCaretDoubleRightBold from '@iconify/icons-ph/caret-double-right-bold';
 // Phosphor — line style (menus, labels, decorative)
@@ -43,6 +44,7 @@ import phCaretRightBold from '@iconify/icons-ph/caret-right-bold';
 import phChartBar from '@iconify/icons-ph/chart-bar';
 import phChartDonut from '@iconify/icons-ph/chart-donut';
 import phChartPieSlice from '@iconify/icons-ph/chart-pie-slice';
+import phClock from '@iconify/icons-ph/clock';
 import phGauge from '@iconify/icons-ph/gauge';
 import phPlusCircle from '@iconify/icons-ph/plus-circle';
 import phUsersThree from '@iconify/icons-ph/users-three';
@@ -62,6 +64,8 @@ addIcon('ph:chart-donut', phChartDonut);
 addIcon('ph:chart-bar', phChartBar);
 addIcon('ph:plus-circle', phPlusCircle);
 addIcon('ph:arrows-in-line-horizontal', phArrowsInLineHorizontal);
+addIcon('ph:calendar-blank', phCalendarBlank);
+addIcon('ph:clock', phClock);
 
 // Register the Lucide icons @ttoss/geovis-workspace renders by name
 addIcon('lucide:circle', lucideCircle);
@@ -95,6 +99,8 @@ export const ICONS = {
   // Map sidebar — section headers
   gauge: 'ph:gauge',
   usersThree: 'ph:users-three',
+  calendarBlank: 'ph:calendar-blank',
+  clock: 'ph:clock',
 
   // Map sidebar — indicator variations
   chartPieSlice: 'ph:chart-pie-slice',

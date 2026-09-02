@@ -95,8 +95,10 @@ The `/mapas` route renders an interactive choropleth map of São Paulo's 96 muni
 ### Visualization
 
 - **Choropleth map** rendered by [MapLibre GL](https://maplibre.org/) via the [`@ttoss/geovis`](https://github.com/ttoss/ttoss) adapter.
-- **GeoJSON source**: `public/distrito-municipal-v2.geojson` — São Paulo municipal district boundaries.
-- **Color scale**: ColorBrewer Blues-7 (`#c6dbef` → `#08306b`), 7 bands with fixed thresholds `[0.1, 0.2, 0.4, 0.6, 0.7, 0.8]` defined in `src/components/map/lib/mapConfig.ts`.
+- **GeoJSON source**: `public/distrito-municipal-v2.geojson` — São Paulo municipal district boundaries. Carries geometry and a feature `id` only (`properties` is `null`); every label and value is joined from the data by that id.
+- **Color scale**: ColorBrewer Blues-7 (`#c6dbef` → `#08306b`) in `src/components/map/lib/mapConfig.ts`, 7 bands. Breaks live in `src/config/thresholds.ts`, one set per indicator series, each fitted to that series' full-period range and **fixed across years** so a colour means the same share in 2000 and in 2050.
+- **Projection-year timeline**: a `timeline` control in the left sidebar walks the quinquennial series 2000–2050 with play/pause, publishing the year into the workspace selection. The legend heading carries the active year.
+- **Camera fitted to the viewport**: the whole district mesh is framed on any screen size at load, computed in `src/components/map/lib/mapCamera.ts` (geovis takes only `center`/`zoom`, so there is no `fitBounds` to delegate to). It refits on rotation but not on window resize, which would pull the camera away from wherever the user had panned. The left sidebar starts open only above 480px, below which it covers the map entirely.
 - **Hover tooltip**: `GeoVisHoverTooltip` renders district name, percentage value, and absolute counts (numerator / denominator) for the selected indicator.
 
 ### Filters
@@ -119,20 +121,32 @@ The `/mapas` route renders an interactive choropleth map of São Paulo's 96 muni
 ### Data flow
 
 ```
-maps-data.json (static)
-  └─ readStaticMapsData()         # data-source-static
-       └─ toAppMapsData()         # data-gateway transformer
-            └─ MapsDataContract   # passed as prop to MapsView (client component)
-                 └─ buildSpec()   # constructs VisualizationSpec for @ttoss/geovis
+evolucao_msp_pop_sexo_idade.csv (SEADE, versioned in data/raw/)
+  └─ scripts/generateMapsData.ts  # offline; run when the CSV changes
+       └─ maps-data.json (static) # 96 districts × 11 years
+            └─ readStaticMapsData()        # data-source-static
+                 └─ toAppMapsData()        # data-gateway transformer
+                      └─ MapsDataContract  # prop to MapsView (client component)
+                           └─ buildMapRows()  # rates for the active year/series
+                                └─ buildSpec() # VisualizationSpec for @ttoss/geovis
 ```
 
-All rate values are pre-computed offline from census microdata. The gateway layer (`toAppMapsData`) injects `NYC_THRESHOLDS` at transformation time — thresholds are never read from the JSON source.
+The snapshot holds **absolute counts**, not rates. The eight indicator series are ratios of four numbers, and the timeline multiplies them by eleven years: pre-computing all of them server-side would ship roughly 700 kB of rows to the browser against 94 kB for the counts, to save 96 divisions per timeline tick. So `buildMapRows` derives the rates per selection, client-side.
+
+The gateway injects `SERIES_THRESHOLDS` at transformation time — thresholds are never read from the JSON source — and rejects a snapshot whose years are unevenly spaced, since the timeline walks a constant step.
 
 ---
 
 ## Data
 
-Data is pre-computed offline from census microdata (IBGE) and SEADE, saved in `src/data-source-static/data/maps-data.json`.
+Population figures come from SEADE's projections by sex and age, per municipal district. The source CSV is versioned at `src/data-source-static/data/raw/evolucao_msp_pop_sexo_idade.csv` and aggregated offline into `src/data-source-static/data/maps-data.json` by `scripts/generateMapsData.ts`:
+
+```bash
+node scripts/generateMapsData.ts            # default CSV
+node scripts/generateMapsData.ts other.csv  # another export
+```
+
+The series is **quinquennial, 2000 to 2050, and entirely projected** — the past years are the model's figures for them, not the censuses taken in those years. That keeps one methodology across the whole series, so it is comparable end to end, but the values do not match census counts.
 
 **Canonical schema (`MapsDataContract`):**
 
@@ -140,20 +154,25 @@ Data is pre-computed offline from census microdata (IBGE) and SEADE, saved in `s
 type Category = 'cumulative-total' | 'cumulative-65plus' | '5year-65plus';
 type Group = '65' | '70' | '75' | '65-69' | '70-74';
 
-type MapDataRow = {
+/** Absolute counts for one district in one projection year. */
+type DistrictCounts = {
   geometryId: number;
-  value: number;
-  name?: string; // district name (tooltip)
-  count?: number; // rate numerator
-  totalCount?: number; // rate denominator
+  name: string;
+  year: number;
+  count65to69: number;
+  count70to74: number;
+  count75plus: number;
+  total: number; // every age — the share-of-total denominator
 };
 
 type MapsDataContract = {
-  year: number;
+  years: number[]; // ascending, evenly spaced; drives the timeline
   thresholds: Record<Category, Partial<Record<Group, number[]>>>;
-  mapData: Record<Category, Partial<Record<Group, MapDataRow[]>>>;
+  counts: DistrictCounts[]; // one entry per district per year
 };
 ```
+
+`buildMapRows` (`src/components/map/lib/mapRows.ts`) turns those counts into the map's `MapDataRow[]` for the active year and series — the category decides the denominator (the district's whole population, or its own 65+ population) and the group decides the numerator.
 
 ---
 
