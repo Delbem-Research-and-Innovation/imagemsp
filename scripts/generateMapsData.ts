@@ -24,8 +24,6 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
-import { DISTRICTS_BBOX } from '../src/components/map/lib/mapCamera.ts';
-
 /** Repository root, resolved from this script's own location. */
 const ROOT = path.resolve(import.meta.dirname, '..');
 
@@ -277,74 +275,6 @@ const aggregate = (rows: SourceRow[]): DistrictRow[] => {
   });
 };
 
-/** Nested coordinate arrays, as GeoJSON geometry carries them. */
-type Coordinates = number[] | Coordinates[];
-
-/** The district mesh, read for id and extent validation. */
-type GeoJson = {
-  features: { id: number; geometry: { coordinates: Coordinates } }[];
-};
-
-/**
- * Asserts `DISTRICTS_BBOX` still describes the mesh.
- *
- * The app frames its camera off that constant instead of parsing the GeoJSON —
- * MapLibre fetches the mesh, the app never reads it — so nothing at runtime
- * would notice the two drifting apart. Replacing the mesh with a different
- * extent would leave the map framing the old one, off-centre or cropped, with
- * no error anywhere. This is the check that makes that impossible.
- *
- * @param geojson - The parsed district mesh.
- * @throws If the mesh's extent differs from the constant.
- *
- * @example
- * assertBbox(geojson); // throws after the mesh is swapped for another city
- */
-const assertBbox = (geojson: GeoJson): void => {
-  const bbox = {
-    minLng: Number.POSITIVE_INFINITY,
-    maxLng: Number.NEGATIVE_INFINITY,
-    minLat: Number.POSITIVE_INFINITY,
-    maxLat: Number.NEGATIVE_INFINITY,
-  };
-
-  const visit = (coordinates: Coordinates): void => {
-    if (typeof coordinates[0] === 'number') {
-      const [lng, lat] = coordinates as number[];
-
-      bbox.minLng = Math.min(bbox.minLng, lng ?? 0);
-      bbox.maxLng = Math.max(bbox.maxLng, lng ?? 0);
-      bbox.minLat = Math.min(bbox.minLat, lat ?? 0);
-      bbox.maxLat = Math.max(bbox.maxLat, lat ?? 0);
-
-      return;
-    }
-
-    for (const nested of coordinates as Coordinates[]) {
-      visit(nested);
-    }
-  };
-
-  for (const feature of geojson.features) {
-    visit(feature.geometry.coordinates);
-  }
-
-  // The mesh's coordinates carry four decimals, so the bounds are exact and an
-  // epsilon only absorbs float noise from the comparison itself.
-  const drifted = (['minLng', 'maxLng', 'minLat', 'maxLat'] as const).filter(
-    (edge) => {
-      return Math.abs(bbox[edge] - DISTRICTS_BBOX[edge]) > 1e-9;
-    }
-  );
-
-  if (drifted.length > 0) {
-    throw new Error(
-      `[generateMapsData] DISTRICTS_BBOX no longer matches ${path.basename(GEOJSON_FILE)} (${drifted.join(', ')}). ` +
-        `The map frames its camera off that constant, so update it in src/components/map/lib/mapCamera.ts: ${JSON.stringify(bbox)}`
-    );
-  }
-};
-
 /**
  * Asserts the snapshot can actually drive the map: every year carries every
  * district, every derived `geometry_id` exists in the geometry, no total is
@@ -361,14 +291,14 @@ const assertBbox = (geojson: GeoJson): void => {
  * validate(districts); // throws on a year missing a district
  */
 const validate = (districts: DistrictRow[]): void => {
-  const geojson: GeoJson = JSON.parse(readFileSync(GEOJSON_FILE, 'utf8'));
+  const geojson: { features: { id: number }[] } = JSON.parse(
+    readFileSync(GEOJSON_FILE, 'utf8')
+  );
   const geometryIds = new Set(
     geojson.features.map((feature) => {
       return feature.id;
     })
   );
-
-  assertBbox(geojson);
 
   const years = yearsOf(districts);
 

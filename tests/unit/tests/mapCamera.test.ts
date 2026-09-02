@@ -1,6 +1,9 @@
 /**
  * @jest-environment node
  */
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+
 import {
   DISTRICTS_BBOX,
   DISTRICTS_CENTER,
@@ -13,6 +16,66 @@ const PHONE = { width: 360, height: 568 };
 
 /** The desktop the map's previously fixed zoom of 9.6 was calibrated for. */
 const DESKTOP = { width: 1440, height: 828 };
+
+/** Nested coordinate arrays, as GeoJSON geometry carries them. */
+type Coordinates = number[] | Coordinates[];
+
+/** The district mesh the map frames its camera around. */
+const GEOJSON_PATH = path.resolve(
+  __dirname,
+  '../../../public/distrito-municipal-v2.geojson'
+);
+
+/**
+ * The extent of the district mesh, read from the GeoJSON itself.
+ *
+ * @returns The mesh's bounds, in the shape of {@link DISTRICTS_BBOX}.
+ */
+const meshBbox = (): typeof DISTRICTS_BBOX => {
+  const geojson: { features: { geometry: { coordinates: Coordinates } }[] } =
+    JSON.parse(readFileSync(GEOJSON_PATH, 'utf8'));
+
+  const bounds = {
+    minLng: Number.POSITIVE_INFINITY,
+    maxLng: Number.NEGATIVE_INFINITY,
+    minLat: Number.POSITIVE_INFINITY,
+    maxLat: Number.NEGATIVE_INFINITY,
+  };
+
+  const visit = (coordinates: Coordinates): void => {
+    if (typeof coordinates[0] === 'number') {
+      const [lng, lat] = coordinates as number[];
+
+      bounds.minLng = Math.min(bounds.minLng, lng ?? 0);
+      bounds.maxLng = Math.max(bounds.maxLng, lng ?? 0);
+      bounds.minLat = Math.min(bounds.minLat, lat ?? 0);
+      bounds.maxLat = Math.max(bounds.maxLat, lat ?? 0);
+
+      return;
+    }
+
+    for (const nested of coordinates as Coordinates[]) {
+      visit(nested);
+    }
+  };
+
+  for (const feature of geojson.features) {
+    visit(feature.geometry.coordinates);
+  }
+
+  return bounds;
+};
+
+describe('DISTRICTS_BBOX', () => {
+  test('still describes the district mesh', () => {
+    // The app frames its camera off this constant rather than parsing the
+    // GeoJSON — MapLibre fetches the mesh, the app never reads it — so nothing
+    // at runtime would notice the two drifting apart. Swapping the mesh for one
+    // with a different extent would leave the map framing the old one, cropped
+    // or off-centre, with no error anywhere.
+    expect(meshBbox()).toEqual(DISTRICTS_BBOX);
+  });
+});
 
 describe('DISTRICTS_CENTER', () => {
   test('is the centre of the district extent', () => {
@@ -35,19 +98,18 @@ describe('fitZoom', () => {
     expect(fitZoom(PHONE)).toBeLessThan(fitZoom(DESKTOP));
   });
 
-  test('closes in as the viewport grows', () => {
+  test('closes in as the viewport grows in both axes', () => {
+    // Proportional sizes on purpose. Area alone does not order the fits: a
+    // 768x952 tablet frames closer than a 1440x828 desktop, because the mesh is
+    // height-bound and the tablet is the taller of the two.
     const zooms = [
       fitZoom(PHONE),
-      fitZoom({ width: 768, height: 952 }),
-      fitZoom(DESKTOP),
-      fitZoom({ width: 1920, height: 1008 }),
+      fitZoom({ width: PHONE.width * 2, height: PHONE.height * 2 }),
+      fitZoom({ width: PHONE.width * 4, height: PHONE.height * 4 }),
     ];
 
-    expect(zooms).toEqual(
-      [...zooms].sort((a, b) => {
-        return a - b;
-      })
-    );
+    expect(zooms[0]).toBeLessThan(zooms[1] ?? 0);
+    expect(zooms[1]).toBeLessThan(zooms[2] ?? 0);
   });
 
   test('lets the height bind on a short, wide viewport', () => {
