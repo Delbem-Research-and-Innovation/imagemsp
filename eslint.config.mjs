@@ -3,6 +3,21 @@ import ttossEslintConfig from '@ttoss/eslint-config';
 export default [
   ...ttossEslintConfig,
   {
+    // Offline generators run from the terminal: reporting what they wrote is
+    // their interface, so `no-console` (an error in app code, where a stray log
+    // ships to users) does not apply to them.
+    files: ['scripts/**/*.{js,mjs,cjs,ts}'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
     ignores: [
       '**/src/generated/**',
       '.commitlintrc.js',

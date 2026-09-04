@@ -7,7 +7,7 @@
     "language": "pt-BR",
     "status": "draft",
     "created_at": "2026-07-08",
-    "updated_at": "2026-07-08",
+    "updated_at": "2026-09-01",
     "typing_reference": "src/data-source-static/types.ts",
     "quality_notes": [
       {
@@ -16,14 +16,14 @@
         "message": "A malha `distrito-municipal-v2.geojson` corresponde aos 96 distritos municipais de São Paulo, cuja origem canônica é o portal GeoSampa (Prefeitura de São Paulo). A URL/camada exata do download original precisa ser confirmada por quem baixou o arquivo."
       },
       {
-        "id": "maps_data_generation_script_external",
+        "id": "maps_data_series_is_projection",
         "severity": "medium",
-        "message": "`maps-data.json` é gerado offline por `generate_maps_data.py` (citado em `src/data-source-static/types.ts`), que não está versionado neste repositório. A microdata de origem (Censo IBGE + projeções SEADE), o ano-base e os parâmetros de contagem etária precisam ser documentados e o script versionado."
+        "message": "Toda a série 2000–2050 de `maps-data.json` é projeção do modelo do SEADE, inclusive os anos já passados: os números de 2000 e 2010 são a projeção para aqueles anos, não os Censos IBGE realizados neles. A metodologia é única de ponta a ponta, o que torna a série comparável no tempo, mas os valores não coincidem com os censitários."
       },
       {
         "id": "distritos_geojson_null_properties",
         "severity": "low",
-        "message": "As feições de `distrito-municipal-v2.geojson` têm `properties: null`; o join com os dados é feito pela ordem da feição (índice) que corresponde ao campo `geometry_id` de `maps-data.json`. Não há chave explícita dentro do GeoJSON."
+        "message": "As feições de `distrito-municipal-v2.geojson` têm `properties: null`; o join é pelo `id` nativo da feição (1–96), que corresponde ao `geometry_id` de `maps-data.json` — este, por sua vez, é o `cod_distr` do SEADE menos 80000. `scripts/generateMapsData.ts` valida essa correspondência contra o próprio GeoJSON a cada geração."
       }
     ]
   },
@@ -60,6 +60,22 @@
         "seade",
         "sao-paulo"
       ]
+    },
+    "seade": {
+      "id": "seade",
+      "slug": "seade",
+      "title": "SEADE — Fundação Sistema Estadual de Análise de Dados",
+      "description": "Projeções populacionais por sexo e idade da Fundação SEADE, vinculada ao Governo do Estado de São Paulo.",
+      "organization": "Fundação Sistema Estadual de Análise de Dados (SEADE)",
+      "source_url": "https://repositorio.seade.gov.br",
+      "public_reference_url": "https://repositorio.seade.gov.br/dataset/populacao-residente-municipio-de-sao-paulo-evolucao",
+      "tags": [
+        "seade",
+        "projecoes-populacionais",
+        "demografia",
+        "sao-paulo",
+        "dados-publicos"
+      ]
     }
   },
   "datasets": {
@@ -68,7 +84,7 @@
       "collection_id": "geosampa",
       "slug": "distritos-contorno",
       "title": "Contornos dos distritos municipais de São Paulo",
-      "description": "Malha (polígonos) dos 96 distritos municipais da cidade de São Paulo, usada como base do mapa coroplético. Join pela ordem da feição (índice), que corresponde ao campo `geometry_id` dos dados.",
+      "description": "Malha (polígonos) dos 96 distritos municipais da cidade de São Paulo, usada como base do mapa coroplético. Join pelo `id` nativo da feição, que corresponde ao campo `geometry_id` dos dados.",
       "file": "public/distrito-municipal-v2.geojson",
       "format": "GeoJSON",
       "source": {
@@ -82,7 +98,7 @@
       "spatial": {
         "coverage": "Município de São Paulo",
         "unit": "distrito municipal (polígono)",
-        "key": "geometry_id (via ordem da feição)"
+        "key": "geometry_id (via o id nativo da feição)"
       },
       "access": {
         "level": "public",
@@ -95,6 +111,11 @@
       },
       "schema": {
         "fields": [
+          {
+            "name": "id",
+            "description": "Id nativo da feição (1–96) — a chave do join com `maps-data.json`",
+            "role": "identifier"
+          },
           {
             "name": "properties",
             "description": "Nulo em todas as feições; nenhum atributo embarcado no GeoJSON"
@@ -112,16 +133,16 @@
       "collection_id": "dados_processados",
       "slug": "distritos-populacao-idosa",
       "title": "População idosa por distrito municipal de São Paulo",
-      "description": "Contagens absolutas de população total e por faixa etária idosa (65–69, 70–74, 75+) por distrito municipal, pré-computadas offline. Dado-núcleo dos indicadores coropléticos de envelhecimento.",
+      "description": "Contagens absolutas de população total e por faixa etária idosa (65–69, 70–74, 75+) por distrito municipal, para cada ano da série quinquenal 2000–2050. Dado-núcleo dos indicadores coropléticos de envelhecimento e da linha do tempo do mapa. Agregado do CSV do SEADE somando os dois sexos; `total` é a soma das 16 faixas etárias.",
       "file": "src/data-source-static/data/maps-data.json",
       "format": "JSON",
       "source": {
         "url": null,
-        "notes": "Snapshot processado a partir de microdados demográficos públicos; taxas dos indicadores são calculadas no gateway (`toAppMapsData`), não no arquivo. Sem URL pública de download direto."
+        "notes": "Gerado a partir de `distritos_populacao_evolucao` por `scripts/generateMapsData.ts`, versionado neste repositório. As taxas dos indicadores não estão no arquivo: são derivadas por seleção em `components/map/lib/mapRows`, e os cortes de classe vêm de `config/thresholds`."
       },
-      "generated_by": "generate_maps_data.py",
+      "generated_by": "scripts/generateMapsData.ts",
       "temporal": {
-        "reference_period": "2025",
+        "reference_period": "2000–2050",
         "retrieved_at": null
       },
       "spatial": {
@@ -134,30 +155,33 @@
         "contains_personal_data": false
       },
       "stats": {
-        "rows": 96,
-        "size_bytes": 23792,
-        "checkSum": "sha256:c709b8fd6ac3afa1999e872c19d6c2cddfc70861c0dd7f175b9ac334e13e001a"
+        "rows": 1056,
+        "size_bytes": 261615,
+        "checkSum": "sha256:0d65b2850b878e2041338329ebc0816956f3819bd6947a9735a7f7eb17c9b13e"
       },
       "schema": {
         "fields": [
           {
             "name": "ano",
-            "description": "Ano de referência dos dados",
+            "description": "Ano da projeção (quinquenal, 2000 a 2050)",
             "unit": "ano"
           },
           {
             "name": "cod_distr",
-            "description": "Código do distrito municipal",
+            "description": "Código SEADE do distrito (80001–80096)",
             "role": "identifier"
           },
-          { "name": "nome", "description": "Nome do distrito municipal" },
+          {
+            "name": "nome",
+            "description": "Nome do distrito municipal"
+          },
           {
             "name": "municipio",
             "description": "Município (constante: São Paulo)"
           },
           {
             "name": "geometry_id",
-            "description": "Chave de join com a malha (ordem 1-based da feição no GeoJSON)",
+            "description": "Chave de join com a malha: o `id` nativo da feição no GeoJSON (1–96), igual a `cod_distr` menos 80000",
             "role": "identifier"
           },
           {
@@ -177,7 +201,70 @@
           },
           {
             "name": "total",
-            "description": "População residente total do distrito (denominador das taxas)",
+            "description": "População residente total do distrito, somadas as 16 faixas (denominador das taxas)",
+            "unit": "pessoas"
+          }
+        ]
+      },
+      "derived_from": ["distritos_populacao_evolucao"]
+    },
+    "distritos_populacao_evolucao": {
+      "id": "distritos_populacao_evolucao",
+      "collection_id": "seade",
+      "slug": "distritos-populacao-evolucao",
+      "title": "Evolução da população residente por sexo e idade, por distrito municipal de São Paulo",
+      "description": "Fonte primária do mapa coroplético: projeções populacionais em formato longo, uma linha por distrito / ano / sexo / faixa etária de 5 anos. Grade completa de 96 distritos × 11 anos × 2 sexos × 16 faixas (33.792 linhas úteis; o export inclui 3.072 linhas em branco no final).",
+      "file": "src/data-source-static/data/raw/evolucao_msp_pop_sexo_idade.csv",
+      "format": "CSV",
+      "source": {
+        "url": "https://repositorio.seade.gov.br/dataset/populacao-residente-municipio-de-sao-paulo-evolucao",
+        "notes": "Delimitador `;` e encoding Latin-1 — decodificar como UTF-8 corrompe todo nome de distrito acentuado, e esses nomes chegam ao tooltip do mapa."
+      },
+      "temporal": {
+        "reference_period": "2000–2050",
+        "retrieved_at": "2026-09-01"
+      },
+      "spatial": {
+        "coverage": "Município de São Paulo",
+        "unit": "distrito municipal",
+        "key": "cod_distr"
+      },
+      "access": {
+        "level": "public",
+        "contains_personal_data": false
+      },
+      "stats": {
+        "rows": 33792,
+        "size_bytes": 1494154,
+        "checkSum": "sha256:44da2b83aaf7115fc6bd3c2f0481b9fcc753d236124aa710e90af6737ecfc5e1"
+      },
+      "schema": {
+        "fields": [
+          {
+            "name": "cod_distr",
+            "description": "Código SEADE do distrito (80001–80096)",
+            "role": "identifier"
+          },
+          {
+            "name": "nome_distr",
+            "description": "Nome do distrito municipal"
+          },
+          {
+            "name": "ano",
+            "description": "Ano da projeção (quinquenal, 2000 a 2050)",
+            "unit": "ano"
+          },
+          {
+            "name": "sexo",
+            "description": "Homens ou Mulheres"
+          },
+          {
+            "name": "Idade",
+            "description": "Faixa etária de 5 anos, de \"00 a 04\" a \"75 e +\" (16 faixas)"
+          },
+          {
+            "name": "populacao",
+            "description": "População residente projetada na célula",
             "unit": "pessoas"
           }
         ]
