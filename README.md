@@ -1,4 +1,4 @@
-# IMAGEM:SP — Intelligent Map of Ageing in São Paulo
+# IMAGEM:SP — Interactive Map of Aging for the City of São Paulo
 
 Public territorial visualization platform for population ageing in São Paulo, developed under the FAPESP project. Enables managers, researchers, and citizens to explore data on elderly population, health services, mobility, and urban conditions by municipal district.
 
