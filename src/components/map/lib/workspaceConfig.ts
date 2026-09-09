@@ -9,11 +9,18 @@ export const GROUP_MENU_ID = 'group';
 export const YEAR_MENU_ID = 'year';
 
 /**
- * Id of the tab holding both variation menus. Its own id, not either menu's:
- * the section is no longer one menu's surface, so borrowing `CATEGORY_MENU_ID`
- * would read as if it were.
+ * Section ids, which double as the tab labels here.
+ *
+ * These carry display text on purpose. With no section declaring
+ * `header.title` the sidebar draws no header band, and geovis-workspace then
+ * labels each tab with `header.title ?? section.id` — for its hover tooltip and
+ * for its accessible name alike. The id is the only lever left: declaring a
+ * title to name one tab would bring the band back for every section. Keep them
+ * human-readable, and keep them out of the selection record — a section id is
+ * not a `menuId`, so nothing downstream parses these strings.
  */
-const VARIATIONS_SECTION_ID = 'variations';
+const VARIATIONS_SECTION_ID = 'Variações';
+const TIMELINE_SECTION_ID = 'Linha do tempo';
 
 const CATEGORY_OPTIONS: { value: Category; label: string; icon: string }[] = [
   {
@@ -139,7 +146,10 @@ const buildYearSection = ({
   elderlyHistogram: { key: number; count: number }[];
 }) => {
   return {
-    id: YEAR_MENU_ID,
+    // The section's own id, distinct from the timeline's `menuId` below: this
+    // one labels the tab, while `YEAR_MENU_ID` is the selection channel
+    // `MapsView` reads. They were the same string until the tab needed a name.
+    id: TIMELINE_SECTION_ID,
     // No `title`: with every section untitled the workspace drops the header
     // band altogether (geovis-workspace 0.13), so the tab bar heads the card.
     // The block below carries its own label.
@@ -193,8 +203,9 @@ const buildYearSection = ({
  *
  * Neither section declares `header.title`, so the sidebar draws no header band
  * and the tab bar takes the top of the card, close button included. Navigation
- * rides on the tab icons alone, and every block heads itself. The cost is the
- * tab's accessible name, which falls back to the section `id`.
+ * rides on the tab icons, and every block heads itself. What names each tab —
+ * on hover and for assistive tech — is its section `id`, which is why those
+ * ids read as labels (see their declaration).
  *
  * @param params.category - The selected demographic category.
  * @param params.group - The selected age group.
