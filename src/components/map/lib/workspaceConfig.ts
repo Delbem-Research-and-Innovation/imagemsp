@@ -140,7 +140,10 @@ const buildYearSection = ({
 }) => {
   return {
     id: YEAR_MENU_ID,
-    header: { title: 'Timeline', icon: ICONS.clock },
+    // No `title`: with every section untitled the workspace drops the header
+    // band altogether (geovis-workspace 0.13), so the tab bar heads the card.
+    // The block below carries its own label.
+    header: { icon: ICONS.clock },
     body: {
       kind: 'filters' as const,
       blocks: [
@@ -187,6 +190,11 @@ const buildYearSection = ({
  * recommends: it is the only control with playback, and it publishes
  * `variables[YEAR_MENU_ID]` on every tick, so it has nothing to gain from
  * sitting beside menus that are picked once.
+ *
+ * Neither section declares `header.title`, so the sidebar draws no header band
+ * and the tab bar takes the top of the card, close button included. Navigation
+ * rides on the tab icons alone, and every block heads itself. The cost is the
+ * tab's accessible name, which falls back to the section `id`.
  *
  * @param params.category - The selected demographic category.
  * @param params.group - The selected age group.
@@ -249,7 +257,7 @@ export const buildWorkspaceConfig = ({
       sections: [
         {
           id: VARIATIONS_SECTION_ID,
-          header: { title: 'Variações', icon: ICONS.layoutList },
+          header: { icon: ICONS.layoutList },
           /*
            * Both menus in one tab, as `variations` controls inside a `filters`
            * body (geovis-workspace 0.12). They are read together — the age band
@@ -257,8 +265,10 @@ export const buildWorkspaceConfig = ({
            * `variations` bodies each would claim a tab of its own, so crossing
            * from one to the other cost a tab switch.
            *
-           * Blocks are collapsible, which also keeps the age band in view
-           * beside the indicator list instead of below it.
+           * The blocks carry fixed headers: geovis-workspace 0.13 stopped
+           * collapsing filter blocks unless they declare `collapsible`, and
+           * neither opts in — both lists stay open, so the age band sits below
+           * the indicator list rather than behind a chevron.
            */
           body: {
             kind: 'filters',
